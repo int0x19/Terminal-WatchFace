@@ -1,0 +1,23 @@
+{
+  "version": "0.5.0-test",
+  "versionCode": 5,
+  "applicationId": "dev.int0x19.watchface.terminal",
+  "sourceGitTag": "v0.5.0-test",
+  "createdUtc": "2026-10-13T09:34:16.711246+00:00",
+  "apkSigning": "development key",
+  "aabSigning": "unsigned",
+  "files": {
+    "terminal-face-0.5.0-test.apk": "d2503d4672a6d3f4ac448aac4a56076ae7b4cd259ad7821103e748de222c2450",
+    "terminal-face-0.5.0-test.aab": "ccfb4401291b338549ca420e00bbf7b1b3143ac4953e83e8a454771877fa1229",
+    "watchface.xml": "31e0c41cdb617096af2cdefb8c9e96fafa0f21fcce6015de67e08d6bee7cd94c",
+    "preview.png": "d87a8e3872f7966b3ac13a60e73358555253d3b9136796b4ae314db526eb3b8a",
+    "ambient-preview.png": "63b5e1ecb232269945b9c803600d89c35350487df3330360589357682fc10d11",
+    "font-block.png": "d87a8e3872f7966b3ac13a60e73358555253d3b9136796b4ae314db526eb3b8a",
+    "font-block-ambient.png": "63b5e1ecb232269945b9c803600d89c35350487df3330360589357682fc10d11",
+    "font-dot.png": "5bf12edda45c5774c199640279d180512ef8511d0235189c2f02630359ae85c0",
+    "font-dot-ambient.png": "63b5e1ecb232269945b9c803600d89c35350487df3330360589357682fc10d11",
+    "font-mono.png": "e7806fb79a0969f63ac807364843a5d9f4b4d4cfe9d5cedf406fbfc8cb1d7699",
+    "font-mono-ambient.png": "63b5e1ecb232269945b9c803600d89c35350487df3330360589357682fc10d11",
+    "font-comparison.png": "5c68edce0c25151e01226cd135b4483196aa0dfd2c13de4332b748ea5ff78a76"
+  }
+}

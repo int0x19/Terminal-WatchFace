@@ -2,6 +2,10 @@
 <resources>
   <string name="watch_face_name" translatable="false">Terminal Face</string>
   <string name="palette_name">Colour palette</string>
+  <string name="clock_font_name">Clock font</string>
+  <string name="clock_font_block_name">Block — terminal pixels</string>
+  <string name="clock_font_dot_name">Dot — pixel matrix</string>
+  <string name="clock_font_mono_name">Mono — outline monospace</string>
   <string name="layout_name">Test layout</string>
   <string name="layout_a_name">A — compact header</string>
   <string name="layout_b_name">B — wide values</string>

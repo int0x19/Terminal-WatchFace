@@ -118,10 +118,13 @@ def build_font(name, gap):
     glyphs = {}
     for char, pattern in {".notdef": PATTERNS["?"], **patterns}.items():
         pen = TTGlyphPen(None)
+        filled_columns = [col for line in pattern.split("/") for col, cell in enumerate(line) if cell == "1"]
+        # Center the ink, not merely the advance width: 1 and : have narrower outlines.
+        shift = 300 - (min(filled_columns) + max(filled_columns) + 1) * 50 if filled_columns else 0
         for row, line in enumerate(pattern.split("/")):
             for col, cell in enumerate(line):
                 if cell == "1":
-                    x, y = col * 100 + gap // 2, (6 - row) * 100 + gap // 2
+                    x, y = col * 100 + gap // 2 + shift, (6 - row) * 100 + gap // 2
                     edge = 100 - gap
                     pen.moveTo((x, y))
                     pen.lineTo((x, y + edge))
@@ -130,15 +133,15 @@ def build_font(name, gap):
                     pen.closePath()
         glyphs[".notdef" if char == ".notdef" else names[char]] = pen.glyph()
     builder.setupGlyf(glyphs)
-    builder.setupHorizontalMetrics({n: (600, 0) for n in glyphs})
+    builder.setupHorizontalMetrics({n: (600, g.xMin if g.numberOfContours else 0) for n, g in glyphs.items()})
     builder.setupHorizontalHeader(ascent=750, descent=-100)
     builder.setupNameTable({
         "familyName": name, "styleName": "Regular", "uniqueFontIdentifier": name,
-        "fullName": name, "psName": name.replace("_", "-"), "version": "Version 1.0",
+        "fullName": name, "psName": name.replace("_", "-"), "version": "Version 1.1",
         "copyright": "Original Terminal Face glyphs, int0x19, 2026",
     })
     builder.setupOS2(sTypoAscender=750, sTypoDescender=-100, usWinAscent=750, usWinDescent=100)
-    builder.setupPost()
+    builder.setupPost(isFixedPitch=1)
     builder.setupMaxp()
     builder.font["head"].created = 3782844800
     builder.font["head"].modified = 3782844800
@@ -183,12 +186,46 @@ def build_mono_font():
     font.save(RES / "font/terminal_mono.ttf")
 
 
+def build_clock_mono_font():
+    """Outline clock with 0.6-em cells and individually centered digit/colon outlines."""
+    font = TTFont(RES / "font/terminal_mono.ttf", recalcTimestamp=False)
+    advance = round(font["head"].unitsPerEm * 0.6)
+    replacements = {}
+    for name in font.getGlyphOrder():
+        glyph = font["glyf"][name]
+        if not glyph.numberOfContours:
+            replacements[name] = (glyph, 0)
+            continue
+        shift = round((advance - glyph.xMin - glyph.xMax) / 2)
+        pen = TTGlyphPen(None)
+        # Raw outlines avoid the glyph-set adapter's correction for old side bearings.
+        glyph.draw(TransformPen(pen, (1, 0, 0, 1, shift, 0)), font["glyf"])
+        replacements[name] = (pen.glyph(), glyph.xMin + shift)
+    for name, (glyph, bearing) in replacements.items():
+        font["glyf"][name] = glyph
+        font["hmtx"][name] = (advance, bearing)
+    font["hhea"].advanceWidthMax = advance
+    font["OS/2"].xAvgCharWidth = advance
+    font["hhea"].ascent = round(font["head"].unitsPerEm * 0.8)
+    font["hhea"].descent = -round(font["head"].unitsPerEm * 0.1)
+    font["OS/2"].sTypoAscender = font["hhea"].ascent
+    font["OS/2"].sTypoDescender = font["hhea"].descent
+    renamed = {1: "Terminal Clock Mono", 2: "Regular", 3: "TerminalClockMono-Regular-1.0",
+               4: "Terminal Clock Mono Regular", 6: "TerminalClockMono-Regular",
+               16: "Terminal Clock Mono", 17: "Regular"}
+    for record in font["name"].names:
+        if record.nameID in renamed:
+            record.string = renamed[record.nameID].encode(record.getEncoding())
+    font.save(RES / "font/clock_mono.ttf")
+
+
 def build_editor_icons():
     """Phone editors may show icon-only options: every option needs visible text."""
     root = ET.parse(RES / "raw/watchface.xml").getroot()
     captions = {"TITLE": ("AUTO", "PROVIDER"), "NONE": ("NONE", "NO LABEL"),
                 "full": ("FULL", "DATE"), "short": ("SHORT", "DATE"),
-                "iso": ("ISO", "2026-09-08"), "hidden": ("NONE", "NO DATE")}
+                "iso": ("ISO", "2026-09-08"), "hidden": ("NONE", "NO DATE"),
+                "block": ("12:34", "BLOCK"), "dot": ("12:34", "DOT"), "mono": ("12:34", "MONO")}
     captions.update({item["id"]: (item["text"], item["iconText"]) for item in LABELS})
     icons = {}
     font_path = RES / "font/terminal_mono.ttf"
@@ -202,7 +239,10 @@ def build_editor_icons():
         draw.ellipse((4, 4, 187, 187), fill="#101E19", outline="#80F5BA", width=3)
         for text, y, size, color in [(label, 75, 48, "#F2FFF1"),
                                      (subtitle, 125, 23, "#80F5BA")]:
-            font = ImageFont.truetype(str(font_path), size)
+            sample_families = {"block": "terminal_block", "dot": "terminal_dot", "mono": "clock_mono"}
+            sample = option.attrib["id"] in sample_families and text == label
+            sample_path = RES / "font" / (sample_families[option.attrib["id"]] + ".ttf") if sample else font_path
+            font = ImageFont.truetype(str(sample_path), 43 if sample else size)
             draw.text((96, y), text, fill=color, font=font, anchor="mm")
         icon.save(RES / "drawable" / f"{resource}.png")
         icons[resource] = icon
@@ -221,7 +261,7 @@ def build_battery_icon():
     icon.save(RES / "drawable/battery_status.png")
 
 
-def render_preview(ambient=False, layout=None):
+def render_preview(ambient=False, layout=None, clock_font=None):
     """A small layout renderer, not a substitute for the Wear OS renderer."""
     root = ET.parse(RES / "raw/watchface.xml").getroot()
     scale = 3
@@ -230,6 +270,8 @@ def render_preview(ambient=False, layout=None):
     config = {e.attrib["id"]: e.attrib["defaultValue"] for e in root.find("UserConfigurations")}
     if layout is not None:
         config["layout"] = layout
+    if clock_font is not None:
+        config["clockFont"] = clock_font
     palette = ["#80F5BA", "#FFC985", "#F2FFF1"]
     reference = ["33°C", "34° / 21°", "0.79 KM", "27 KCAL", "1190", "8000", "84 BPM", "NE 3.1 M/S"]
     titles = ["TEMP", "H/L", "DIST", "CAL", "STEP", "GOAL", "HR", "WIND"]
@@ -267,6 +309,9 @@ def render_preview(ambient=False, layout=None):
             first_name = element.find("Expressions/Expression").attrib["name"]
             if first_name == "show_ampm":
                 return  # Reference preview uses 24-hour time.
+            if first_name.startswith("clock_font_"):
+                visit(element.find(f"Compare[@expression='clock_font_{config['clockFont']}']"), offset, slot)
+                return
             if first_name.startswith("layout_"):
                 visit(element.find(f"Compare[@expression='layout_{config['layout']}']"), offset, slot)
                 return
@@ -371,6 +416,7 @@ if __name__ == "__main__":
     build_font("terminal_dot", 28)
     build_font("terminal_block", 0)
     build_mono_font()
+    build_clock_mono_font()
     build_battery_icon()
     (ROOT / "docs").mkdir(exist_ok=True)
     build_editor_icons()
@@ -395,4 +441,16 @@ if __name__ == "__main__":
             ImageDraw.Draw(comparison).text((index * 450 + 225, 22), title, font=font,
                                            fill="#80F5BA", anchor="mm")
         comparison.save(ROOT / "docs/layout-comparison.png")
+    if ET.parse(RES / "raw/watchface.xml").getroot().find("UserConfigurations/ListConfiguration[@id='clockFont']") is not None:
+        comparison = Image.new("RGB", (1350, 494), "#080D0B")
+        for index, choice in enumerate(("block", "dot", "mono")):
+            preview = render_preview(clock_font=choice)
+            preview.save(ROOT / f"docs/font-{choice}.png")
+            render_preview(ambient=True, clock_font=choice).save(ROOT / f"docs/font-{choice}-ambient.png")
+            comparison.paste(preview, (index * 450, 44))
+            font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), 27)
+            ImageDraw.Draw(comparison).text((index * 450 + 225, 23),
+                                           ("1  BLOCK", "2  DOT", "3  MONO")[index],
+                                           font=font, fill="#80F5BA", anchor="mm")
+        comparison.save(ROOT / "docs/font-comparison.png")
     print("Generated fonts, editor thumbnails and previews. Preview values are illustrative only.")

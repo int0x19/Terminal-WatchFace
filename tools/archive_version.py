@@ -76,6 +76,13 @@ def main():
                 name = f"layout-{layout}{suffix}.png"
                 files[name] = ROOT / "docs" / name
         files["layout-comparison.png"] = ROOT / "docs/layout-comparison.png"
+    font_config = ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='clockFont']")
+    if font_config is not None:
+        for option in font_config:
+            for suffix in ("", "-ambient"):
+                name = f"font-{option.attrib['id']}{suffix}.png"
+                files[name] = ROOT / "docs" / name
+        files["font-comparison.png"] = ROOT / "docs/font-comparison.png"
     for source in files.values():
         if not source.is_file():
             raise SystemExit(f"Missing artifact: {source}")
