@@ -1,36 +1,128 @@
-# Wear OS watch face (API 34–37)
+# Terminal Face — Wear OS API 34–37
 
-Resource-only starter project for a Wear OS watch face. It uses Watch Face
-Format (WFF) 2, so the same package supports Wear OS devices from API 34 through
-API 37. `compileSdk` and `targetSdk` are 37.
+Прототип 0.3.0 по референсу: чёрный фон, зелёные подписи, янтарные значения,
+пиксельные крупные часы и читаемый контурный моноширинный шрифт мелкого текста.
+Основа для других циферблатов сохранена в первом коммите `931c71e` ветки `main`;
+этот дизайн разрабатывается в `feat/terminal-face`.
 
-## Layout
+![Дизайн-превью с иллюстративными данными](docs/design-preview.png)
 
-- `watchface/src/main/res/raw/watchface.xml` — the actual WFF definition.
-- `watchface/src/main/res/xml/watch_face_info.xml` — picker metadata.
-- `watchface/src/main/res/drawable/preview.xml` — temporary picker preview; replace it with the final artwork before release.
+Числа в дизайн-превью иллюстративные. В установленном циферблате время и дата
+системные; UTC-время, местное UTC-смещение и батарея также берутся из системы.
+Нижние показатели поступают от выбранных пользователем поставщиков
+complications. Отсутствующие данные показываются как `--`.
 
-The package intentionally contains no Kotlin/Java sources: WFF packages are
-declarative and must have `android:hasCode="false"`.
+## Настройка
 
-## Build
+Удерживать циферблат → редактирование. Все восемь ячеек таблицы — отдельные
+редактируемые слоты, четыре слева и четыре справа. Каждый принимает `SHORT_TEXT`,
+`LONG_TEXT`, `RANGED_VALUE`, `GOAL_PROGRESS` и `EMPTY`.
+
+- Для каждой ячейки выбирается поставщик данных через системный редактор.
+- Для каждой подписи есть отдельная настройка: 28 ручных вариантов длиной
+  до четырёх символов, AUTO и отсутствие подписи. Например HR/BPM — пульс,
+  NTFY — уведомления, STEP — шаги, SPO2 — кислород, ALRM — будильник.
+  Все варианты имеют текстовые миниатюры и понятные расшифровки в настройках.
+  Полный список и ограничения: [docs/LABELS.md](docs/LABELS.md).
+- По умолчанию выбран AUTO: заголовок `COMPLICATION.TITLE`, иначе монохромный
+  значок поставщика. Если отсутствуют оба, показывается нейтральное `—`.
+  Поставщик не обязан предоставлять заголовок; вручную можно выбрать короткую
+  подпись. Длинные строки сокращаются, значения от поставщика не пересчитываются.
+- Настройки редактора переведены на русский. При обновлении старые ручные подписи
+  сохраняются: для автоматических нужно один раз выбрать AUTO в нужной строке.
+  Прежние HI/LO, STEPS и EVENT теперь отображаются как H/L, STEP и EVNT;
+  их идентификаторы сохранены, поэтому повторный выбор не нужен.
+- Настраиваются палитра, показ секунд и строка даты: полная, короткая, ISO или скрытая.
+- Шаги и пульс имеют системных поставщиков по умолчанию; остальные слоты изначально
+  пустые. Для погоды, дистанции, калорий, цели и ветра нужно выбрать совместимых
+  поставщиков, доступных на конкретных часах. Цель не вычисляется из шагов.
+- Верхний левый блок: текущее время UTC в формате `09:34 UTC`, ниже местный
+  часовой пояс как `UTC+5`, включая сезонное смещение. Время UTC всегда 24-часовое;
+  крупные часы и местный пояс следуют системным настройкам часов. Это не геолокация:
+  если система сама не сменила пояс, циферблат также не определит его по GPS.
+- Верхний правый блок: BATT и текущий процент заряда встроенного источника
+  `BATTERY_PERCENT`; это не complication и не занимает нижний слот.
+- Верхние блоки подняты, а строка даты перенесена над крупными часами.
+  Шапка, дата и короткий текст увеличены 24 → 26, длинные значения 20 → 22.
+  Для длинных значений межбуквенный интервал немного уплотнён, чтобы типичные
+  десятисимвольные строки с единицами измерения помещались в исходные ячейки.
+  Крупные цифры времени и положение нижней сетки сохранены.
+  Используется настоящий моноширинный TTF с латиницей и кириллицей;
+  изображения с буквами используются только как миниатюры вариантов в редакторе.
+- Формат времени следует системному выбору 12/24 часа, с AM/PM при необходимости. Дата пока на английском,
+  как в референсе. Шрифт также содержит основные русские буквы для данных поставщиков.
+- В ambient остаются время, шапка и выбранная строка даты; секунды и таблица скрыты.
+
+## Среда и сборка
+
+Требуются JDK 17 или новее, SDK Platform 37.0, Build-Tools 36.0.0 и platform-tools.
+На текущем компьютере установлен JDK 21 и необходимые SDK-пакеты. AGP 9.4.0 и
+Gradle 9.6.0 зафиксированы в проекте. Для другой машины настроить путь `sdk.dir`
+в локальном `local.properties` или переменную `ANDROID_HOME`.
 
 ```sh
-./gradlew :watchface:assembleDebug
-./gradlew :watchface:bundleRelease
+sdkmanager --install "platforms;android-37.0" "build-tools;36.0.0" "platform-tools"
+./gradlew --no-daemon :watchface:assembleDebug :watchface:bundleRelease :watchface:lintDebug
 ```
 
-The debug APK will be placed under
-`watchface/build/outputs/apk/debug/`; the release AAB under
-`watchface/build/outputs/bundle/release/`.
+APK: `watchface/build/outputs/apk/debug/watchface-debug.apk`.
+AAB: `watchface/build/outputs/bundle/release/watchface-release.aab`.
+Debug APK подписан ключом разработки, но не содержит кода и не является debuggable.
+Release AAB пока без настроенной production-подписи.
 
-## Required local SDK components
+WFF-пакет ресурсный: `android:hasCode="false"`, Kotlin отключён, R8 удаляет
+сгенерированные классы, shrinkResources выключен, чтобы сохранить WFF-ресурсы.
 
-The project needs Android SDK Platform 37 and Android SDK Build-Tools 37.x.
-They are not installed yet on this machine. Android Studio Canary is recommended
-because it provides WFF-aware XML completion, linting, and a watch-face run
-configuration. A Wear OS emulator or physical watch is needed for deployment.
+## Проверка
 
-For API-34 compatibility this starter stays on WFF 2. WFF 3/4 features require
-raising `minSdk` to 35/36 respectively, so they should be published as separate
-artifacts rather than silently breaking older watches.
+Официальные инструменты Google загружаются в игнорируемый каталог `.tools/`.
+Скрипт установки проверяет зафиксированные SHA-256; если upstream заменит файлы
+релиза, установка остановится для проверки и явного обновления версии.
+
+```sh
+sh tools/setup_validation.sh
+sh tools/check.sh
+```
+
+Шрифты, миниатюры редактора и иллюстративные превью воспроизводятся скриптом:
+
+```sh
+python3 tools/rebuild_assets.py
+python3 tools/test_layout.py
+```
+
+Для этого скрипта нужны Pillow и fontTools только на компьютере разработки.
+Они уже установлены в текущей среде; для другой машины версии указаны в
+`tools/requirements-assets.txt`.
+Локальный рендерер превью приближённый; итоговое расположение проверяется на Wear OS.
+Terminal Mono — переименованное, суженное до 80% подмножество DejaVu Sans Mono;
+все символы сохраняют равную ширину. Исходник включён в `tools/assets/`, лицензия
+включена и в исходники, и в ресурсный APK (`res/raw/dejavu_license.txt`).
+
+Дополнительная интеграционная проверка (только на эмуляторе с установленным и
+активным Terminal Face):
+
+```sh
+python3 tools/check_emulator_timezones.py --serial emulator-5556
+```
+
+Скрипт временно меняет системный часовой пояс эмулятора, сохраняет скриншоты
+и восстанавливает исходный пояс. Реальные устройства он не изменяет.
+
+## Основные файлы
+
+Готовые версии сохраняются в `versions/`, исходники фиксируются отдельным
+коммитом и тегом `vVERSION`. Архивы не перезаписываются. Порядок сохранения
+и статус старых итераций: [versions/README.md](versions/README.md).
+
+- `watchface/src/main/res/raw/watchface.xml` — декларативный циферблат WFF 2.
+- `watchface/src/main/res/xml/watch_face_info.xml` — метаданные системного редактора.
+- `watchface/src/main/res/font/` — оригинальные пиксельные шрифты и Terminal Mono.
+- `watchface/src/main/res/drawable/preview.png` — изображение для выбора циферблата.
+- `docs/DEVELOPMENT.md` — дальнейшие этапы и ограничения прототипа.
+- `tools/labels.json` — каталог ручных подписей и их кратких обозначений.
+- `docs/VALIDATION.md` — выполненные проверки.
+
+Для нового самостоятельного циферблата использовать отдельный каталог/репозиторий,
+сменить `applicationId`, `namespace`, название и ресурсы. Базовая совместимость
+задаётся `minSdk=34`, `targetSdk=37`, WFF 2; работа на каждом API проверяется отдельно.

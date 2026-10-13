@@ -1,0 +1,37 @@
+{
+  "serial": "emulator-5556",
+  "sdk": "34",
+  "restored_zone": "Asia/Tashkent",
+  "captures": [
+    {
+      "timezone": "Asia/Tashkent",
+      "local": "11:01+0500",
+      "utc": "06:01",
+      "screenshot": "api34-v2-active.png"
+    },
+    {
+      "timezone": "Europe/London",
+      "local": "07:01+0100",
+      "utc": "06:01",
+      "screenshot": "api34-v2-london.png"
+    },
+    {
+      "timezone": "Asia/Kathmandu",
+      "local": "11:46+0545",
+      "utc": "06:01",
+      "screenshot": "api34-v2-kathmandu.png"
+    },
+    {
+      "timezone": "America/St_Johns",
+      "local": "03:31-0230",
+      "utc": "06:01",
+      "screenshot": "api34-v2-st-johns.png"
+    },
+    {
+      "timezone": "Asia/Tashkent",
+      "local": "11:01+0500",
+      "utc": "06:01",
+      "screenshot": "api34-v2-active.png"
+    }
+  ]
+}

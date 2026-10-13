@@ -4,3 +4,6 @@ build/
 local.properties
 .idea/
 *.iml
+.tools/
+__pycache__/
+artifacts/

@@ -1,0 +1,16 @@
+{
+  "version": "0.3.0",
+  "versionCode": 3,
+  "applicationId": "dev.int0x19.watchface.terminal",
+  "sourceGitTag": "v0.3.0",
+  "createdUtc": "2026-10-13T07:14:26.235946+00:00",
+  "apkSigning": "development key",
+  "aabSigning": "unsigned",
+  "files": {
+    "terminal-face-0.3.0.apk": "e867b3d99d87028b99126f5cc9441e9e3137584302d9788de11a0d4c7c54bfb5",
+    "terminal-face-0.3.0.aab": "60936cc06592ad0344cf038338fb7e65ee95d3cfc6fdf591966d0876fa4abe33",
+    "watchface.xml": "f0a7c5e0fa2ea73a0435bfea88c9ffbf262a6143d5a0d4d8ed1980b242454e76",
+    "preview.png": "841aff380bd937e8dc9777b47bba00c1ae2d0b76fc2914233a8d2e08bc3ef652",
+    "ambient-preview.png": "9007f40e186179b5e1cf5f6dd755dd22a3ed6f7f6aa55946b3fc3c4d21c0645f"
+  }
+}

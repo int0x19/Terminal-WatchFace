@@ -3,14 +3,30 @@ plugins {
 }
 
 android {
-    namespace = "dev.int0x19.watchface"
-    compileSdk = 37
+    enableKotlin = false
+    namespace = "dev.int0x19.watchface.terminal"
+    compileSdk {
+        version = release(37)
+    }
 
     defaultConfig {
-        applicationId = "dev.int0x19.watchface"
+        applicationId = "dev.int0x19.watchface.terminal"
         minSdk = 34
         targetSdk = 37
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 3
+        versionName = "0.3.0"
+    }
+
+    // WFF bundles must contain resources only, including development builds.
+    buildTypes {
+        getByName("debug") {
+            isDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = false
+        }
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = false
+        }
     }
 }
