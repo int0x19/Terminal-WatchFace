@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A deliberately small WFF 2 face. Keep all visual logic in resources: WFF
+  bundles must remain code-free (android:hasCode="false").
+-->
+<WatchFace width="450" height="450" clipShape="CIRCLE">
+    <Metadata key="CLOCK_TYPE" value="DIGITAL" />
+    <Metadata key="PREVIEW_TIME" value="10:10:00" />
+
+    <Scene>
+        <PartText x="25" y="145" width="400" height="130">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="96" color="#FFFFFFFF">
+                    <Template><![CDATA[%02d:%02d]]>
+                        <Parameter expression="[HOUR_24]" />
+                        <Parameter expression="[MINUTE]" />
+                    </Template>
+                </Font>
+            </Text>
+        </PartText>
+
+        <PartText x="40" y="286" width="370" height="50">
+            <Text align="CENTER">
+                <Font family="SYNC_TO_DEVICE" size="28" color="#FFB8C5FF">
+                    <Template><![CDATA[%s, %d %s]]>
+                        <Parameter expression="[DAY_OF_WEEK_S]" />
+                        <Parameter expression="[DAY]" />
+                        <Parameter expression="[MONTH_S]" />
+                    </Template>
+                </Font>
+            </Text>
+        </PartText>
+    </Scene>
+</WatchFace>
