@@ -16,7 +16,6 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFont
 from labels import LABELS, LABEL_TEXT
-from typography import PREVIEW_STYLES
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "watchface/src/main/res"
@@ -151,9 +150,9 @@ def build_font(name, gap):
     builder.save(RES / "font" / f"{name}.ttf")
 
 
-def build_mono_font(bold=False):
+def build_mono_font():
     """Readable outline monospace: larger caps in the unchanged two-column grid."""
-    font = TTFont(ROOT / "tools/assets" / ("DejaVuSansMono-Bold.ttf" if bold else "DejaVuSansMono.ttf"), recalcTimestamp=False)
+    font = TTFont(ROOT / "tools/assets/DejaVuSansMono.ttf", recalcTimestamp=False)
     options = subset.Options()
     options.hinting = False
     options.recalc_timestamp = False
@@ -180,14 +179,11 @@ def build_mono_font(bold=False):
     renamed = {1: "Terminal Mono", 2: "Regular", 3: "TerminalMono-Regular-1.0",
                4: "Terminal Mono Regular", 6: "TerminalMono-Regular",
                16: "Terminal Mono", 17: "Regular"}
-    if bold:
-        renamed.update({2: "Bold", 3: "TerminalMono-Bold-1.0", 4: "Terminal Mono Bold",
-                        6: "TerminalMono-Bold", 17: "Bold"})
     for record in font["name"].names:
         if record.nameID in renamed:
             record.string = renamed[record.nameID].encode(record.getEncoding())
     font["head"].created = font["head"].modified = 3782844800
-    font.save(RES / "font" / ("terminal_mono_bold.ttf" if bold else "terminal_mono.ttf"))
+    font.save(RES / "font/terminal_mono.ttf")
 
 
 def build_clock_mono_font():
@@ -230,10 +226,6 @@ def build_editor_icons():
                 "full": ("FULL", "DATE"), "short": ("SHORT", "DATE"),
                 "iso": ("ISO", "2026-09-08"), "hidden": ("NONE", "NO DATE"),
                 "block": ("12:34", "BLOCK"), "dot": ("12:34", "DOT"), "mono": ("12:34", "MONO")}
-    captions.update({"normal": ("Aa", "NORMAL"), "bold": ("Aa", "BOLD"),
-                     "upper": ("ABC", "UPPER"), "initial": ("Abc", "INITIAL"),
-                     "lower": ("abc", "LOWER"), "source": ("AUTO", "AS GIVEN"),
-                     "ru": ("РУ", "РУССКИЙ"), "en": ("EN", "ENGLISH"), "system": ("AUTO", "LANGUAGE")})
     captions.update({item["id"]: (item["text"], item["iconText"]) for item in LABELS})
     icons = {}
     font_path = RES / "font/terminal_mono.ttf"
@@ -250,8 +242,6 @@ def build_editor_icons():
             sample_families = {"block": "terminal_block", "dot": "terminal_dot", "mono": "clock_mono"}
             sample = option.attrib["id"] in sample_families and text == label
             sample_path = RES / "font" / (sample_families[option.attrib["id"]] + ".ttf") if sample else font_path
-            if option.attrib["id"] == "bold" and text == label:
-                sample_path = RES / "font/terminal_mono_bold.ttf"
             font = ImageFont.truetype(str(sample_path), 43 if sample else size)
             draw.text((96, y), text, fill=color, font=font, anchor="mm")
         icon.save(RES / "drawable" / f"{resource}.png")
@@ -271,8 +261,7 @@ def build_battery_icon():
     icon.save(RES / "drawable/battery_status.png")
 
 
-def render_preview(ambient=False, layout=None, clock_font=None, caption_weight=None, caption_case=None,
-                   date_language=None, system_locale="en_US"):
+def render_preview(ambient=False, layout=None, clock_font=None):
     """A small layout renderer, not a substitute for the Wear OS renderer."""
     root = ET.parse(RES / "raw/watchface.xml").getroot()
     scale = 3
@@ -283,9 +272,6 @@ def render_preview(ambient=False, layout=None, clock_font=None, caption_weight=N
         config["layout"] = layout
     if clock_font is not None:
         config["clockFont"] = clock_font
-    for key, value in (("captionWeight", caption_weight), ("captionCase", caption_case), ("dateLanguage", date_language)):
-        if value is not None:
-            config[key] = value
     palette = ["#80F5BA", "#FFC985", "#F2FFF1"]
     reference = ["33°C", "34° / 21°", "0.79 KM", "27 KCAL", "1190", "8000", "84 BPM", "NE 3.1 M/S"]
     titles = ["TEMP", "H/L", "DIST", "CAL", "STEP", "GOAL", "HR", "WIND"]
@@ -293,35 +279,7 @@ def render_preview(ambient=False, layout=None, clock_font=None, caption_weight=N
                "DAY_OF_WEEK_S": "TUE", "DAY": 8, "MONTH_S": "SEP", "MONTH_F": "SEPTEMBER",
                "YEAR": 2026, "TIMEZONE_OFFSET_DST": "+5", "BATTERY_PERCENT": 96}
 
-    def arguments(value):
-        parts, start, depth, quoted = [], 0, 0, False
-        for index, char in enumerate(value):
-            if char == '"':
-                quoted = not quoted
-            if not quoted:
-                depth += (char == "(") - (char == ")")
-                if char == "," and depth == 0:
-                    parts.append(value[start:index].strip())
-                    start = index + 1
-        return [*parts, value[start:].strip()]
-
-    def expression(expr, slot, utc=False, locale="en_US"):
-        expr = expr.strip()
-        if expr.startswith("(") and expr.endswith(")"):
-            return expression(expr[1:-1], slot, utc, locale)
-        if expr.startswith("subText("):
-            args = arguments(expr[8:-1])
-            return str(expression(args[0], slot, utc, locale))[int(expression(args[1], slot, utc, locale)):int(expression(args[2], slot, utc, locale))]
-        if expr.startswith("textLength("):
-            return len(str(expression(expr[11:-1], slot, utc, locale)))
-        if expr.startswith("icuText("):
-            pattern = expression(expr[8:-1], slot, utc, locale)
-            # Fixed reference date, not a platform ICU simulator. Runtime uses native icuText.
-            formats = {"en": {"EEE dd MMMM yyyy": "Tue 08 September 2026", "EEE dd MMM": "Tue 08 Sep", "yyyy-MM-dd": "2026-09-08"},
-                       "ru": {"EEE dd MMMM yyyy": "вт 08 сентября 2026", "EEE dd MMM": "вт 08 сент.", "yyyy-MM-dd": "2026-09-08"}}
-            return formats["ru" if locale.startswith("ru") else "en"][pattern]
-        if expr.isdigit():
-            return int(expr)
+    def expression(expr, slot, utc=False):
         if expr == "[IS_24_HOUR_MODE] ? [HOUR_0_23] : [HOUR_1_12]":
             return 14
         if expr.startswith(f"[CONFIGURATION.label{slot}] =="):
@@ -355,13 +313,6 @@ def render_preview(ambient=False, layout=None, clock_font=None, caption_weight=N
                 return  # Reference preview uses 24-hour time.
             if first_name.startswith("clock_font_"):
                 visit(element.find(f"Compare[@expression='clock_font_{config['clockFont']}']"), offset, slot)
-                return
-            if first_name.startswith("caption_"):
-                selected = f"caption_{config['captionWeight']}_{config['captionCase']}"
-                visit(element.find(f"Compare[@expression='{selected}']"), offset, slot)
-                return
-            if first_name.startswith("language_"):
-                visit(element.find(f"Compare[@expression='language_{config['dateLanguage']}']"), offset, slot)
                 return
             if first_name.startswith("layout_"):
                 visit(element.find(f"Compare[@expression='layout_{config['layout']}']"), offset, slot)
@@ -411,19 +362,16 @@ def render_preview(ambient=False, layout=None, clock_font=None, caption_weight=N
             width, height = int(element.attrib["width"]) * scale, int(element.attrib["height"]) * scale
             localization = element.find("Localization")
             utc = localization is not None and localization.attrib.get("timeZone") == "UTC"
-            locale = localization.attrib.get("locales", system_locale) if localization is not None else system_locale
             runs = []
             for font_element in text_element.findall("Font"):
                 template = font_element.find(".//Template")
                 if template is None:
                     text = (font_element.text or "").strip()
                 else:
-                    values = tuple(expression(p.attrib["expression"], slot, utc, locale) for p in template.findall("Parameter"))
+                    values = tuple(expression(p.attrib["expression"], slot, utc) for p in template.findall("Parameter"))
                     text = (template.text or "").strip() % values
                 if font_element.find("Upper") is not None:
                     text = text.upper()
-                if font_element.find("Lower") is not None:
-                    text = text.lower()
                 size = round(float(font_element.attrib["size"]) * scale)
                 font_path = RES / "font" / (font_element.attrib["family"] + ".ttf")
                 font = ImageFont.truetype(str(font_path), size)
@@ -479,7 +427,6 @@ if __name__ == "__main__":
     build_font("terminal_dot", 28)
     build_font("terminal_block", 0)
     build_mono_font()
-    build_mono_font(bold=True)
     build_clock_mono_font()
     build_battery_icon()
     (ROOT / "docs").mkdir(exist_ok=True)
@@ -517,14 +464,4 @@ if __name__ == "__main__":
                                            ("1  BLOCK", "2  DOT", "3  MONO")[index],
                                            font=font, fill="#80F5BA", anchor="mm")
         comparison.save(ROOT / "docs/font-comparison.png")
-    if ET.parse(RES / "raw/watchface.xml").getroot().find("UserConfigurations/ListConfiguration[@id='captionWeight']") is not None:
-        comparison = Image.new("RGB", (1350, 988), "#080D0B")
-        font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), 25)
-        for index, (name, language, weight, case, caption) in enumerate(PREVIEW_STYLES):
-            preview = render_preview(caption_weight=weight, caption_case=case, date_language=language)
-            preview.save(ROOT / f"docs/style-{name}.png")
-            x, y = index % 3 * 450, index // 3 * 494
-            comparison.paste(preview, (x, y + 44))
-            ImageDraw.Draw(comparison).text((x + 225, y + 23), caption, font=font, fill="#80F5BA", anchor="mm")
-        comparison.save(ROOT / "docs/style-comparison.png")
     print("Generated fonts, editor thumbnails and previews. Preview values are illustrative only.")

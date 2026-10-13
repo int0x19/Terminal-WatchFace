@@ -9,7 +9,6 @@ import re
 import shutil
 import zipfile
 import xml.etree.ElementTree as ET
-from typography import PREVIEW_STYLES
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -84,10 +83,6 @@ def main():
                 name = f"font-{option.attrib['id']}{suffix}.png"
                 files[name] = ROOT / "docs" / name
         files["font-comparison.png"] = ROOT / "docs/font-comparison.png"
-    if ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='captionWeight']") is not None:
-        for name, *_ in PREVIEW_STYLES:
-            files[f"style-{name}.png"] = ROOT / "docs" / f"style-{name}.png"
-        files["style-comparison.png"] = ROOT / "docs/style-comparison.png"
     for source in files.values():
         if not source.is_file():
             raise SystemExit(f"Missing artifact: {source}")
