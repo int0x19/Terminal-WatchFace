@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="palette_name">Палитра</string>
+  <string name="layout_name">Тестовая разметка</string>
+  <string name="layout_a_name">A — компактная шапка</string>
+  <string name="layout_b_name">B — широкие значения</string>
+  <string name="layout_c_name">C — подпись над значением</string>
   <string name="palette_terminal">Зелёный терминал</string>
   <string name="palette_ice">Ледяной синий</string>
   <string name="palette_amber">Янтарный</string>

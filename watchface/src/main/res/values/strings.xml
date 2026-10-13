@@ -2,6 +2,10 @@
 <resources>
   <string name="watch_face_name" translatable="false">Terminal Face</string>
   <string name="palette_name">Colour palette</string>
+  <string name="layout_name">Test layout</string>
+  <string name="layout_a_name">A — compact header</string>
+  <string name="layout_b_name">B — wide values</string>
+  <string name="layout_c_name">C — stacked cells</string>
   <string name="palette_terminal">Terminal green</string>
   <string name="palette_ice">Ice blue</string>
   <string name="palette_amber">Amber</string>

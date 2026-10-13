@@ -212,13 +212,24 @@ def build_editor_icons():
     sheet.save(ROOT / "docs/label-options.png")
 
 
-def render_preview(ambient=False):
+def build_battery_icon():
+    """White transparent status glyph; WFF applies the selected palette tint."""
+    icon = Image.new("RGBA", (108, 78), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(icon)
+    draw.rectangle((6, 6, 88, 71), outline="white", width=10)
+    draw.rectangle((88, 26, 101, 51), fill="white")
+    icon.save(RES / "drawable/battery_status.png")
+
+
+def render_preview(ambient=False, layout=None):
     """A small layout renderer, not a substitute for the Wear OS renderer."""
     root = ET.parse(RES / "raw/watchface.xml").getroot()
     scale = 3
     image = Image.new("RGB", (450 * scale, 450 * scale), "black")
     draw = ImageDraw.Draw(image)
     config = {e.attrib["id"]: e.attrib["defaultValue"] for e in root.find("UserConfigurations")}
+    if layout is not None:
+        config["layout"] = layout
     palette = ["#80F5BA", "#FFC985", "#F2FFF1"]
     reference = ["33°C", "34° / 21°", "0.79 KM", "27 KCAL", "1190", "8000", "84 BPM", "NE 3.1 M/S"]
     titles = ["TEMP", "H/L", "DIST", "CAL", "STEP", "GOAL", "HR", "WIND"]
@@ -253,8 +264,16 @@ def render_preview(ambient=False):
             return
         tag = element.tag
         if tag == "Condition":
-            if element.find("Expressions/Expression").attrib["name"] == "show_ampm":
+            first_name = element.find("Expressions/Expression").attrib["name"]
+            if first_name == "show_ampm":
                 return  # Reference preview uses 24-hour time.
+            if first_name.startswith("layout_"):
+                visit(element.find(f"Compare[@expression='layout_{config['layout']}']"), offset, slot)
+                return
+            if first_name.startswith("date_"):
+                if config["dateStyle"] != "hidden":
+                    visit(element.find(f"Compare[@expression='date_{config['dateStyle']}']"), offset, slot)
+                return
             # Reference data supplies titles; this is not a runtime/provider simulator.
             if element.find("Expressions/Expression").attrib["name"].startswith("label_"):
                 choice = config[f"label{slot}"]
@@ -263,7 +282,14 @@ def render_preview(ambient=False):
                 visit(element.find(f"Compare[@expression='{branch}']") if branch
                       else element.find("Default"), offset, slot)
             else:
-                visit(element.find("Compare"), offset, slot)
+                comparisons = element.findall("Compare")
+                selected = comparisons[0]
+                if selected.attrib["expression"].startswith("value_large_"):
+                    expression_text = element.find(f"Expressions/Expression[@name='{selected.attrib['expression']}']").text
+                    limit = int(expression_text.rsplit("<=", 1)[1].strip())
+                    if len(reference[slot - 1]) > limit:
+                        selected = comparisons[1]
+                visit(selected, offset, slot)
             return
         if tag == "ComplicationSlot":
             if ambient:
@@ -275,6 +301,15 @@ def render_preview(ambient=False):
             return
         if tag == "Group":
             offset = (offset[0] + int(element.attrib.get("x", 0)), offset[1] + int(element.attrib.get("y", 0)))
+        if tag == "PartImage":
+            if element.find("Image").attrib["resource"] == "battery_status":
+                x = (offset[0] + int(element.attrib["x"])) * scale
+                y = (offset[1] + int(element.attrib["y"])) * scale
+                w, h = int(element.attrib["width"]) * scale, int(element.attrib["height"]) * scale
+                color = palette[0]
+                draw.rectangle((x, y, x + w * 0.82, y + h), outline=color, width=2 * scale)
+                draw.rectangle((x + w * 0.82, y + h * 0.33, x + w, y + h * 0.67), fill=color)
+            return
         if tag == "PartText":
             text_element = element.find("Text")
             font_element = text_element.find("Font")
@@ -336,10 +371,28 @@ if __name__ == "__main__":
     build_font("terminal_dot", 28)
     build_font("terminal_block", 0)
     build_mono_font()
+    build_battery_icon()
     (ROOT / "docs").mkdir(exist_ok=True)
     build_editor_icons()
     active = render_preview()
     active.save(RES / "drawable/preview.png")
     active.save(ROOT / "docs/design-preview.png")
     render_preview(ambient=True).save(ROOT / "docs/ambient-preview.png")
+    if ET.parse(RES / "raw/watchface.xml").getroot().find("UserConfigurations/ListConfiguration[@id='layout']") is not None:
+        previews = []
+        for layout in ("a", "b", "c"):
+            preview = render_preview(layout=layout)
+            preview.save(ROOT / f"docs/layout-{layout}.png")
+            render_preview(ambient=True, layout=layout).save(ROOT / f"docs/layout-{layout}-ambient.png")
+            # Actual miniature of each layout, not another generic empty option.
+            preview.resize((192, 192), Image.Resampling.LANCZOS).save(RES / f"drawable/layout_{layout}_icon.png")
+            previews.append(preview)
+        comparison = Image.new("RGB", (3 * 450, 490), "#080D0B")
+        for index, preview in enumerate(previews):
+            comparison.paste(preview, (index * 450, 40))
+            title = ("A  COMPACT", "B  WIDE", "C  STACKED")[index]
+            font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), 28)
+            ImageDraw.Draw(comparison).text((index * 450 + 225, 22), title, font=font,
+                                           fill="#80F5BA", anchor="mm")
+        comparison.save(ROOT / "docs/layout-comparison.png")
     print("Generated fonts, editor thumbnails and previews. Preview values are illustrative only.")

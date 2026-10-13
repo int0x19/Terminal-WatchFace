@@ -24,8 +24,11 @@ if unzip -Z1 watchface/build/outputs/apk/debug/watchface-debug.apk | rg '\.dex$'
     printf '%s\n' 'WFF packages must not contain DEX files.' >&2
     exit 1
 fi
-task_memory_output=$(java -jar .tools/memory-footprint.jar \
+if ! task_memory_output=$(java -jar .tools/memory-footprint.jar \
     --watch-face watchface/build/outputs/bundle/release/watchface-release.aab \
-    --schema-version 2 --greedy-after-iterations 1000 2>&1)
+    --schema-version 2 --greedy-after-iterations 1000 2>&1); then
+    printf '%s\n' "$task_memory_output" >&2
+    exit 1
+fi
 printf '%s\n' "$task_memory_output"
 printf '%s\n' "$task_memory_output" | rg -q 'has passed the memory footprint test'

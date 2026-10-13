@@ -1,0 +1,23 @@
+{
+  "version": "0.4.0-test",
+  "versionCode": 4,
+  "applicationId": "dev.int0x19.watchface.terminal",
+  "sourceGitTag": "v0.4.0-test",
+  "createdUtc": "2026-10-13T08:43:23.596047+00:00",
+  "apkSigning": "development key",
+  "aabSigning": "unsigned",
+  "files": {
+    "terminal-face-0.4.0-test.apk": "6f0caff5611bd26581a201bd23d6933732ba8f5610d168cd9d69cd4e861ded9c",
+    "terminal-face-0.4.0-test.aab": "386cd7947366d42b1d27e88d2946acc9e73641c7653011817f3015c991fe0c1c",
+    "watchface.xml": "3f88c8e2424a304d7547cb149d81bfd4732654948360d64163ebc09835710008",
+    "preview.png": "7d8b2fd83fe5f2767fd56d4e9183c9cbcb2403a70a798d75d0b285b163f16792",
+    "ambient-preview.png": "9ef65128cd289ebc66db34d3b4ef90df95b6bcedf7c7533ca64412ab65d218e8",
+    "layout-a.png": "7d8b2fd83fe5f2767fd56d4e9183c9cbcb2403a70a798d75d0b285b163f16792",
+    "layout-a-ambient.png": "9ef65128cd289ebc66db34d3b4ef90df95b6bcedf7c7533ca64412ab65d218e8",
+    "layout-b.png": "35ff16fba88d14dbf85d39041ce8cf060259f986d438cf9aded0fa9f4bd7fdb8",
+    "layout-b-ambient.png": "728583d354ddc1d819bc1c5c546935ef50f210c5655fbc45fa6691bebea59f91",
+    "layout-c.png": "a387b2e999ce329cf90ac7e3e36e836d08944fecffcc3a48ad05522d1c50d172",
+    "layout-c-ambient.png": "a725a639dd2099c4c126a22cc53902c58e2964dc360755e19985060148fa6a2a",
+    "layout-comparison.png": "4619085684ea2702a6d4c266c8932b94e2cc9b2133463ad5929be4258d2bf6b6"
+  }
+}

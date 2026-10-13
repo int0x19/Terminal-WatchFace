@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import shutil
 import zipfile
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -67,6 +68,14 @@ def main():
              "watchface.xml": wff,
              "preview.png": ROOT / "docs/design-preview.png",
              "ambient-preview.png": ROOT / "docs/ambient-preview.png"}
+    layout_config = ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='layout']")
+    if layout_config is not None:
+        for option in layout_config:
+            layout = option.attrib["id"]
+            for suffix in ("", "-ambient"):
+                name = f"layout-{layout}{suffix}.png"
+                files[name] = ROOT / "docs" / name
+        files["layout-comparison.png"] = ROOT / "docs/layout-comparison.png"
     for source in files.values():
         if not source.is_file():
             raise SystemExit(f"Missing artifact: {source}")
