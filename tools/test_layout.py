@@ -2,6 +2,7 @@
 """Regression checks for the combined layout, clock fonts and preserved choices."""
 import hashlib
 import json
+from copy import deepcopy
 from pathlib import Path
 import unittest
 import xml.etree.ElementTree as ET
@@ -9,7 +10,7 @@ import xml.etree.ElementTree as ET
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageFont
 from labels import LABELS, manual_label_expression
-from build_layout import CLOCK_FONTS, ROWS, cell_geometry, build
+from build_layout import CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, cell_geometry, build
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "watchface/src/main/res"
@@ -105,9 +106,10 @@ class LayoutTest(unittest.TestCase):
         for slot in self.root.findall("Scene/ComplicationSlot"):
             self.assertEqual(slot.find("Variant").attrib["value"], "0")
 
-    def test_eight_slots_and_existing_provider_policies(self):
+    def test_seven_slots_and_existing_provider_policies(self):
         slots = self.root.findall("Scene/ComplicationSlot")
-        self.assertEqual([int(s.attrib["slotId"]) for s in slots], list(range(1, 9)))
+        self.assertEqual([int(s.attrib["slotId"]) for s in slots], list(SLOTS))
+        self.assertIsNone(self.root.find("Scene/ComplicationSlot[@slotId='8']"))
         boxes = []
         for slot in slots:
             n = int(slot.attrib["slotId"])
@@ -127,8 +129,13 @@ class LayoutTest(unittest.TestCase):
 
     def test_existing_configuration_ids_preserved(self):
         for old in self.baseline.find("UserConfigurations"):
+            if old.attrib["id"] == "label8":
+                self.assertIsNone(self.root.find("UserConfigurations/ListConfiguration[@id='label8']"))
+                continue
             current = self.root.find(f"UserConfigurations/{old.tag}[@id='{old.attrib['id']}']")
-            self.assertEqual(ET.tostring(current), ET.tostring(old))
+            old_copy, current_copy = deepcopy(old), deepcopy(current)
+            old_copy.tail = current_copy.tail = None
+            self.assertEqual(ET.tostring(current_copy), ET.tostring(old_copy))
 
     def test_short_labels_and_legacy_option_ids(self):
         ids = ["TITLE", *(item["id"] for item in LABELS), "NONE"]
@@ -136,20 +143,24 @@ class LayoutTest(unittest.TestCase):
         for item in LABELS:
             self.assertLessEqual(len(item["text"]), 4)
             self.assertLessEqual(font.getlength(item["text"]), 62)
-        for n in range(1, 9):
+        for n in SLOTS:
             config = self.root.find(f"UserConfigurations/ListConfiguration[@id='label{n}']")
             self.assertEqual([o.attrib["id"] for o in config], ids)
             for complication_type in ("SHORT_TEXT", "LONG_TEXT", "RANGED_VALUE", "GOAL_PROGRESS", "EMPTY"):
                 group = self.cell(n, complication_type)
-                manual = group.find("Condition/Default/PartText/.//Parameter")
+                manual = group.find("Condition/Default/.//Parameter")
                 self.assertEqual(manual.attrib["expression"], manual_label_expression(n))
-                label = group.find(f"Condition/Compare[@expression='label_title_{n}']/PartText")
+                label = group.find(f"Condition/Compare[@expression='label_title_{n}']")
                 self.assertEqual(label.find(".//Parameter").attrib["expression"], "[COMPLICATION.TITLE]")
                 if complication_type == "EMPTY":
-                    self.assertEqual(group.find("PartText/Text/Font").text, "--")
+                    if n == 4:
+                        for part in group.findall(".//PartText"):
+                            self.assertEqual(part.findall("Text/Font")[-1].text, "--")
+                    else:
+                        self.assertEqual(group.find("PartText/Text/Font").text, "--")
 
     def test_clickable_centers(self):
-        for n in range(1, 9):
+        for n in SLOTS:
             box = self.root.find(f"Scene/ComplicationSlot[@slotId='{n}']/BoundingBox").attrib
             g = cell_geometry(n)
             centers = [(g["x"] + g["label_width"] / 2, g["y"] + g["label_height"] / 2),
@@ -174,11 +185,50 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
                 self.assertEqual(hashlib.sha256((archive / name).read_bytes()).hexdigest(), digest)
+
+    def test_larger_date_fits_all_english_months(self):
+        font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), DATE_SIZE)
+        self.assertGreaterEqual(DATE_SIZE / 28, 1.2)
+        self.assertLessEqual(DATE_SIZE / 28, 1.4)
+        for style in ("full", "short", "iso"):
+            part = self.header.find(f"Condition/Compare[@expression='date_{style}']/PartText")
+            self.assertEqual(int(part.find("Text/Font").attrib["size"]), DATE_SIZE)
+            self.assertEqual(int(part.attrib["x"]) + int(part.attrib["width"]) / 2, 225)
+        for month in ("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY",
+                      "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"):
+            for weekday in ("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"):
+                self.assertLessEqual(font.getlength(f"{weekday} 31 {month} 2026"), 390)
+
+    def test_wide_bottom_line_centers_label_and_value_together(self):
+        slot = self.root.find("Scene/ComplicationSlot[@slotId='4']")
+        self.assertEqual(slot.attrib["displayName"], "field_4_name")
+        box = slot.find("BoundingBox").attrib
+        self.assertEqual(int(box["x"]) + int(box["width"]) / 2, 225)
+        self.assertEqual(box["width"], "286")
+        for complication_type in ("SHORT_TEXT", "LONG_TEXT", "RANGED_VALUE", "GOAL_PROGRESS", "EMPTY"):
+            group = self.cell(4, complication_type)
+            for part in group.findall(".//PartText"):
+                self.assertEqual(part.attrib["width"], "286")
+                self.assertEqual(part.find("Text").attrib["align"], "CENTER")
+                self.assertEqual(part.find("Text").attrib["maxLines"], "1")
+                self.assertEqual(part.findall("Text/Font")[-1].attrib["color"], "[CONFIGURATION.palette.1]")
+            hidden = group.find("Condition/Compare[@expression='label_hidden_4']")
+            self.assertTrue(all(len(p.findall("Text/Font")) == 1 for p in hidden.findall(".//PartText")))
+            title = group.find("Condition/Compare[@expression='label_title_4']")
+            for part in title.findall(".//PartText"):
+                self.assertEqual(part.find("Text/Font").attrib["color"], "[CONFIGURATION.palette.0]")
+            if complication_type != "EMPTY":
+                image = group.find("Condition/Compare[@expression='label_icon_4']/.//InlineImage")
+                self.assertEqual(image.attrib["resource"], "[COMPLICATION.MONOCHROMATIC_IMAGE]")
+                self.assertEqual(image.attrib["source"], "[COMPLICATION.MONOCHROMATIC_IMAGE]")
+            if complication_type in ("RANGED_VALUE", "GOAL_PROGRESS"):
+                numeric = "[COMPLICATION.RANGED_VALUE_VALUE]" if complication_type == "RANGED_VALUE" else "[COMPLICATION.GOAL_PROGRESS_VALUE]"
+                self.assertTrue(any(p.attrib["expression"] == numeric for p in group.findall(".//Parameter")))
 
     def test_layout_generator_is_reproducible(self):
         expected = ET.fromstring(build())

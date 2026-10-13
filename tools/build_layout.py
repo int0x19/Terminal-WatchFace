@@ -11,6 +11,8 @@ from build_layout_variants import cell_geometry as legacy_geometry
 ROOT = Path(__file__).resolve().parents[1]
 CLOCK_FONTS = {"block": "terminal_block", "dot": "terminal_dot", "mono": "clock_mono"}
 ROWS = (248, 284, 320, 356)
+SLOTS = (1, 2, 3, 4, 5, 6, 7)
+DATE_SIZE = 36
 
 
 def header():
@@ -31,7 +33,7 @@ def header():
                "short": ("%s %02d %s", ("[DAY_OF_WEEK_S]", "[DAY]", "[MONTH_S]")),
                "iso": ("%04d-%02d-%02d", ("[YEAR]", "[MONTH]", "[DAY]"))}
     for style, (template, parameters) in formats.items():
-        part = text_part(f"date_{style}", 50, 118, 350, 32, 28, template=template,
+        part = text_part(f"date_{style}", 30, 113, 390, 42, DATE_SIZE, template=template,
                          parameters=parameters, align="CENTER", zone="SYNC_TO_DEVICE")
         font = part.find("Text/Font")
         template_node = font[0]
@@ -70,12 +72,18 @@ def header():
 
 
 def cell_geometry(slot):
+    if slot == 4:
+        return dict(x=82, y=362, width=286, height=36, label_width=286, label_height=36,
+                    value_x=0, value_y=0, value_width=286, value_height=36,
+                    label_font=32, value_font=32, long_font=30, align="CENTER")
     geometry = legacy_geometry("a", slot)
     geometry.update(y=ROWS[(slot - 1) % 4] + 6, height=36)
     return geometry
 
 
 def cell(original, slot, complication_type):
+    if slot == 4:
+        return wide_cell(original, complication_type)
     # Reuse the tested AUTO/icon/manual-label and SHORT_TEXT fallback logic from 0.4.0.
     group = legacy_cell(original, "a", slot, complication_type)
     geometry = cell_geometry(slot)
@@ -85,9 +93,55 @@ def cell(original, slot, complication_type):
     return group
 
 
+def wide_cell(original, complication_type):
+    """One rich-text line: native CENTER applies to label + value as a whole."""
+    geometry = cell_geometry(4)
+    group = ET.Element("Group", name=f"cell_4_{complication_type}", x="82", y="362", width="286", height="36")
+    labels = deepcopy(original.find("Condition"))
+    for branch in list(labels):
+        if branch.tag == "Expressions":
+            continue
+        label_part = branch.find("PartText")
+        icon = branch.find("PartImage")
+        prefix = None
+        if label_part is not None:
+            prefix = deepcopy(label_part.find("Text/Font"))
+            prefix.set("size", "32")
+            prefix.set("color", "[CONFIGURATION.palette.0]")
+        elif icon is not None:
+            prefix = ET.Element("Font", family="terminal_mono", size="32", color="[CONFIGURATION.palette.0]")
+            ET.SubElement(prefix, "InlineImage", resource="[COMPLICATION.MONOCHROMATIC_IMAGE]",
+                          source="[COMPLICATION.MONOCHROMATIC_IMAGE]",
+                          width="30", height="30", color="[CONFIGURATION.palette.0]")
+        for child in list(branch):
+            branch.remove(child)
+        # Clone the original per-type TEXT / numeric fallback, never invent sensor values.
+        for value in list(original)[1:]:
+            value = deepcopy(value)
+            for part in ([value] if value.tag == "PartText" else value.findall(".//PartText")):
+                part.attrib.update(x="0", y="0", width="286", height="36", tintColor="#FFFFFFFF")
+                text = part.find("Text")
+                text.set("align", "CENTER")
+                text.set("maxLines", "1")
+                font = text.find("Font")
+                font.set("size", str(geometry["long_font"] if complication_type == "LONG_TEXT" else 32))
+                font.set("color", "[CONFIGURATION.palette.1]")
+                if prefix is not None:
+                    text.insert(0, deepcopy(prefix))
+                    space = ET.Element("Font", family="terminal_mono", size="32", color="[CONFIGURATION.palette.0]")
+                    template = ET.SubElement(space, "Template")
+                    template.text = "%s"
+                    ET.SubElement(template, "Parameter", expression='" "')
+                    text.insert(1, space)
+            branch.append(value)
+    group.append(labels)
+    return group
+
+
 def build():
     root = ET.parse(ROOT / "versions/0.3.0/watchface.xml").getroot()
     configurations = root.find("UserConfigurations")
+    configurations.remove(configurations.find("ListConfiguration[@id='label8']"))
     fonts = ET.Element("ListConfiguration", id="clockFont", displayName="clock_font_name", defaultValue="block")
     for choice in CLOCK_FONTS:
         ET.SubElement(fonts, "ListOption", id=choice, displayName=f"clock_font_{choice}_name", icon=f"clock_font_{choice}_icon")
@@ -97,12 +151,14 @@ def build():
     scene.append(header())
     for old_slot in previous_scene.findall("ComplicationSlot"):
         slot = int(old_slot.attrib["slotId"])
+        if slot not in SLOTS:
+            continue
         row, right = (slot - 1) % 4, slot > 4
         attributes = dict(old_slot.attrib, x="0", y="0", width="450", height="450")
         new_slot = ET.SubElement(scene, "ComplicationSlot", attributes)
         new_slot.append(deepcopy(old_slot.find("Variant")))
-        ET.SubElement(new_slot, "BoundingBox", x=str((226 if right else 72) if row == 3 else (232 if right else 48)),
-                      y=str(ROWS[row]), width=str((160 if right else 152) if row == 3 else 184), height="36")
+        ET.SubElement(new_slot, "BoundingBox", x="82" if slot == 4 else str(232 if right else 48),
+                      y=str(ROWS[row]), width="286" if slot == 4 else "184", height="42" if slot == 4 else "36")
         new_slot.append(deepcopy(old_slot.find("DefaultProviderPolicy")))
         for original in old_slot.findall("Complication"):
             complication_type = original.attrib["type"]

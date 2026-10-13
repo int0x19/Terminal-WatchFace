@@ -285,6 +285,8 @@ def render_preview(ambient=False, layout=None, clock_font=None):
         if expr.startswith(f"[CONFIGURATION.label{slot}] =="):
             selected = config[f"label{slot}"]
             return LABEL_TEXT[selected]
+        if expr.startswith('"') and expr.endswith('"'):
+            return expr[1:-1]
         key = expr.strip("[]")
         if key.startswith("CONFIGURATION."):
             return config[key.split(".", 1)[1]]
@@ -357,48 +359,57 @@ def render_preview(ambient=False, layout=None, clock_font=None):
             return
         if tag == "PartText":
             text_element = element.find("Text")
-            font_element = text_element.find("Font")
-            template = font_element.find(".//Template")
-            if template is None:
-                text = (font_element.text or "").strip()
-            else:
-                localization = element.find("Localization")
-                utc = localization is not None and localization.attrib.get("timeZone") == "UTC"
-                values = tuple(expression(p.attrib["expression"], slot, utc) for p in template.findall("Parameter"))
-                text = (template.text or "").strip() % values
-            if font_element.find("Upper") is not None:
-                text = text.upper()
-            size = round(float(font_element.attrib["size"]) * scale)
-            font_path = RES / "font" / (font_element.attrib["family"] + ".ttf")
             width, height = int(element.attrib["width"]) * scale, int(element.attrib["height"]) * scale
-            font = ImageFont.truetype(str(font_path), size)
-            spacing = float(font_element.attrib.get("letterSpacing", 0)) * size
-
-            def text_width(value):
-                return font.getlength(value) + max(0, len(value) - 1) * spacing
-
-            while text_element.attrib.get("isAutoSize") == "TRUE" and text_width(text) > width and size > 12 * scale:
-                size -= 1
+            localization = element.find("Localization")
+            utc = localization is not None and localization.attrib.get("timeZone") == "UTC"
+            runs = []
+            for font_element in text_element.findall("Font"):
+                template = font_element.find(".//Template")
+                if template is None:
+                    text = (font_element.text or "").strip()
+                else:
+                    values = tuple(expression(p.attrib["expression"], slot, utc) for p in template.findall("Parameter"))
+                    text = (template.text or "").strip() % values
+                if font_element.find("Upper") is not None:
+                    text = text.upper()
+                size = round(float(font_element.attrib["size"]) * scale)
+                font_path = RES / "font" / (font_element.attrib["family"] + ".ttf")
                 font = ImageFont.truetype(str(font_path), size)
-                spacing = float(font_element.attrib.get("letterSpacing", 0)) * size
-            if text_width(text) > width:
-                while text and text_width(text + "...") > width:
-                    text = text[:-1]
-                text += "..."
-            color = element.attrib.get("tintColor", "#FFFFFF")
-            if color.startswith("[CONFIGURATION.palette."):
-                color = palette[int(color[-2])]
+                color = font_element.attrib.get("color", element.attrib.get("tintColor", "#FFFFFF"))
+                if color.startswith("[CONFIGURATION.palette."):
+                    color = palette[int(color[-2])]
+                runs.append(dict(text=text, font=font, spacing=float(font_element.attrib.get("letterSpacing", 0)) * size,
+                                 color=color))
+
+            def run_width(run):
+                return run["font"].getlength(run["text"]) + max(0, len(run["text"]) - 1) * run["spacing"]
+
+            def total_width():
+                return sum(run_width(run) for run in runs)
+
+            if total_width() > width:
+                # Approximate the native single-line ellipsis across styled text runs.
+                ellipsis = dict(runs[-1], text="...")
+                while runs and total_width() + run_width(ellipsis) > width:
+                    runs[-1]["text"] = runs[-1]["text"][:-1]
+                    if not runs[-1]["text"]:
+                        runs.pop()
+                runs.append(ellipsis)
             x, y = (offset[0] + int(element.attrib["x"])) * scale, (offset[1] + int(element.attrib["y"])) * scale
             if text_element.attrib.get("align") == "CENTER":
-                x += (width - text_width(text)) / 2
-            ascender, descender = font.getmetrics()
-            baseline_y = y + (height - ascender - descender) / 2
-            if spacing:
-                for char in text:
-                    draw.text((x, baseline_y), char, fill=color, font=font)
-                    x += font.getlength(char) + spacing
-            else:
-                draw.text((x, baseline_y), text, fill=color, font=font)
+                x += (width - total_width()) / 2
+            ascender = max(run["font"].getmetrics()[0] for run in runs)
+            descender = max(run["font"].getmetrics()[1] for run in runs)
+            baseline_y = y + (height - ascender - descender) / 2 + ascender
+            for run in runs:
+                text, font, spacing, color = (run[key] for key in ("text", "font", "spacing", "color"))
+                if spacing:
+                    for index, char in enumerate(text):
+                        draw.text((x, baseline_y), char, fill=color, font=font, anchor="ls")
+                        x += font.getlength(char) + (spacing if index < len(text) - 1 else 0)
+                else:
+                    draw.text((x, baseline_y), text, fill=color, font=font, anchor="ls")
+                    x += run_width(run)
             return
         for child in element:
             if child.tag not in {"UserConfigurations", "Metadata", "Expressions", "Variant"}:

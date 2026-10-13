@@ -244,38 +244,6 @@
       <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
       <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
     </ListConfiguration>
-    <ListConfiguration id="label8" displayName="label_8_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
   </UserConfigurations>
   <Scene backgroundColor="#FF000000">
     <Group name="header" x="0" y="0" width="450" height="450">
@@ -318,10 +286,10 @@
           <Expression name="date_iso">[CONFIGURATION.dateStyle] == "iso"</Expression>
         </Expressions>
         <Compare expression="date_full">
-          <PartText x="50" y="118" width="350" height="32" name="date_full" tintColor="[CONFIGURATION.palette.0]">
+          <PartText x="30" y="113" width="390" height="42" name="date_full" tintColor="[CONFIGURATION.palette.0]">
             <Localization locales="en_US" timeZone="SYNC_TO_DEVICE" />
             <Text align="CENTER" ellipsis="TRUE">
-              <Font family="terminal_mono" size="28">
+              <Font family="terminal_mono" size="36">
                 <Upper>
                   <Template>%s %02d %s %04d<Parameter expression="[DAY_OF_WEEK_S]" />
                     <Parameter expression="[DAY]" />
@@ -334,10 +302,10 @@
           </PartText>
         </Compare>
         <Compare expression="date_short">
-          <PartText x="50" y="118" width="350" height="32" name="date_short" tintColor="[CONFIGURATION.palette.0]">
+          <PartText x="30" y="113" width="390" height="42" name="date_short" tintColor="[CONFIGURATION.palette.0]">
             <Localization locales="en_US" timeZone="SYNC_TO_DEVICE" />
             <Text align="CENTER" ellipsis="TRUE">
-              <Font family="terminal_mono" size="28">
+              <Font family="terminal_mono" size="36">
                 <Upper>
                   <Template>%s %02d %s<Parameter expression="[DAY_OF_WEEK_S]" />
                     <Parameter expression="[DAY]" />
@@ -349,10 +317,10 @@
           </PartText>
         </Compare>
         <Compare expression="date_iso">
-          <PartText x="50" y="118" width="350" height="32" name="date_iso" tintColor="[CONFIGURATION.palette.0]">
+          <PartText x="30" y="113" width="390" height="42" name="date_iso" tintColor="[CONFIGURATION.palette.0]">
             <Localization locales="en_US" timeZone="SYNC_TO_DEVICE" />
             <Text align="CENTER" ellipsis="TRUE">
-              <Font family="terminal_mono" size="28">
+              <Font family="terminal_mono" size="36">
                 <Upper>
                   <Template>%04d-%02d-%02d<Parameter expression="[YEAR]" />
                     <Parameter expression="[MONTH]" />
@@ -1504,10 +1472,10 @@
     </ComplicationSlot>
     <ComplicationSlot x="0" y="0" width="450" height="450" slotId="4" displayName="field_4_name" supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS EMPTY" isCustomizable="TRUE">
       <Variant mode="AMBIENT" target="alpha" value="0" />
-      <BoundingBox x="72" y="356" width="152" height="36" />
+      <BoundingBox x="82" y="356" width="286" height="42" />
       <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="EMPTY" />
       <Complication type="SHORT_TEXT">
-        <Group name="cell_4_SHORT_TEXT" x="72" y="362" width="150" height="36">
+        <Group name="cell_4_SHORT_TEXT" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
               <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
@@ -1516,84 +1484,200 @@
               <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
             </Expressions>
             <Compare expression="label_hidden_4">
-              <Group name="a_SHORT_TEXT_hidden_label_16" x="0" y="0" width="1" height="1" alpha="0" />
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_SHORT_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_title_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_SHORT_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_icon_4">
-              <PartImage x="0" y="3" width="30" height="30" name="a_SHORT_TEXT_provider_icon_4_SHORT_TEXT" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_SHORT_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_auto_empty_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_SHORT_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-              <Expression name="value_large_4_a_SHORT_TEXT">([COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != "") &amp;&amp; textLength([COMPLICATION.TEXT]) &lt;= 5</Expression>
-            </Expressions>
-            <Compare expression="value_large_4_a_SHORT_TEXT">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="text_present_4_SHORT_TEXT">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="24" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">--</Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_SHORT_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Default>
           </Condition>
         </Group>
       </Complication>
       <Complication type="LONG_TEXT">
-        <Group name="cell_4_LONG_TEXT" x="72" y="362" width="150" height="36">
+        <Group name="cell_4_LONG_TEXT" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
               <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
@@ -1602,71 +1686,200 @@
               <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
             </Expressions>
             <Compare expression="label_hidden_4">
-              <Group name="a_LONG_TEXT_hidden_label_17" x="0" y="0" width="1" height="1" alpha="0" />
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_LONG_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_title_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_LONG_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_icon_4">
-              <PartImage x="0" y="3" width="30" height="30" name="a_LONG_TEXT_provider_icon_4_LONG_TEXT" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_LONG_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_auto_empty_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_LONG_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-            </Expressions>
-            <Compare expression="text_present_4_LONG_TEXT">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="20" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="20" letterSpacing="-0.04">--</Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_LONG_TEXT">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Default>
           </Condition>
         </Group>
       </Complication>
       <Complication type="RANGED_VALUE">
-        <Group name="cell_4_RANGED_VALUE" x="72" y="362" width="150" height="36">
+        <Group name="cell_4_RANGED_VALUE" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
               <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
@@ -1675,87 +1888,215 @@
               <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
             </Expressions>
             <Compare expression="label_hidden_4">
-              <Group name="a_RANGED_VALUE_hidden_label_18" x="0" y="0" width="1" height="1" alpha="0" />
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_RANGED_VALUE">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_title_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_RANGED_VALUE">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_icon_4">
-              <PartImage x="0" y="3" width="30" height="30" name="a_RANGED_VALUE_provider_icon_4_RANGED_VALUE" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_RANGED_VALUE">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_auto_empty_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_RANGED_VALUE">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-              <Expression name="value_large_4_a_RANGED_VALUE">([COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != "") &amp;&amp; textLength([COMPLICATION.TEXT]) &lt;= 5</Expression>
-            </Expressions>
-            <Compare expression="value_large_4_a_RANGED_VALUE">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="text_present_4_RANGED_VALUE">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="24" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_RANGED_VALUE">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Default>
           </Condition>
         </Group>
       </Complication>
       <Complication type="GOAL_PROGRESS">
-        <Group name="cell_4_GOAL_PROGRESS" x="72" y="362" width="150" height="36">
+        <Group name="cell_4_GOAL_PROGRESS" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
               <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
@@ -1764,87 +2105,215 @@
               <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
             </Expressions>
             <Compare expression="label_hidden_4">
-              <Group name="a_GOAL_PROGRESS_hidden_label_19" x="0" y="0" width="1" height="1" alpha="0" />
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_GOAL_PROGRESS">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_title_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_GOAL_PROGRESS">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_icon_4">
-              <PartImage x="0" y="3" width="30" height="30" name="a_GOAL_PROGRESS_provider_icon_4_GOAL_PROGRESS" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_GOAL_PROGRESS">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <InlineImage resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" source="[COMPLICATION.MONOCHROMATIC_IMAGE]" width="30" height="30" color="[CONFIGURATION.palette.0]" />
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Compare expression="label_auto_empty_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_GOAL_PROGRESS">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Compare>
             <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-              <Expression name="value_large_4_a_GOAL_PROGRESS">([COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != "") &amp;&amp; textLength([COMPLICATION.TEXT]) &lt;= 5</Expression>
-            </Expressions>
-            <Compare expression="value_large_4_a_GOAL_PROGRESS">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="text_present_4_GOAL_PROGRESS">
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="24" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
+              <Condition>
+                <Expressions>
+                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
+                </Expressions>
+                <Compare expression="text_present_4_GOAL_PROGRESS">
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Upper>
+                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
+                          </Template>
+                        </Upper>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Compare>
+                <Default>
+                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                        <Template>%s<Parameter expression="&quot; &quot;" />
+                        </Template>
+                      </Font>
+                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
+                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
+                        </Template>
+                      </Font>
+                    </Text>
+                  </PartText>
+                </Default>
+              </Condition>
             </Default>
           </Condition>
         </Group>
       </Complication>
       <Complication type="EMPTY">
-        <Group name="cell_4_EMPTY" x="72" y="362" width="150" height="36">
+        <Group name="cell_4_EMPTY" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
               <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
@@ -1852,43 +2321,57 @@
               <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
             </Expressions>
             <Compare expression="label_hidden_4">
-              <Group name="a_EMPTY_hidden_label_20" x="0" y="0" width="1" height="1" alpha="0" />
+              <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
+                </Text>
+              </PartText>
             </Compare>
             <Compare expression="label_title_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
+              <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
                     <Upper>
                       <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
                       </Template>
                     </Upper>
                   </Font>
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                    <Template>%s<Parameter expression="&quot; &quot;" />
+                    </Template>
+                  </Font>
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
                 </Text>
               </PartText>
             </Compare>
             <Compare expression="label_auto_empty_4">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
+              <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">—</Font>
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                    <Template>%s<Parameter expression="&quot; &quot;" />
+                    </Template>
+                  </Font>
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
                 </Text>
               </PartText>
             </Compare>
             <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
+              <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
+                <Text align="CENTER" ellipsis="TRUE" maxLines="1">
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
                     <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
                     </Template>
                   </Font>
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
+                    <Template>%s<Parameter expression="&quot; &quot;" />
+                    </Template>
+                  </Font>
+                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
                 </Text>
               </PartText>
             </Default>
           </Condition>
-          <PartText x="67" y="0" width="83" height="36" tintColor="[CONFIGURATION.palette.1]">
-            <Text align="START" ellipsis="TRUE">
-              <Font family="terminal_mono" size="32">--</Font>
-            </Text>
-          </PartText>
         </Group>
       </Complication>
     </ComplicationSlot>
@@ -2938,396 +3421,6 @@
             </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
-            <Text align="START" ellipsis="TRUE">
-              <Font family="terminal_mono" size="32">--</Font>
-            </Text>
-          </PartText>
-        </Group>
-      </Complication>
-    </ComplicationSlot>
-    <ComplicationSlot x="0" y="0" width="450" height="450" slotId="8" displayName="field_8_name" supportedTypes="SHORT_TEXT LONG_TEXT RANGED_VALUE GOAL_PROGRESS EMPTY" isCustomizable="TRUE">
-      <Variant mode="AMBIENT" target="alpha" value="0" />
-      <BoundingBox x="226" y="356" width="160" height="36" />
-      <DefaultProviderPolicy defaultSystemProvider="EMPTY" defaultSystemProviderType="EMPTY" />
-      <Complication type="SHORT_TEXT">
-        <Group name="cell_8_SHORT_TEXT" x="226" y="362" width="158" height="36">
-          <Condition>
-            <Expressions>
-              <Expression name="label_hidden_8">[CONFIGURATION.label8] == "NONE"</Expression>
-              <Expression name="label_title_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_8">[CONFIGURATION.label8] == "TITLE"</Expression>
-            </Expressions>
-            <Compare expression="label_hidden_8">
-              <Group name="a_SHORT_TEXT_hidden_label_36" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
-            <Compare expression="label_title_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="label_icon_8">
-              <PartImage x="0" y="3" width="30" height="30" name="a_SHORT_TEXT_provider_icon_8_SHORT_TEXT" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
-            </Compare>
-            <Compare expression="label_auto_empty_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label8] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label8] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label8] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label8])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_8_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-              <Expression name="value_large_8_a_SHORT_TEXT">([COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != "") &amp;&amp; textLength([COMPLICATION.TEXT]) &lt;= 5</Expression>
-            </Expressions>
-            <Compare expression="value_large_8_a_SHORT_TEXT">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="text_present_8_SHORT_TEXT">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="24" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">--</Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-        </Group>
-      </Complication>
-      <Complication type="LONG_TEXT">
-        <Group name="cell_8_LONG_TEXT" x="226" y="362" width="158" height="36">
-          <Condition>
-            <Expressions>
-              <Expression name="label_hidden_8">[CONFIGURATION.label8] == "NONE"</Expression>
-              <Expression name="label_title_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_8">[CONFIGURATION.label8] == "TITLE"</Expression>
-            </Expressions>
-            <Compare expression="label_hidden_8">
-              <Group name="a_LONG_TEXT_hidden_label_37" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
-            <Compare expression="label_title_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="label_icon_8">
-              <PartImage x="0" y="3" width="30" height="30" name="a_LONG_TEXT_provider_icon_8_LONG_TEXT" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
-            </Compare>
-            <Compare expression="label_auto_empty_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label8] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label8] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label8] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label8])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_8_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-            </Expressions>
-            <Compare expression="text_present_8_LONG_TEXT">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="20" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="20" letterSpacing="-0.04">--</Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-        </Group>
-      </Complication>
-      <Complication type="RANGED_VALUE">
-        <Group name="cell_8_RANGED_VALUE" x="226" y="362" width="158" height="36">
-          <Condition>
-            <Expressions>
-              <Expression name="label_hidden_8">[CONFIGURATION.label8] == "NONE"</Expression>
-              <Expression name="label_title_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_8">[CONFIGURATION.label8] == "TITLE"</Expression>
-            </Expressions>
-            <Compare expression="label_hidden_8">
-              <Group name="a_RANGED_VALUE_hidden_label_38" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
-            <Compare expression="label_title_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="label_icon_8">
-              <PartImage x="0" y="3" width="30" height="30" name="a_RANGED_VALUE_provider_icon_8_RANGED_VALUE" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
-            </Compare>
-            <Compare expression="label_auto_empty_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label8] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label8] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label8] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label8])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_8_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-              <Expression name="value_large_8_a_RANGED_VALUE">([COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != "") &amp;&amp; textLength([COMPLICATION.TEXT]) &lt;= 5</Expression>
-            </Expressions>
-            <Compare expression="value_large_8_a_RANGED_VALUE">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="text_present_8_RANGED_VALUE">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="24" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-        </Group>
-      </Complication>
-      <Complication type="GOAL_PROGRESS">
-        <Group name="cell_8_GOAL_PROGRESS" x="226" y="362" width="158" height="36">
-          <Condition>
-            <Expressions>
-              <Expression name="label_hidden_8">[CONFIGURATION.label8] == "NONE"</Expression>
-              <Expression name="label_title_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_8">[CONFIGURATION.label8] == "TITLE"</Expression>
-            </Expressions>
-            <Compare expression="label_hidden_8">
-              <Group name="a_GOAL_PROGRESS_hidden_label_39" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
-            <Compare expression="label_title_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="label_icon_8">
-              <PartImage x="0" y="3" width="30" height="30" name="a_GOAL_PROGRESS_provider_icon_8_GOAL_PROGRESS" tintColor="[CONFIGURATION.palette.0]">
-                <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
-              </PartImage>
-            </Compare>
-            <Compare expression="label_auto_empty_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label8] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label8] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label8] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label8])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <Condition>
-            <Expressions>
-              <Expression name="text_present_8_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-              <Expression name="value_large_8_a_GOAL_PROGRESS">([COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != "") &amp;&amp; textLength([COMPLICATION.TEXT]) &lt;= 5</Expression>
-            </Expressions>
-            <Compare expression="value_large_8_a_GOAL_PROGRESS">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="text_present_8_GOAL_PROGRESS">
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="24" letterSpacing="-0.04">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="32">
-                    <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-        </Group>
-      </Complication>
-      <Complication type="EMPTY">
-        <Group name="cell_8_EMPTY" x="226" y="362" width="158" height="36">
-          <Condition>
-            <Expressions>
-              <Expression name="label_hidden_8">[CONFIGURATION.label8] == "NONE"</Expression>
-              <Expression name="label_title_8">[CONFIGURATION.label8] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_8">[CONFIGURATION.label8] == "TITLE"</Expression>
-            </Expressions>
-            <Compare expression="label_hidden_8">
-              <Group name="a_EMPTY_hidden_label_40" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
-            <Compare expression="label_title_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Upper>
-                      <Template>%s<Parameter expression="[COMPLICATION.TITLE]" />
-                      </Template>
-                    </Upper>
-                  </Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Compare expression="label_auto_empty_8">
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">—</Font>
-                </Text>
-              </PartText>
-            </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label8] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label8] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label8] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label8])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
-          </Condition>
-          <PartText x="67" y="0" width="91" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">
               <Font family="terminal_mono" size="32">--</Font>
             </Text>
