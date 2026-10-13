@@ -13,8 +13,8 @@ android {
         applicationId = "dev.int0x19.watchface.terminal"
         minSdk = 34
         targetSdk = 37
-        versionCode = 8
-        versionName = "0.6.1-rollback"
+        versionCode = 9
+        versionName = "0.6.2-fixed-labels-test"
     }
 
     // WFF bundles must contain resources only, including development builds.

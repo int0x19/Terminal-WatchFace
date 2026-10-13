@@ -20,230 +20,6 @@
       <ListOption id="hidden" displayName="date_hidden" icon="date_hidden_icon" />
     </ListConfiguration>
     <BooleanConfiguration id="seconds" displayName="seconds_name" defaultValue="TRUE" />
-    <ListConfiguration id="label1" displayName="label_1_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
-    <ListConfiguration id="label2" displayName="label_2_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
-    <ListConfiguration id="label3" displayName="label_3_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
-    <ListConfiguration id="label4" displayName="label_4_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
-    <ListConfiguration id="label5" displayName="label_5_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
-    <ListConfiguration id="label6" displayName="label_6_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
-    <ListConfiguration id="label7" displayName="label_7_name" defaultValue="TITLE">
-      <ListOption id="TITLE" displayName="label_title" icon="label_title_icon" />
-      <ListOption id="HR" displayName="label_hr" icon="label_hr_icon" />
-      <ListOption id="BPM" displayName="label_bpm" icon="label_bpm_icon" />
-      <ListOption id="NTFY" displayName="label_ntfy" icon="label_ntfy_icon" />
-      <ListOption id="STEPS" displayName="label_steps" icon="label_steps_icon" />
-      <ListOption id="CAL" displayName="label_cal" icon="label_cal_icon" />
-      <ListOption id="DIST" displayName="label_dist" icon="label_dist_icon" />
-      <ListOption id="GOAL" displayName="label_goal" icon="label_goal_icon" />
-      <ListOption id="ACTV" displayName="label_actv" icon="label_actv_icon" />
-      <ListOption id="FLRS" displayName="label_flrs" icon="label_flrs_icon" />
-      <ListOption id="SPO2" displayName="label_spo2" icon="label_spo2_icon" />
-      <ListOption id="SLEP" displayName="label_slep" icon="label_slep_icon" />
-      <ListOption id="STRS" displayName="label_strs" icon="label_strs_icon" />
-      <ListOption id="BATT" displayName="label_batt" icon="label_batt_icon" />
-      <ListOption id="TEMP" displayName="label_temp" icon="label_temp_icon" />
-      <ListOption id="HI/LO" displayName="label_hilo" icon="label_hilo_icon" />
-      <ListOption id="WIND" displayName="label_wind" icon="label_wind_icon" />
-      <ListOption id="HUM" displayName="label_hum" icon="label_hum_icon" />
-      <ListOption id="PRES" displayName="label_pres" icon="label_pres_icon" />
-      <ListOption id="UV" displayName="label_uv" icon="label_uv_icon" />
-      <ListOption id="COMP" displayName="label_comp" icon="label_comp_icon" />
-      <ListOption id="ALT" displayName="label_alt" icon="label_alt_icon" />
-      <ListOption id="DATE" displayName="label_date" icon="label_date_icon" />
-      <ListOption id="DOW" displayName="label_dow" icon="label_dow_icon" />
-      <ListOption id="EVENT" displayName="label_event" icon="label_event_icon" />
-      <ListOption id="ALRM" displayName="label_alrm" icon="label_alrm_icon" />
-      <ListOption id="SUN" displayName="label_sun" icon="label_sun_icon" />
-      <ListOption id="UTC" displayName="label_utc" icon="label_utc_icon" />
-      <ListOption id="DATA" displayName="label_data" icon="label_data_icon" />
-      <ListOption id="NONE" displayName="label_none" icon="label_none_icon" />
-    </ListConfiguration>
   </UserConfigurations>
   <Scene backgroundColor="#FF000000">
     <Group name="header" x="0" y="0" width="450" height="450">
@@ -425,14 +201,10 @@
         <Group name="cell_1_SHORT_TEXT" x="48" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_1">[CONFIGURATION.label1] == "NONE"</Expression>
-              <Expression name="label_title_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_1">[CONFIGURATION.label1] == "TITLE"</Expression>
+              <Expression name="label_title_1">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_1">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_1">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_1">
-              <Group name="a_SHORT_TEXT_hidden_label_1" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_1">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -457,16 +229,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label1] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label1] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label1] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label1])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -498,14 +260,10 @@
         <Group name="cell_1_LONG_TEXT" x="48" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_1">[CONFIGURATION.label1] == "NONE"</Expression>
-              <Expression name="label_title_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_1">[CONFIGURATION.label1] == "TITLE"</Expression>
+              <Expression name="label_title_1">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_1">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_1">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_1">
-              <Group name="a_LONG_TEXT_hidden_label_2" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_1">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -530,16 +288,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label1] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label1] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label1] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label1])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -571,14 +319,10 @@
         <Group name="cell_1_RANGED_VALUE" x="48" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_1">[CONFIGURATION.label1] == "NONE"</Expression>
-              <Expression name="label_title_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_1">[CONFIGURATION.label1] == "TITLE"</Expression>
+              <Expression name="label_title_1">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_1">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_1">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_1">
-              <Group name="a_RANGED_VALUE_hidden_label_3" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_1">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -603,16 +347,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label1] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label1] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label1] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label1])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -647,14 +381,10 @@
         <Group name="cell_1_GOAL_PROGRESS" x="48" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_1">[CONFIGURATION.label1] == "NONE"</Expression>
-              <Expression name="label_title_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_1">[CONFIGURATION.label1] == "TITLE"</Expression>
+              <Expression name="label_title_1">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_1">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_1">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_1">
-              <Group name="a_GOAL_PROGRESS_hidden_label_4" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_1">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -679,16 +409,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label1] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label1] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label1] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label1])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -723,13 +443,9 @@
         <Group name="cell_1_EMPTY" x="48" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_1">[CONFIGURATION.label1] == "NONE"</Expression>
-              <Expression name="label_title_1">[CONFIGURATION.label1] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_1">[CONFIGURATION.label1] == "TITLE"</Expression>
+              <Expression name="label_title_1">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_1">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_1">
-              <Group name="a_EMPTY_hidden_label_5" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_1">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -749,16 +465,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label1] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label1] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label1] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label1])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">
@@ -776,14 +482,10 @@
         <Group name="cell_2_SHORT_TEXT" x="48" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_2">[CONFIGURATION.label2] == "NONE"</Expression>
-              <Expression name="label_title_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_2">[CONFIGURATION.label2] == "TITLE"</Expression>
+              <Expression name="label_title_2">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_2">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_2">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_2">
-              <Group name="a_SHORT_TEXT_hidden_label_6" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_2">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -808,16 +510,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label2] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label2] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label2] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label2])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -849,14 +541,10 @@
         <Group name="cell_2_LONG_TEXT" x="48" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_2">[CONFIGURATION.label2] == "NONE"</Expression>
-              <Expression name="label_title_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_2">[CONFIGURATION.label2] == "TITLE"</Expression>
+              <Expression name="label_title_2">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_2">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_2">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_2">
-              <Group name="a_LONG_TEXT_hidden_label_7" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_2">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -881,16 +569,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label2] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label2] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label2] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label2])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -922,14 +600,10 @@
         <Group name="cell_2_RANGED_VALUE" x="48" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_2">[CONFIGURATION.label2] == "NONE"</Expression>
-              <Expression name="label_title_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_2">[CONFIGURATION.label2] == "TITLE"</Expression>
+              <Expression name="label_title_2">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_2">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_2">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_2">
-              <Group name="a_RANGED_VALUE_hidden_label_8" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_2">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -954,16 +628,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label2] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label2] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label2] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label2])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -998,14 +662,10 @@
         <Group name="cell_2_GOAL_PROGRESS" x="48" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_2">[CONFIGURATION.label2] == "NONE"</Expression>
-              <Expression name="label_title_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_2">[CONFIGURATION.label2] == "TITLE"</Expression>
+              <Expression name="label_title_2">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_2">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_2">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_2">
-              <Group name="a_GOAL_PROGRESS_hidden_label_9" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_2">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1030,16 +690,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label2] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label2] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label2] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label2])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -1074,13 +724,9 @@
         <Group name="cell_2_EMPTY" x="48" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_2">[CONFIGURATION.label2] == "NONE"</Expression>
-              <Expression name="label_title_2">[CONFIGURATION.label2] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_2">[CONFIGURATION.label2] == "TITLE"</Expression>
+              <Expression name="label_title_2">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_2">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_2">
-              <Group name="a_EMPTY_hidden_label_10" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_2">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1100,16 +746,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label2] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label2] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label2] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label2])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">
@@ -1127,14 +763,10 @@
         <Group name="cell_3_SHORT_TEXT" x="48" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_3">[CONFIGURATION.label3] == "NONE"</Expression>
-              <Expression name="label_title_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_3">[CONFIGURATION.label3] == "TITLE"</Expression>
+              <Expression name="label_title_3">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_3">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_3">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_3">
-              <Group name="a_SHORT_TEXT_hidden_label_11" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_3">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1159,16 +791,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label3] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label3] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label3] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label3])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -1200,14 +822,10 @@
         <Group name="cell_3_LONG_TEXT" x="48" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_3">[CONFIGURATION.label3] == "NONE"</Expression>
-              <Expression name="label_title_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_3">[CONFIGURATION.label3] == "TITLE"</Expression>
+              <Expression name="label_title_3">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_3">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_3">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_3">
-              <Group name="a_LONG_TEXT_hidden_label_12" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_3">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1232,16 +850,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label3] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label3] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label3] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label3])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -1273,14 +881,10 @@
         <Group name="cell_3_RANGED_VALUE" x="48" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_3">[CONFIGURATION.label3] == "NONE"</Expression>
-              <Expression name="label_title_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_3">[CONFIGURATION.label3] == "TITLE"</Expression>
+              <Expression name="label_title_3">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_3">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_3">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_3">
-              <Group name="a_RANGED_VALUE_hidden_label_13" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_3">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1305,16 +909,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label3] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label3] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label3] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label3])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -1349,14 +943,10 @@
         <Group name="cell_3_GOAL_PROGRESS" x="48" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_3">[CONFIGURATION.label3] == "NONE"</Expression>
-              <Expression name="label_title_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_3">[CONFIGURATION.label3] == "TITLE"</Expression>
+              <Expression name="label_title_3">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_3">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_3">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_3">
-              <Group name="a_GOAL_PROGRESS_hidden_label_14" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_3">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1381,16 +971,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label3] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label3] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label3] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label3])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -1425,13 +1005,9 @@
         <Group name="cell_3_EMPTY" x="48" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_3">[CONFIGURATION.label3] == "NONE"</Expression>
-              <Expression name="label_title_3">[CONFIGURATION.label3] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_3">[CONFIGURATION.label3] == "TITLE"</Expression>
+              <Expression name="label_title_3">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_3">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_3">
-              <Group name="a_EMPTY_hidden_label_15" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_3">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -1451,16 +1027,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label3] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label3] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label3] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label3])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">
@@ -1478,37 +1044,10 @@
         <Group name="cell_4_SHORT_TEXT" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
-              <Expression name="label_title_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
+              <Expression name="label_title_4">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_4">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_4">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_4">
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_SHORT_TEXT">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Compare>
             <Compare expression="label_title_4">
               <Condition>
                 <Expressions>
@@ -1631,48 +1170,6 @@
                 </Default>
               </Condition>
             </Compare>
-            <Default>
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_SHORT_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_SHORT_TEXT">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Default>
           </Condition>
         </Group>
       </Complication>
@@ -1680,37 +1177,10 @@
         <Group name="cell_4_LONG_TEXT" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
-              <Expression name="label_title_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
+              <Expression name="label_title_4">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_4">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_4">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_4">
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_LONG_TEXT">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Compare>
             <Compare expression="label_title_4">
               <Condition>
                 <Expressions>
@@ -1833,48 +1303,6 @@
                 </Default>
               </Condition>
             </Compare>
-            <Default>
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_LONG_TEXT">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_LONG_TEXT">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="30" letterSpacing="-0.04" color="[CONFIGURATION.palette.1]">--</Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Default>
           </Condition>
         </Group>
       </Complication>
@@ -1882,40 +1310,10 @@
         <Group name="cell_4_RANGED_VALUE" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
-              <Expression name="label_title_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
+              <Expression name="label_title_4">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_4">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_4">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_4">
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_RANGED_VALUE">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
-                        </Template>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Compare>
             <Compare expression="label_title_4">
               <Condition>
                 <Expressions>
@@ -2047,51 +1445,6 @@
                 </Default>
               </Condition>
             </Compare>
-            <Default>
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_RANGED_VALUE">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_RANGED_VALUE">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Template>%.0f<Parameter expression="[COMPLICATION.RANGED_VALUE_VALUE]" />
-                        </Template>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Default>
           </Condition>
         </Group>
       </Complication>
@@ -2099,40 +1452,10 @@
         <Group name="cell_4_GOAL_PROGRESS" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
-              <Expression name="label_title_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
+              <Expression name="label_title_4">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_4">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_4">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_4">
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_GOAL_PROGRESS">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
-                        </Template>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Compare>
             <Compare expression="label_title_4">
               <Condition>
                 <Expressions>
@@ -2264,51 +1587,6 @@
                 </Default>
               </Condition>
             </Compare>
-            <Default>
-              <Condition>
-                <Expressions>
-                  <Expression name="text_present_4_GOAL_PROGRESS">[COMPLICATION.TEXT] != null &amp;&amp; [COMPLICATION.TEXT] != ""</Expression>
-                </Expressions>
-                <Compare expression="text_present_4_GOAL_PROGRESS">
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Upper>
-                          <Template>%s<Parameter expression="[COMPLICATION.TEXT]" />
-                          </Template>
-                        </Upper>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Compare>
-                <Default>
-                  <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                    <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                        <Template>%s<Parameter expression="&quot; &quot;" />
-                        </Template>
-                      </Font>
-                      <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">
-                        <Template>%.0f<Parameter expression="[COMPLICATION.GOAL_PROGRESS_VALUE]" />
-                        </Template>
-                      </Font>
-                    </Text>
-                  </PartText>
-                </Default>
-              </Condition>
-            </Default>
           </Condition>
         </Group>
       </Complication>
@@ -2316,17 +1594,9 @@
         <Group name="cell_4_EMPTY" x="82" y="362" width="286" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_4">[CONFIGURATION.label4] == "NONE"</Expression>
-              <Expression name="label_title_4">[CONFIGURATION.label4] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_4">[CONFIGURATION.label4] == "TITLE"</Expression>
+              <Expression name="label_title_4">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_4">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_4">
-              <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
-                </Text>
-              </PartText>
-            </Compare>
             <Compare expression="label_title_4">
               <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
                 <Text align="CENTER" ellipsis="TRUE" maxLines="1">
@@ -2356,21 +1626,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="286" height="36" tintColor="#FFFFFFFF">
-                <Text align="CENTER" ellipsis="TRUE" maxLines="1">
-                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label4] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label4] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label4] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label4])))" />
-                    </Template>
-                  </Font>
-                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.0]">
-                    <Template>%s<Parameter expression="&quot; &quot;" />
-                    </Template>
-                  </Font>
-                  <Font family="terminal_mono" size="32" color="[CONFIGURATION.palette.1]">--</Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
         </Group>
       </Complication>
@@ -2383,14 +1638,10 @@
         <Group name="cell_5_SHORT_TEXT" x="232" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_5">[CONFIGURATION.label5] == "NONE"</Expression>
-              <Expression name="label_title_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_5">[CONFIGURATION.label5] == "TITLE"</Expression>
+              <Expression name="label_title_5">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_5">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_5">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_5">
-              <Group name="a_SHORT_TEXT_hidden_label_21" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_5">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2415,16 +1666,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label5] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label5] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label5] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label5])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2456,14 +1697,10 @@
         <Group name="cell_5_LONG_TEXT" x="232" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_5">[CONFIGURATION.label5] == "NONE"</Expression>
-              <Expression name="label_title_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_5">[CONFIGURATION.label5] == "TITLE"</Expression>
+              <Expression name="label_title_5">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_5">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_5">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_5">
-              <Group name="a_LONG_TEXT_hidden_label_22" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_5">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2488,16 +1725,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label5] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label5] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label5] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label5])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2529,14 +1756,10 @@
         <Group name="cell_5_RANGED_VALUE" x="232" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_5">[CONFIGURATION.label5] == "NONE"</Expression>
-              <Expression name="label_title_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_5">[CONFIGURATION.label5] == "TITLE"</Expression>
+              <Expression name="label_title_5">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_5">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_5">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_5">
-              <Group name="a_RANGED_VALUE_hidden_label_23" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_5">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2561,16 +1784,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label5] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label5] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label5] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label5])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2605,14 +1818,10 @@
         <Group name="cell_5_GOAL_PROGRESS" x="232" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_5">[CONFIGURATION.label5] == "NONE"</Expression>
-              <Expression name="label_title_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_5">[CONFIGURATION.label5] == "TITLE"</Expression>
+              <Expression name="label_title_5">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_5">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_5">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_5">
-              <Group name="a_GOAL_PROGRESS_hidden_label_24" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_5">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2637,16 +1846,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label5] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label5] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label5] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label5])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2681,13 +1880,9 @@
         <Group name="cell_5_EMPTY" x="232" y="254" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_5">[CONFIGURATION.label5] == "NONE"</Expression>
-              <Expression name="label_title_5">[CONFIGURATION.label5] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_5">[CONFIGURATION.label5] == "TITLE"</Expression>
+              <Expression name="label_title_5">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_5">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_5">
-              <Group name="a_EMPTY_hidden_label_25" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_5">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2707,16 +1902,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label5] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label5] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label5] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label5])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">
@@ -2734,14 +1919,10 @@
         <Group name="cell_6_SHORT_TEXT" x="232" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_6">[CONFIGURATION.label6] == "NONE"</Expression>
-              <Expression name="label_title_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_6">[CONFIGURATION.label6] == "TITLE"</Expression>
+              <Expression name="label_title_6">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_6">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_6">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_6">
-              <Group name="a_SHORT_TEXT_hidden_label_26" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_6">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2766,16 +1947,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label6] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label6] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label6] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label6])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2807,14 +1978,10 @@
         <Group name="cell_6_LONG_TEXT" x="232" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_6">[CONFIGURATION.label6] == "NONE"</Expression>
-              <Expression name="label_title_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_6">[CONFIGURATION.label6] == "TITLE"</Expression>
+              <Expression name="label_title_6">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_6">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_6">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_6">
-              <Group name="a_LONG_TEXT_hidden_label_27" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_6">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2839,16 +2006,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label6] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label6] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label6] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label6])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2880,14 +2037,10 @@
         <Group name="cell_6_RANGED_VALUE" x="232" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_6">[CONFIGURATION.label6] == "NONE"</Expression>
-              <Expression name="label_title_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_6">[CONFIGURATION.label6] == "TITLE"</Expression>
+              <Expression name="label_title_6">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_6">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_6">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_6">
-              <Group name="a_RANGED_VALUE_hidden_label_28" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_6">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2912,16 +2065,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label6] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label6] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label6] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label6])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -2956,14 +2099,10 @@
         <Group name="cell_6_GOAL_PROGRESS" x="232" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_6">[CONFIGURATION.label6] == "NONE"</Expression>
-              <Expression name="label_title_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_6">[CONFIGURATION.label6] == "TITLE"</Expression>
+              <Expression name="label_title_6">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_6">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_6">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_6">
-              <Group name="a_GOAL_PROGRESS_hidden_label_29" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_6">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -2988,16 +2127,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label6] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label6] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label6] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label6])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -3032,13 +2161,9 @@
         <Group name="cell_6_EMPTY" x="232" y="290" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_6">[CONFIGURATION.label6] == "NONE"</Expression>
-              <Expression name="label_title_6">[CONFIGURATION.label6] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_6">[CONFIGURATION.label6] == "TITLE"</Expression>
+              <Expression name="label_title_6">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_6">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_6">
-              <Group name="a_EMPTY_hidden_label_30" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_6">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -3058,16 +2183,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label6] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label6] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label6] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label6])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">
@@ -3085,14 +2200,10 @@
         <Group name="cell_7_SHORT_TEXT" x="232" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_7">[CONFIGURATION.label7] == "NONE"</Expression>
-              <Expression name="label_title_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_7">[CONFIGURATION.label7] == "TITLE"</Expression>
+              <Expression name="label_title_7">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_7">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_7">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_7">
-              <Group name="a_SHORT_TEXT_hidden_label_31" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_7">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -3117,16 +2228,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label7] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label7] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label7] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label7])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -3158,14 +2259,10 @@
         <Group name="cell_7_LONG_TEXT" x="232" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_7">[CONFIGURATION.label7] == "NONE"</Expression>
-              <Expression name="label_title_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_7">[CONFIGURATION.label7] == "TITLE"</Expression>
+              <Expression name="label_title_7">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_7">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_7">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_7">
-              <Group name="a_LONG_TEXT_hidden_label_32" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_7">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -3190,16 +2287,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label7] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label7] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label7] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label7])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -3231,14 +2318,10 @@
         <Group name="cell_7_RANGED_VALUE" x="232" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_7">[CONFIGURATION.label7] == "NONE"</Expression>
-              <Expression name="label_title_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_7">[CONFIGURATION.label7] == "TITLE"</Expression>
+              <Expression name="label_title_7">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_7">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_7">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_7">
-              <Group name="a_RANGED_VALUE_hidden_label_33" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_7">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -3263,16 +2346,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label7] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label7] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label7] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label7])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -3307,14 +2380,10 @@
         <Group name="cell_7_GOAL_PROGRESS" x="232" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_7">[CONFIGURATION.label7] == "NONE"</Expression>
-              <Expression name="label_title_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_icon_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
-              <Expression name="label_auto_empty_7">[CONFIGURATION.label7] == "TITLE"</Expression>
+              <Expression name="label_title_7">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_icon_7">[COMPLICATION.MONOCHROMATIC_IMAGE] != null</Expression>
+              <Expression name="label_auto_empty_7">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_7">
-              <Group name="a_GOAL_PROGRESS_hidden_label_34" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_7">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -3339,16 +2408,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label7] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label7] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label7] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label7])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <Condition>
             <Expressions>
@@ -3383,13 +2442,9 @@
         <Group name="cell_7_EMPTY" x="232" y="326" width="184" height="36">
           <Condition>
             <Expressions>
-              <Expression name="label_hidden_7">[CONFIGURATION.label7] == "NONE"</Expression>
-              <Expression name="label_title_7">[CONFIGURATION.label7] == "TITLE" &amp;&amp; [COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
-              <Expression name="label_auto_empty_7">[CONFIGURATION.label7] == "TITLE"</Expression>
+              <Expression name="label_title_7">[COMPLICATION.TITLE] != null &amp;&amp; [COMPLICATION.TITLE] != ""</Expression>
+              <Expression name="label_auto_empty_7">true</Expression>
             </Expressions>
-            <Compare expression="label_hidden_7">
-              <Group name="a_EMPTY_hidden_label_35" x="0" y="0" width="1" height="1" alpha="0" />
-            </Compare>
             <Compare expression="label_title_7">
               <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
                 <Text align="START" ellipsis="TRUE">
@@ -3409,16 +2464,6 @@
                 </Text>
               </PartText>
             </Compare>
-            <Default>
-              <PartText x="0" y="0" width="62" height="36" tintColor="[CONFIGURATION.palette.0]">
-                <Text align="START" ellipsis="TRUE">
-                  <Font family="terminal_mono" size="30">
-                    <Template>%s<Parameter expression="[CONFIGURATION.label7] == &quot;STEPS&quot; ? &quot;STEP&quot; : ([CONFIGURATION.label7] == &quot;HI/LO&quot; ? &quot;H/L&quot; : ([CONFIGURATION.label7] == &quot;EVENT&quot; ? &quot;EVNT&quot; : ([CONFIGURATION.label7])))" />
-                    </Template>
-                  </Font>
-                </Text>
-              </PartText>
-            </Default>
           </Condition>
           <PartText x="67" y="0" width="117" height="36" tintColor="[CONFIGURATION.palette.1]">
             <Text align="START" ellipsis="TRUE">

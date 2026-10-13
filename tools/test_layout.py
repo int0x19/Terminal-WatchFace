@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression checks for the combined layout, clock fonts and preserved choices."""
+"""Checks for the fixed-label experiment and unchanged 0.6 layout/providers."""
 import hashlib
 import json
 from copy import deepcopy
@@ -10,11 +10,19 @@ import xml.etree.ElementTree as ET
 
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageFont
-from labels import LABELS, manual_label_expression
 from build_layout import CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, cell_geometry, build
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "watchface/src/main/res"
+
+
+def structure(element):
+    copy = deepcopy(element)
+    for item in copy.iter():
+        item.tail = None
+        if item.text is not None and not item.text.strip():
+            item.text = None
+    return ET.tostring(copy)
 
 
 class LayoutTest(unittest.TestCase):
@@ -22,6 +30,7 @@ class LayoutTest(unittest.TestCase):
     def setUpClass(cls):
         cls.root = ET.parse(RES / "raw/watchface.xml").getroot()
         cls.baseline = ET.parse(ROOT / "versions/0.3.0/watchface.xml").getroot()
+        cls.approved = ET.parse(ROOT / "versions/0.6.1-rollback/watchface.xml").getroot()
         cls.header = cls.root.find("Scene/Group[@name='header']")
 
     def cell(self, n, complication_type):
@@ -129,33 +138,37 @@ class LayoutTest(unittest.TestCase):
                 self.assertFalse(x < xx + ww and xx < x + w and y < yy + hh and yy < y + h)
 
     def test_existing_configuration_ids_preserved(self):
-        expected_ids = {item.attrib["id"] for item in self.baseline.find("UserConfigurations")}
-        expected_ids.remove("label8")
+        expected_ids = {item.attrib["id"] for item in self.baseline.find("UserConfigurations")
+                        if not item.attrib["id"].startswith("label")}
         expected_ids.add("clockFont")
         self.assertEqual({item.attrib["id"] for item in self.root.find("UserConfigurations")}, expected_ids)
         for old in self.baseline.find("UserConfigurations"):
-            if old.attrib["id"] == "label8":
-                self.assertIsNone(self.root.find("UserConfigurations/ListConfiguration[@id='label8']"))
+            if old.attrib["id"].startswith("label"):
+                self.assertIsNone(self.root.find(f"UserConfigurations/ListConfiguration[@id='{old.attrib['id']}']"))
                 continue
             current = self.root.find(f"UserConfigurations/{old.tag}[@id='{old.attrib['id']}']")
             old_copy, current_copy = deepcopy(old), deepcopy(current)
             old_copy.tail = current_copy.tail = None
             self.assertEqual(ET.tostring(current_copy), ET.tostring(old_copy))
 
-    def test_short_labels_and_legacy_option_ids(self):
-        ids = ["TITLE", *(item["id"] for item in LABELS), "NONE"]
-        font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), 30)
-        for item in LABELS:
-            self.assertLessEqual(len(item["text"]), 4)
-            self.assertLessEqual(font.getlength(item["text"]), 62)
+    def test_fixed_provider_labels_without_manual_configuration(self):
+        self.assertEqual(len(self.root.find("UserConfigurations")), 4)
+        self.assertEqual(len(self.root.findall("UserConfigurations/ListConfiguration/ListOption")), 7)
+        self.assertNotIn("[CONFIGURATION.label", (RES / "raw/watchface.xml").read_text())
         for n in SLOTS:
-            config = self.root.find(f"UserConfigurations/ListConfiguration[@id='label{n}']")
-            self.assertEqual([o.attrib["id"] for o in config], ids)
             for complication_type in ("SHORT_TEXT", "LONG_TEXT", "RANGED_VALUE", "GOAL_PROGRESS", "EMPTY"):
                 group = self.cell(n, complication_type)
-                manual = group.find("Condition/Default/.//Parameter")
-                self.assertEqual(manual.attrib["expression"], manual_label_expression(n))
-                label = group.find(f"Condition/Compare[@expression='label_title_{n}']")
+                labels = group.find("Condition")
+                expressions = {e.attrib["name"]: e.text for e in labels.find("Expressions")}
+                expected = {f"label_title_{n}": '[COMPLICATION.TITLE] != null && [COMPLICATION.TITLE] != ""'}
+                if complication_type != "EMPTY":
+                    expected[f"label_icon_{n}"] = "[COMPLICATION.MONOCHROMATIC_IMAGE] != null"
+                expected[f"label_auto_empty_{n}"] = "true"
+                self.assertEqual(expressions, expected)
+                self.assertEqual([c.attrib["expression"] for c in labels.findall("Compare")], list(expected))
+                self.assertIsNone(labels.find("Default"))
+                self.assertIsNone(labels.find(f"Compare[@expression='label_hidden_{n}']"))
+                label = labels.find(f"Compare[@expression='label_title_{n}']")
                 self.assertEqual(label.find(".//Parameter").attrib["expression"], "[COMPLICATION.TITLE]")
                 if complication_type == "EMPTY":
                     if n == 4:
@@ -163,6 +176,27 @@ class LayoutTest(unittest.TestCase):
                             self.assertEqual(part.findall("Text/Font")[-1].text, "--")
                     else:
                         self.assertEqual(group.find("PartText/Text/Font").text, "--")
+
+    def test_auto_branches_values_and_slot_geometry_unchanged(self):
+        for n in SLOTS:
+            slot = self.root.find(f"Scene/ComplicationSlot[@slotId='{n}']")
+            original_slot = self.approved.find(f"Scene/ComplicationSlot[@slotId='{n}']")
+            self.assertEqual(slot.attrib, original_slot.attrib)
+            self.assertEqual(structure(slot.find("BoundingBox")), structure(original_slot.find("BoundingBox")))
+            for complication in slot.findall("Complication"):
+                complication_type = complication.attrib["type"]
+                group = self.cell(n, complication_type)
+                original = original_slot.find(f"Complication[@type='{complication_type}']/Group")
+                self.assertEqual(group.attrib, original.attrib)
+                for branch in (f"label_title_{n}", f"label_icon_{n}", f"label_auto_empty_{n}"):
+                    actual = group.find(f"Condition/Compare[@expression='{branch}']")
+                    expected = original.find(f"Condition/Compare[@expression='{branch}']")
+                    if expected is None:
+                        self.assertIsNone(actual)
+                    else:
+                        self.assertEqual(structure(actual), structure(expected))
+                self.assertEqual([structure(c) for c in list(group)[1:]],
+                                 [structure(c) for c in list(original)[1:]])
 
     def test_clickable_centers(self):
         for n in SLOTS:
@@ -190,25 +224,21 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.7.0-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.7.0-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
                 self.assertEqual(hashlib.sha256((archive / name).read_bytes()).hexdigest(), digest)
 
-    def test_rollback_resources_match_saved_060(self):
-        build_config = (ROOT / "watchface/build.gradle.kts").read_text()
-        if 'versionName = "0.6.1-rollback"' not in build_config:
-            self.skipTest("Exact-resource comparison applies to the rollback build only")
-        self.assertIn("versionCode = 8", build_config)
-        archive = ROOT / "versions/0.6.0-test"
-        self.assertEqual((RES / "raw/watchface.xml").read_bytes(), (archive / "watchface.xml").read_bytes())
+    def test_060_header_fonts_and_previews_unchanged(self):
+        archive = ROOT / "versions/0.6.1-rollback"
+        self.assertEqual(structure(self.header), structure(self.approved.find("Scene/Group[@name='header']")))
         for name in ("preview.png", "ambient-preview.png", "font-comparison.png",
                      *(f"font-{choice}{suffix}.png" for choice in CLOCK_FONTS for suffix in ("", "-ambient"))):
             current = ROOT / "docs" / ("design-preview.png" if name == "preview.png" else name)
             self.assertEqual(current.read_bytes(), (archive / name).read_bytes(), name)
         self.assertEqual((RES / "drawable/preview.png").read_bytes(), (archive / "preview.png").read_bytes())
-        with zipfile.ZipFile(archive / "terminal-face-0.6.0-test.apk") as apk:
+        with zipfile.ZipFile(archive / "terminal-face-0.6.1-rollback.apk") as apk:
             saved_fonts = {hashlib.sha256(apk.read(name)).hexdigest()
                            for name in apk.namelist() if name.endswith(".ttf")}
         current_fonts = {hashlib.sha256(path.read_bytes()).hexdigest() for path in (RES / "font").glob("*.ttf")}
@@ -242,7 +272,7 @@ class LayoutTest(unittest.TestCase):
                 self.assertEqual(part.find("Text").attrib["maxLines"], "1")
                 self.assertEqual(part.findall("Text/Font")[-1].attrib["color"], "[CONFIGURATION.palette.1]")
             hidden = group.find("Condition/Compare[@expression='label_hidden_4']")
-            self.assertTrue(all(len(p.findall("Text/Font")) == 1 for p in hidden.findall(".//PartText")))
+            self.assertIsNone(hidden)
             title = group.find("Condition/Compare[@expression='label_title_4']")
             for part in title.findall(".//PartText"):
                 self.assertEqual(part.find("Text/Font").attrib["color"], "[CONFIGURATION.palette.0]")

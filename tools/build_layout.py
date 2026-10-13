@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the approved combined header and compact table from the 0.3.0 snapshot."""
+"""Generate the 0.6 layout with provider-only labels for editor performance testing."""
 import argparse
 from copy import deepcopy
 from pathlib import Path
@@ -90,6 +90,24 @@ def cell(original, slot, complication_type):
     group.set("name", f"cell_{slot}_{complication_type}")
     group.set("y", str(geometry["y"]))
     group.set("height", str(geometry["height"]))
+    return fixed_auto_labels(group, slot)
+
+
+def fixed_auto_labels(group, slot):
+    """Keep the exact AUTO branches, with no configurable/manual/hidden label."""
+    labels = group.find("Condition")
+    expressions = labels.find("Expressions")
+    expressions.remove(expressions.find(f"Expression[@name='label_hidden_{slot}']"))
+    labels.remove(labels.find(f"Compare[@expression='label_hidden_{slot}']"))
+    labels.remove(labels.find("Default"))
+    selection = f'[CONFIGURATION.label{slot}] == "TITLE"'
+    for expression in expressions:
+        if expression.text == selection:
+            expression.text = "true"
+        elif expression.text.startswith(selection + " && "):
+            expression.text = expression.text[len(selection + " && "):]
+        else:
+            raise ValueError(f"Unexpected label expression in slot {slot}: {expression.text}")
     return group
 
 
@@ -135,13 +153,15 @@ def wide_cell(original, complication_type):
                     text.insert(1, space)
             branch.append(value)
     group.append(labels)
-    return group
+    return fixed_auto_labels(group, 4)
 
 
 def build():
     root = ET.parse(ROOT / "versions/0.3.0/watchface.xml").getroot()
     configurations = root.find("UserConfigurations")
-    configurations.remove(configurations.find("ListConfiguration[@id='label8']"))
+    for configuration in list(configurations):
+        if configuration.attrib["id"].startswith("label"):
+            configurations.remove(configuration)
     fonts = ET.Element("ListConfiguration", id="clockFont", displayName="clock_font_name", defaultValue="block")
     for choice in CLOCK_FONTS:
         ET.SubElement(fonts, "ListOption", id=choice, displayName=f"clock_font_{choice}_name", icon=f"clock_font_{choice}_icon")
@@ -174,4 +194,4 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     args.output.write_text(build())
-    print(f"Generated combined layout with three clock fonts: {args.output}")
+    print(f"Generated 0.6 test layout with fixed AUTO labels: {args.output}")

@@ -249,7 +249,8 @@ def build_editor_icons():
     sheet = Image.new("RGB", (5 * 192, ((len(icons) + 4) // 5) * 192), "#080D0B")
     for index, icon in enumerate(icons.values()):
         sheet.paste(icon, ((index % 5) * 192, (index // 5) * 192), icon)
-    sheet.save(ROOT / "docs/label-options.png")
+    has_label_options = any(c.attrib["id"].startswith("label") for c in root.find("UserConfigurations"))
+    sheet.save(ROOT / "docs" / ("label-options.png" if has_label_options else "editor-options.png"))
 
 
 def build_battery_icon():
@@ -323,7 +324,7 @@ def render_preview(ambient=False, layout=None, clock_font=None):
                 return
             # Reference data supplies titles; this is not a runtime/provider simulator.
             if element.find("Expressions/Expression").attrib["name"].startswith("label_"):
-                choice = config[f"label{slot}"]
+                choice = config.get(f"label{slot}", "TITLE")
                 branch = (f"label_title_{slot}" if choice == "TITLE"
                           else f"label_hidden_{slot}" if choice == "NONE" else None)
                 visit(element.find(f"Compare[@expression='{branch}']") if branch
