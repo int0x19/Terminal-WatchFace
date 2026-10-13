@@ -1,0 +1,30 @@
+{
+  "version": "0.7.0-test",
+  "versionCode": 7,
+  "applicationId": "dev.int0x19.watchface.terminal",
+  "sourceGitTag": "v0.7.0-test",
+  "createdUtc": "2026-10-13T14:08:47.626207+00:00",
+  "apkSigning": "development key",
+  "aabSigning": "unsigned",
+  "files": {
+    "terminal-face-0.7.0-test.apk": "d44a9b784c18f01b040022359282826f78ea5f4fb6c4c5cf622c96ff8a97c64b",
+    "terminal-face-0.7.0-test.aab": "71cf59b4bbc0cca3d7aae8f5b2e31659781c8da27225b707f1efee1730f2cd6c",
+    "watchface.xml": "88a88eeb51421ecd2f87d794ac7acb2ed27ee6528e77f72e1ce849ac250ab64f",
+    "preview.png": "adc9110e11037d169b6f6626f98c3cf6a6677d2b3f888cba52b2e0245de77b05",
+    "ambient-preview.png": "95b9445cb7ce68db49ae4e453e47865c0f7e236b8c5141a5bfab375b054d0b63",
+    "font-block.png": "adc9110e11037d169b6f6626f98c3cf6a6677d2b3f888cba52b2e0245de77b05",
+    "font-block-ambient.png": "95b9445cb7ce68db49ae4e453e47865c0f7e236b8c5141a5bfab375b054d0b63",
+    "font-dot.png": "3ecad5ca934d5f505baf194b1cb336eb169f995a0ce553fa29770b45115728f5",
+    "font-dot-ambient.png": "95b9445cb7ce68db49ae4e453e47865c0f7e236b8c5141a5bfab375b054d0b63",
+    "font-mono.png": "5ec3c0a42d8b75b250d2c22710062f181ca9962e0fdab66ea72bfb10f4f3c164",
+    "font-mono-ambient.png": "95b9445cb7ce68db49ae4e453e47865c0f7e236b8c5141a5bfab375b054d0b63",
+    "font-comparison.png": "8e47626fa064a02118bfecf7ed7406fce1c42e76eb0d6bc85eaf6a49a9f907f8",
+    "style-en-normal-upper.png": "4ee51dee418d0a6f423aec8f8f1d79b9378c50e35854f6f3a0df541327d32378",
+    "style-en-bold-upper.png": "313a705fce37af1dd7ae678dd672f5237542c19b4ef7a85ab6ecacb203407b96",
+    "style-ru-normal-upper.png": "5b62c52b2d3d39d51051941e106e4acc57ad7fa497f38e56b4fea4c722d376cf",
+    "style-ru-normal-initial.png": "6eeb9e50277078aaa6c278a8ac3a7ae776213a29621ee55e029e49e52a99ce4b",
+    "style-ru-bold-initial.png": "adc9110e11037d169b6f6626f98c3cf6a6677d2b3f888cba52b2e0245de77b05",
+    "style-ru-bold-lower.png": "c76abdc0bbbd322980268e117854402d901eb826e5a98b7a5088b10851c77616",
+    "style-comparison.png": "e689dfa237d2c7ab954789e7d57caacad5099409dfaeacb416f4387fd1ffb702"
+  }
+}

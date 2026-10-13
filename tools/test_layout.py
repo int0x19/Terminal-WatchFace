@@ -11,6 +11,7 @@ from fontTools.ttLib import TTFont
 from PIL import Image, ImageFont
 from labels import LABELS, manual_label_expression
 from build_layout import CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, cell_geometry, build
+from typography import WEIGHTS, CASES, LANGUAGES
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "watchface/src/main/res"
@@ -28,6 +29,9 @@ class LayoutTest(unittest.TestCase):
 
     def clock(self, choice):
         return self.header.find(f"Condition/Compare[@expression='clock_font_{choice}']/PartText")
+
+    def dates(self, style):
+        return self.header.find(f"Condition/Compare[@expression='date_{style}']").findall(".//PartText")
 
     def test_three_selectable_clock_fonts(self):
         config = self.root.find("UserConfigurations/ListConfiguration[@id='clockFont']")
@@ -60,8 +64,8 @@ class LayoutTest(unittest.TestCase):
             time = self.clock(choice)
             self.assertIn("IS_24_HOUR_MODE", time.find(".//Parameter").attrib["expression"])
             for style in ("full", "short", "iso"):
-                date = self.header.find(f"Condition/Compare[@expression='date_{style}']/PartText")
-                self.assertLess(int(date.attrib["y"]) + int(date.attrib["height"]), int(time.attrib["y"]))
+                for date in self.dates(style):
+                    self.assertLessEqual(int(date.attrib["y"]) + int(date.attrib["height"]), int(time.attrib["y"]))
 
     def test_centered_columns_clock_and_compact_rows(self):
         centers = []
@@ -185,7 +189,7 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test", "0.5.0-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
@@ -196,13 +200,18 @@ class LayoutTest(unittest.TestCase):
         self.assertGreaterEqual(DATE_SIZE / 28, 1.2)
         self.assertLessEqual(DATE_SIZE / 28, 1.4)
         for style in ("full", "short", "iso"):
-            part = self.header.find(f"Condition/Compare[@expression='date_{style}']/PartText")
-            self.assertEqual(int(part.find("Text/Font").attrib["size"]), DATE_SIZE)
-            self.assertEqual(int(part.attrib["x"]) + int(part.attrib["width"]) / 2, 225)
-        for month in ("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY",
-                      "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"):
-            for weekday in ("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"):
-                self.assertLessEqual(font.getlength(f"{weekday} 31 {month} 2026"), 390)
+            for part in self.dates(style):
+                for font_node in part.findall("Text/Font"):
+                    self.assertEqual(int(font_node.attrib["size"]), DATE_SIZE)
+                self.assertEqual(int(part.attrib["x"]) + int(part.attrib["width"]) / 2, 225)
+        for family in WEIGHTS.values():
+            font = ImageFont.truetype(str(RES / "font" / (family + ".ttf")), DATE_SIZE)
+            for month in ("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY",
+                          "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER",
+                          "ЯНВАРЯ", "ФЕВРАЛЯ", "МАРТА", "АПРЕЛЯ", "МАЯ", "ИЮНЯ", "ИЮЛЯ",
+                          "АВГУСТА", "СЕНТЯБРЯ", "ОКТЯБРЯ", "НОЯБРЯ", "ДЕКАБРЯ"):
+                for weekday in ("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"):
+                    self.assertLessEqual(font.getlength(f"{weekday} 31 {month} 2026"), 390)
 
     def test_wide_bottom_line_centers_label_and_value_together(self):
         slot = self.root.find("Scene/ComplicationSlot[@slotId='4']")
@@ -233,6 +242,76 @@ class LayoutTest(unittest.TestCase):
     def test_layout_generator_is_reproducible(self):
         expected = ET.fromstring(build())
         self.assertEqual(ET.tostring(expected), ET.tostring(self.root))
+
+    def test_new_typography_controls_and_defaults(self):
+        specs = (("captionWeight", "bold", WEIGHTS), ("captionCase", "initial", CASES),
+                 ("dateLanguage", "ru", LANGUAGES))
+        for key, default, options in specs:
+            config = self.root.find(f"UserConfigurations/ListConfiguration[@id='{key}']")
+            self.assertEqual(config.attrib["defaultValue"], default)
+            self.assertEqual([o.attrib["id"] for o in config], list(options))
+            for locale in ("values", "values-ru"):
+                strings = ET.parse(RES / locale / "strings.xml").getroot()
+                for name in [config.attrib["displayName"], *(o.attrib["displayName"] for o in config)]:
+                    self.assertIsNotNone(strings.find(f"string[@name='{name}']"))
+
+    def test_upper_header_and_values_are_not_styled(self):
+        baseline = ET.parse(ROOT / "versions/0.6.0-test/watchface.xml").getroot()
+        def fingerprint(node):
+            return (node.tag, node.attrib, (node.text or "").strip(), [fingerprint(c) for c in node])
+        for name in ("utc_time", "timezone", "battery_label", "battery_value", "ambient_time"):
+            previous = baseline.find(f"Scene/Group/PartText[@name='{name}']")
+            self.assertEqual(fingerprint(self.header.find(f"PartText[@name='{name}']")), fingerprint(previous))
+        for n in SLOTS:
+            for typ in ("SHORT_TEXT", "LONG_TEXT", "RANGED_VALUE", "GOAL_PROGRESS", "EMPTY"):
+                group = self.cell(n, typ)
+                old = baseline.find(f"Scene/ComplicationSlot[@slotId='{n}']/Complication[@type='{typ}']/Group")
+                if n != 4:
+                    self.assertEqual([fingerprint(c) for c in list(group)[1:]], [fingerprint(c) for c in list(old)[1:]])
+                else:
+                    for part in group.findall(".//PartText"):
+                        value = part.findall("Text/Font")[-1]
+                        self.assertEqual(value.attrib["family"], "terminal_mono")
+                        self.assertEqual(value.attrib["color"], "[CONFIGURATION.palette.1]")
+                        self.assertIsNone(value.find("Lower"))
+
+    def test_date_locales_icu_and_case_options(self):
+        for style in ("full", "short", "iso"):
+            self.assertEqual(len(self.dates(style)), 24)
+            for language, locale in LANGUAGES.items():
+                scope = self.header.find(f"Condition/Compare[@expression='date_{style}']/Condition/Compare[@expression='language_{language}']")
+                for weight in WEIGHTS:
+                    for case in CASES:
+                        part = scope.find(f"Condition/Compare[@expression='caption_{weight}_{case}']/PartText")
+                        localization = part.find("Localization").attrib
+                        self.assertEqual(localization["timeZone"], "SYNC_TO_DEVICE")
+                        self.assertEqual(localization.get("locales"), "en_US" if style == "iso" else locale)
+                        self.assertEqual(localization["calendar"], "GREGORIAN")
+                        fonts = part.findall("Text/Font")
+                        self.assertTrue(all(f.attrib["family"] == WEIGHTS[weight] for f in fonts))
+                        self.assertTrue(all("icuText(" in p.attrib["expression"] for p in part.findall(".//Parameter")))
+                        if case == "initial":
+                            self.assertEqual(len(fonts), 2)
+                            self.assertIsNotNone(fonts[0].find("Upper"))
+                            self.assertIsNotNone(fonts[1].find("Lower"))
+                            self.assertTrue(all("subText(" in p.attrib["expression"] for p in part.findall(".//Parameter")))
+                        elif case in ("upper", "lower"):
+                            self.assertIsNotNone(fonts[0].find("Upper" if case == "upper" else "Lower"))
+                        else:
+                            self.assertIsNotNone(fonts[0].find("Template"))
+
+    def test_bold_face_is_real_fixed_width_and_same_advance(self):
+        fonts = [TTFont(RES / "font" / (family + ".ttf")) for family in WEIGHTS.values()]
+        self.assertEqual(fonts[1]["OS/2"].usWeightClass, 700)
+        for font in fonts:
+            cmap = font.getBestCmap()
+            advances = {font["hmtx"][cmap[ord(c)]][0] for c in "ABCabcАБВабв012—%"}
+            self.assertEqual(advances, {986})
+            self.assertEqual(font["post"].isFixedPitch, 1)
+        for family in WEIGHTS.values():
+            font = ImageFont.truetype(str(RES / "font" / (family + ".ttf")), 30)
+            for item in LABELS:
+                self.assertLessEqual(font.getlength(item["text"]), 62)
 
 
 if __name__ == "__main__":

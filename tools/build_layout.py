@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 
 from build_layout_variants import text_part, condition, cell as legacy_cell
 from build_layout_variants import cell_geometry as legacy_geometry
+from typography import LANGUAGES, DATE_PATTERNS, configurations as typography_configurations, style_variants, style_labels
 
 ROOT = Path(__file__).resolve().parents[1]
 CLOCK_FONTS = {"block": "terminal_block", "dot": "terminal_dot", "mono": "clock_mono"}
@@ -29,17 +30,22 @@ def header():
                            align="CENTER", color=2))
     dates = condition([(f"date_{style}", f'[CONFIGURATION.dateStyle] == "{style}"')
                        for style in ("full", "short", "iso")])
-    formats = {"full": ("%s %02d %s %04d", ("[DAY_OF_WEEK_S]", "[DAY]", "[MONTH_F]", "[YEAR]")),
-               "short": ("%s %02d %s", ("[DAY_OF_WEEK_S]", "[DAY]", "[MONTH_S]")),
-               "iso": ("%04d-%02d-%02d", ("[YEAR]", "[MONTH]", "[DAY]"))}
-    for style, (template, parameters) in formats.items():
-        part = text_part(f"date_{style}", 30, 113, 390, 42, DATE_SIZE, template=template,
-                         parameters=parameters, align="CENTER", zone="SYNC_TO_DEVICE")
-        font = part.find("Text/Font")
-        template_node = font[0]
-        font.remove(template_node)
-        ET.SubElement(font, "Upper").append(template_node)
-        ET.SubElement(dates, "Compare", expression=f"date_{style}").append(part)
+    for style, pattern in DATE_PATTERNS.items():
+        languages = condition([(f"language_{language}", f'[CONFIGURATION.dateLanguage] == "{language}"')
+                               for language in LANGUAGES])
+        for language, locale in LANGUAGES.items():
+            part = text_part(f"date_{style}_{language}", 30, 112, 390, 44, DATE_SIZE, template="%s",
+                             parameters=(f'icuText("{pattern}")',), align="CENTER", zone="SYNC_TO_DEVICE")
+            localization = part.find("Localization")
+            localization.set("calendar", "GREGORIAN")
+            # ISO stays ASCII/Gregorian in every language; no system calendar or digit changes.
+            if style == "iso" or locale:
+                localization.set("locales", "en_US" if style == "iso" else locale)
+            else:
+                localization.attrib.pop("locales", None)
+            part.find("Text").set("maxLines", "1")
+            ET.SubElement(languages, "Compare", expression=f"language_{language}").append(style_variants(part))
+        ET.SubElement(dates, "Compare", expression=f"date_{style}").append(languages)
     group.append(dates)
     choices = condition([(f"clock_font_{choice}", f'[CONFIGURATION.clockFont] == "{choice}"')
                          for choice in CLOCK_FONTS])
@@ -90,6 +96,7 @@ def cell(original, slot, complication_type):
     group.set("name", f"cell_{slot}_{complication_type}")
     group.set("y", str(geometry["y"]))
     group.set("height", str(geometry["height"]))
+    style_labels(group)
     return group
 
 
@@ -135,6 +142,7 @@ def wide_cell(original, complication_type):
                     text.insert(1, space)
             branch.append(value)
     group.append(labels)
+    style_labels(group, rich=True)
     return group
 
 
@@ -146,6 +154,8 @@ def build():
     for choice in CLOCK_FONTS:
         ET.SubElement(fonts, "ListOption", id=choice, displayName=f"clock_font_{choice}_name", icon=f"clock_font_{choice}_icon")
     configurations.insert(0, fonts)
+    for index, config in enumerate(typography_configurations(), start=1):
+        configurations.insert(index, config)
     previous_scene = root.find("Scene")
     scene = ET.Element("Scene", backgroundColor="#FF000000")
     scene.append(header())
@@ -158,7 +168,7 @@ def build():
         new_slot = ET.SubElement(scene, "ComplicationSlot", attributes)
         new_slot.append(deepcopy(old_slot.find("Variant")))
         ET.SubElement(new_slot, "BoundingBox", x="82" if slot == 4 else str(232 if right else 48),
-                      y=str(ROWS[row]), width="286" if slot == 4 else "184", height="42" if slot == 4 else "36")
+                      y=str(ROWS[row] + 6), width="286" if slot == 4 else "184", height="36")
         new_slot.append(deepcopy(old_slot.find("DefaultProviderPolicy")))
         for original in old_slot.findall("Complication"):
             complication_type = original.attrib["type"]
