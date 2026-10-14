@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="palette_name">Цветовая тема</string>
+  <string name="background_mode_name">Фон</string>
+  <string name="background_theme_name">Фон темы</string>
+  <string name="background_amoled_name">AMOLED — чёрный</string>
   <string name="clock_font_name">Шрифт часов</string>
   <string name="clock_font_block_name">Блочный — терминальные пиксели</string>
   <string name="clock_font_dot_name">Точечный — пиксельная матрица</string>

@@ -84,12 +84,16 @@ def main():
                 files[name] = ROOT / "docs" / name
         files["font-comparison.png"] = ROOT / "docs/font-comparison.png"
     palette_config = ET.parse(wff).getroot().find("UserConfigurations/ColorConfiguration[@id='palette']")
+    background_config = ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='backgroundMode']")
     if palette_config is not None and len(palette_config) > 3:
         for option in palette_config:
-            for suffix in ("", "-ambient"):
+            suffixes = ("", "-ambient", "-amoled") if background_config is not None else ("", "-ambient")
+            for suffix in suffixes:
                 name = f"palette-{option.attrib['id']}{suffix}.png"
                 files[name] = ROOT / "docs" / name
         files["palette-comparison.png"] = ROOT / "docs/palette-comparison.png"
+        if background_config is not None:
+            files["palette-amoled-comparison.png"] = ROOT / "docs/palette-amoled-comparison.png"
     for source in files.values():
         if not source.is_file():
             raise SystemExit(f"Missing artifact: {source}")

@@ -20,6 +20,10 @@
       <ColorOption id="monokai" displayName="palette_monokai" colors="#FF66D9EF #FFA6E22E #FFF8F8F2 #FF272822" />
       <ColorOption id="tokyo_night" displayName="palette_tokyo_night" colors="#FF7AA2F7 #FFBB9AF7 #FFC0CAF5 #FF1A1B26" />
     </ColorConfiguration>
+    <ListConfiguration id="backgroundMode" displayName="background_mode_name" defaultValue="theme">
+      <ListOption id="theme" displayName="background_theme_name" icon="background_theme_icon" />
+      <ListOption id="amoled" displayName="background_amoled_name" icon="background_amoled_icon" />
+    </ListConfiguration>
     <ListConfiguration id="dateStyle" displayName="date_style_name" defaultValue="full">
       <ListOption id="full" displayName="date_full" icon="date_full_icon" />
       <ListOption id="short" displayName="date_short" icon="date_short_icon" />
@@ -29,12 +33,19 @@
     <BooleanConfiguration id="seconds" displayName="seconds_name" defaultValue="TRUE" />
   </UserConfigurations>
   <Scene backgroundColor="#FF000000">
-    <PartDraw name="theme_background" x="0" y="0" width="450" height="450">
-      <Variant mode="AMBIENT" target="alpha" value="0" />
-      <Rectangle x="0" y="0" width="450" height="450">
-        <Fill color="[CONFIGURATION.palette.3]" />
-      </Rectangle>
-    </PartDraw>
+    <Condition>
+      <Expressions>
+        <Expression name="show_theme_background">[CONFIGURATION.backgroundMode] == "theme"</Expression>
+      </Expressions>
+      <Compare expression="show_theme_background">
+        <PartDraw name="theme_background" x="0" y="0" width="450" height="450">
+          <Variant mode="AMBIENT" target="alpha" value="0" />
+          <Rectangle x="0" y="0" width="450" height="450">
+            <Fill color="[CONFIGURATION.palette.3]" />
+          </Rectangle>
+        </PartDraw>
+      </Compare>
+    </Condition>
     <Group name="header" x="0" y="0" width="450" height="450">
       <PartText x="65" y="38" width="180" height="34" name="utc_time" tintColor="[CONFIGURATION.palette.0]">
         <Localization locales="en_US" timeZone="UTC" />

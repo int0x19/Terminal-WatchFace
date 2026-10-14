@@ -34,6 +34,7 @@ class LayoutTest(unittest.TestCase):
         cls.baseline = ET.parse(ROOT / "versions/0.3.0/watchface.xml").getroot()
         cls.approved = ET.parse(ROOT / "versions/0.6.1-rollback/watchface.xml").getroot()
         cls.fast = ET.parse(ROOT / "versions/0.6.2-fixed-labels-test/watchface.xml").getroot()
+        cls.themes = ET.parse(ROOT / "versions/0.8.0-test/watchface.xml").getroot()
         cls.header = cls.root.find("Scene/Group[@name='header']")
 
     def cell(self, n, complication_type):
@@ -143,7 +144,7 @@ class LayoutTest(unittest.TestCase):
     def test_existing_configuration_ids_preserved(self):
         expected_ids = {item.attrib["id"] for item in self.baseline.find("UserConfigurations")
                         if not item.attrib["id"].startswith("label")}
-        expected_ids.add("clockFont")
+        expected_ids.update(("clockFont", "backgroundMode"))
         self.assertEqual({item.attrib["id"] for item in self.root.find("UserConfigurations")}, expected_ids)
         for old in self.baseline.find("UserConfigurations"):
             if old.attrib["id"].startswith("label"):
@@ -163,8 +164,8 @@ class LayoutTest(unittest.TestCase):
             self.assertEqual(ET.tostring(current_copy), ET.tostring(old_copy))
 
     def test_fixed_provider_labels_without_manual_configuration(self):
-        self.assertEqual(len(self.root.find("UserConfigurations")), 4)
-        self.assertEqual(len(self.root.findall("UserConfigurations/ListConfiguration/ListOption")), 7)
+        self.assertEqual(len(self.root.find("UserConfigurations")), 5)
+        self.assertEqual(len(self.root.findall("UserConfigurations/ListConfiguration/ListOption")), 9)
         self.assertNotIn("[CONFIGURATION.label", (RES / "raw/watchface.xml").read_text())
         for n in SLOTS:
             for complication_type in ("SHORT_TEXT", "LONG_TEXT", "RANGED_VALUE", "GOAL_PROGRESS", "EMPTY"):
@@ -235,7 +236,7 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test", "0.8.0-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
@@ -273,14 +274,37 @@ class LayoutTest(unittest.TestCase):
 
     def test_background_is_one_vector_hidden_in_ambient(self):
         scene = self.root.find("Scene")
-        background = scene[0]
+        selection = scene[0]
+        self.assertEqual(selection.tag, "Condition")
+        self.assertEqual([(e.attrib["name"], e.text) for e in selection.find("Expressions")],
+                         [("show_theme_background", '[CONFIGURATION.backgroundMode] == "theme"')])
+        self.assertEqual(len(selection.findall("Compare")), 1)
+        self.assertIsNone(selection.find("Default"))
+        background = selection.find("Compare[@expression='show_theme_background']/PartDraw")
         self.assertEqual(scene.attrib["backgroundColor"], "#FF000000")
         self.assertEqual(background.tag, "PartDraw")
         self.assertEqual(background.attrib, {"name": "theme_background", "x": "0", "y": "0", "width": "450", "height": "450"})
         self.assertEqual(background.find("Rectangle/Fill").attrib["color"], "[CONFIGURATION.palette.3]")
         self.assertEqual(background.find("Variant").attrib, {"mode": "AMBIENT", "target": "alpha", "value": "0"})
+        self.assertEqual(structure(background), structure(self.themes.find("Scene/PartDraw")))
+        self.assertEqual(len(scene.findall(".//PartDraw")), 1)
         self.assertEqual([structure(element) for element in list(scene)[1:]],
                          [structure(element) for element in self.fast.find("Scene")])
+
+    def test_background_setting_is_independent_and_existing_options_unchanged(self):
+        config = self.root.find("UserConfigurations/ListConfiguration[@id='backgroundMode']")
+        self.assertEqual(config.attrib["defaultValue"], "theme")
+        self.assertEqual([option.attrib["id"] for option in config], ["theme", "amoled"])
+        for locale in ("values", "values-ru"):
+            strings = ET.parse(RES / locale / "strings.xml").getroot()
+            for name in [config.attrib["displayName"], *(o.attrib["displayName"] for o in config)]:
+                self.assertTrue(strings.find(f"string[@name='{name}']").text)
+        for old in self.themes.find("UserConfigurations"):
+            current = self.root.find(f"UserConfigurations/{old.tag}[@id='{old.attrib['id']}']")
+            self.assertEqual(structure(current), structure(old))
+        references = [node.text for node in self.root.findall(".//Expression")
+                      if "CONFIGURATION.backgroundMode" in (node.text or "")]
+        self.assertEqual(references, ['[CONFIGURATION.backgroundMode] == "theme"'])
 
     def test_theme_foregrounds_have_readable_contrast(self):
         def luminance(color):
@@ -304,7 +328,35 @@ class LayoutTest(unittest.TestCase):
                     self.assertEqual(preview.tobytes(), render_preview(ambient=ambient, palette_id=choice).tobytes())
                     expected = (0, 0, 0) if ambient else tuple(int(palette["background"][i:i + 2], 16) for i in (1, 3, 5))
                     self.assertEqual(preview.getpixel((225, 14)), expected)
+                name = f"palette-{choice}{suffix}.png"
+                self.assertEqual((ROOT / "docs" / name).read_bytes(),
+                                 (ROOT / "versions/0.8.0-test" / name).read_bytes())
         with Image.open(ROOT / "docs/palette-comparison.png") as comparison:
+            self.assertEqual(comparison.size, (1500, 664))
+
+    def test_amoled_for_all_themes_and_clock_fonts_with_same_ambient(self):
+        for palette in PALETTES:
+            choice = palette["id"]
+            with Image.open(ROOT / f"docs/palette-{choice}-amoled.png") as preview:
+                self.assertEqual(preview.size, (450, 450))
+                self.assertEqual(preview.tobytes(),
+                                 render_preview(palette_id=choice, background_mode="amoled").tobytes())
+            for clock in CLOCK_FONTS:
+                with self.subTest(palette=choice, clock=clock):
+                    theme = render_preview(palette_id=choice, clock_font=clock, background_mode="theme")
+                    amoled = render_preview(palette_id=choice, clock_font=clock, background_mode="amoled")
+                    self.assertEqual(amoled.getpixel((225, 14)), (0, 0, 0))
+                    if palette["background"] == "#000000":
+                        self.assertEqual(theme.tobytes(), amoled.tobytes())
+                    else:
+                        self.assertNotEqual(theme.tobytes(), amoled.tobytes())
+                    theme_ambient = render_preview(ambient=True, palette_id=choice,
+                                                   clock_font=clock, background_mode="theme")
+                    amoled_ambient = render_preview(ambient=True, palette_id=choice,
+                                                    clock_font=clock, background_mode="amoled")
+                    self.assertEqual(theme_ambient.getpixel((225, 14)), (0, 0, 0))
+                    self.assertEqual(theme_ambient.tobytes(), amoled_ambient.tobytes())
+        with Image.open(ROOT / "docs/palette-amoled-comparison.png") as comparison:
             self.assertEqual(comparison.size, (1500, 664))
 
     def test_larger_date_fits_all_english_months(self):

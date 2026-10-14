@@ -226,7 +226,8 @@ def build_editor_icons():
     captions = {"TITLE": ("AUTO", "PROVIDER"), "NONE": ("NONE", "NO LABEL"),
                 "full": ("FULL", "DATE"), "short": ("SHORT", "DATE"),
                 "iso": ("ISO", "2026-09-08"), "hidden": ("NONE", "NO DATE"),
-                "block": ("12:34", "BLOCK"), "dot": ("12:34", "DOT"), "mono": ("12:34", "MONO")}
+                "block": ("12:34", "BLOCK"), "dot": ("12:34", "DOT"), "mono": ("12:34", "MONO"),
+                "theme": ("THEME", "BACKGROUND"), "amoled": ("BLACK", "AMOLED")}
     captions.update({item["id"]: (item["text"], item["iconText"]) for item in LABELS})
     icons = {}
     font_path = RES / "font/terminal_mono.ttf"
@@ -263,7 +264,7 @@ def build_battery_icon():
     icon.save(RES / "drawable/battery_status.png")
 
 
-def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None):
+def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None, background_mode=None):
     """A small layout renderer, not a substitute for the Wear OS renderer."""
     root = ET.parse(RES / "raw/watchface.xml").getroot()
     scale = 3
@@ -276,6 +277,10 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None)
         config["clockFont"] = clock_font
     if palette_id is not None:
         config["palette"] = palette_id
+    if background_mode is not None:
+        if background_mode not in ("theme", "amoled"):
+            raise ValueError(f"Unknown background mode: {background_mode}")
+        config["backgroundMode"] = background_mode
     selected_palette = root.find(f"UserConfigurations/ColorConfiguration[@id='palette']/ColorOption[@id='{config['palette']}']")
     palette = ["#" + color[-6:] for color in selected_palette.attrib["colors"].split()]
     reference = ["33°C", "34° / 21°", "0.79 KM", "27 KCAL", "1190", "8000", "84 BPM", "NE 3.1 M/S"]
@@ -314,6 +319,10 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None)
         tag = element.tag
         if tag == "Condition":
             first_name = element.find("Expressions/Expression").attrib["name"]
+            if first_name == "show_theme_background":
+                if config["backgroundMode"] == "theme":
+                    visit(element.find("Compare[@expression='show_theme_background']"), offset, slot)
+                return
             if first_name == "show_ampm":
                 return  # Reference preview uses 24-hour time.
             if first_name.startswith("clock_font_"):
@@ -443,6 +452,7 @@ def build_palette_previews():
     width, height, columns = 300, 332, 5
     rows = (len(PALETTES) + columns - 1) // columns
     comparison = Image.new("RGB", (width * columns, height * rows), "#080D0B")
+    amoled_comparison = Image.new("RGB", comparison.size, "#080D0B")
     font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), 21)
     for index, palette in enumerate(PALETTES):
         choice = palette["id"]
@@ -453,7 +463,13 @@ def build_palette_previews():
         comparison.paste(active.resize((300, 300), Image.Resampling.LANCZOS), (x, y + 32))
         ImageDraw.Draw(comparison).text((x + width / 2, y + 17), palette["name"], font=font,
                                        fill="#F2FFF1", anchor="mm")
+        amoled = render_preview(palette_id=choice, background_mode="amoled")
+        amoled.save(ROOT / f"docs/palette-{choice}-amoled.png")
+        amoled_comparison.paste(amoled.resize((300, 300), Image.Resampling.LANCZOS), (x, y + 32))
+        ImageDraw.Draw(amoled_comparison).text((x + width / 2, y + 17), palette["name"], font=font,
+                                              fill="#F2FFF1", anchor="mm")
     comparison.save(ROOT / "docs/palette-comparison.png")
+    amoled_comparison.save(ROOT / "docs/palette-amoled-comparison.png")
 
 
 if __name__ == "__main__":

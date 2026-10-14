@@ -2,6 +2,9 @@
 <resources>
   <string name="watch_face_name" translatable="false">Terminal Face</string>
   <string name="palette_name">Colour theme</string>
+  <string name="background_mode_name">Background</string>
+  <string name="background_theme_name">Theme background</string>
+  <string name="background_amoled_name">AMOLED — black</string>
   <string name="clock_font_name">Clock font</string>
   <string name="clock_font_block_name">Block — terminal pixels</string>
   <string name="clock_font_dot_name">Dot — pixel matrix</string>

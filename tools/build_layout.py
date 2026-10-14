@@ -169,13 +169,22 @@ def build():
     for item in PALETTES:
         ET.SubElement(palette, "ColorOption", id=item["id"], displayName=f"palette_{item['id']}",
                       colors=wff_colors(item))
+    background_mode = ET.Element("ListConfiguration", id="backgroundMode",
+                                 displayName="background_mode_name", defaultValue="theme")
+    for choice in ("theme", "amoled"):
+        ET.SubElement(background_mode, "ListOption", id=choice,
+                      displayName=f"background_{choice}_name", icon=f"background_{choice}_icon")
+    configurations.insert(list(configurations).index(palette) + 1, background_mode)
     fonts = ET.Element("ListConfiguration", id="clockFont", displayName="clock_font_name", defaultValue="block")
     for choice in CLOCK_FONTS:
         ET.SubElement(fonts, "ListOption", id=choice, displayName=f"clock_font_{choice}_name", icon=f"clock_font_{choice}_icon")
     configurations.insert(0, fonts)
     previous_scene = root.find("Scene")
     scene = ET.Element("Scene", backgroundColor="#FF000000")
-    background = ET.SubElement(scene, "PartDraw", name="theme_background", x="0", y="0", width="450", height="450")
+    background_choice = condition([("show_theme_background", '[CONFIGURATION.backgroundMode] == "theme"')])
+    scene.append(background_choice)
+    branch = ET.SubElement(background_choice, "Compare", expression="show_theme_background")
+    background = ET.SubElement(branch, "PartDraw", name="theme_background", x="0", y="0", width="450", height="450")
     ET.SubElement(background, "Variant", mode="AMBIENT", target="alpha", value="0")
     rectangle = ET.SubElement(background, "Rectangle", x="0", y="0", width="450", height="450")
     ET.SubElement(rectangle, "Fill", color="[CONFIGURATION.palette.3]")
