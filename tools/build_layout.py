@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the 0.6 layout with provider-only labels for editor performance testing."""
+"""Generate the approved 0.6 geometry with AUTO labels and terminal color themes."""
 import argparse
 from copy import deepcopy
 from pathlib import Path
@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 
 from build_layout_variants import text_part, condition, cell as legacy_cell
 from build_layout_variants import cell_geometry as legacy_geometry
+from palettes import PALETTES, wff_colors
 
 ROOT = Path(__file__).resolve().parents[1]
 CLOCK_FONTS = {"block": "terminal_block", "dot": "terminal_dot", "mono": "clock_mono"}
@@ -162,12 +163,22 @@ def build():
     for configuration in list(configurations):
         if configuration.attrib["id"].startswith("label"):
             configurations.remove(configuration)
+    palette = configurations.find("ColorConfiguration[@id='palette']")
+    for option in list(palette):
+        palette.remove(option)
+    for item in PALETTES:
+        ET.SubElement(palette, "ColorOption", id=item["id"], displayName=f"palette_{item['id']}",
+                      colors=wff_colors(item))
     fonts = ET.Element("ListConfiguration", id="clockFont", displayName="clock_font_name", defaultValue="block")
     for choice in CLOCK_FONTS:
         ET.SubElement(fonts, "ListOption", id=choice, displayName=f"clock_font_{choice}_name", icon=f"clock_font_{choice}_icon")
     configurations.insert(0, fonts)
     previous_scene = root.find("Scene")
     scene = ET.Element("Scene", backgroundColor="#FF000000")
+    background = ET.SubElement(scene, "PartDraw", name="theme_background", x="0", y="0", width="450", height="450")
+    ET.SubElement(background, "Variant", mode="AMBIENT", target="alpha", value="0")
+    rectangle = ET.SubElement(background, "Rectangle", x="0", y="0", width="450", height="450")
+    ET.SubElement(rectangle, "Fill", color="[CONFIGURATION.palette.3]")
     scene.append(header())
     for old_slot in previous_scene.findall("ComplicationSlot"):
         slot = int(old_slot.attrib["slotId"])
@@ -194,4 +205,4 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     args.output.write_text(build())
-    print(f"Generated 0.6 test layout with fixed AUTO labels: {args.output}")
+    print(f"Generated terminal-theme layout with AUTO labels: {args.output}")

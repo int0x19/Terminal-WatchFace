@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Checks for the fixed-label experiment and unchanged 0.6 layout/providers."""
+"""Checks for terminal themes, AUTO labels and unchanged 0.6 layout/providers."""
 import hashlib
 import json
 from copy import deepcopy
@@ -11,6 +11,8 @@ import xml.etree.ElementTree as ET
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageFont
 from build_layout import CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, cell_geometry, build
+from palettes import PALETTES, PALETTE_ROLES, palette_colors, wff_colors
+from rebuild_assets import render_preview
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "watchface/src/main/res"
@@ -31,6 +33,7 @@ class LayoutTest(unittest.TestCase):
         cls.root = ET.parse(RES / "raw/watchface.xml").getroot()
         cls.baseline = ET.parse(ROOT / "versions/0.3.0/watchface.xml").getroot()
         cls.approved = ET.parse(ROOT / "versions/0.6.1-rollback/watchface.xml").getroot()
+        cls.fast = ET.parse(ROOT / "versions/0.6.2-fixed-labels-test/watchface.xml").getroot()
         cls.header = cls.root.find("Scene/Group[@name='header']")
 
     def cell(self, n, complication_type):
@@ -147,6 +150,14 @@ class LayoutTest(unittest.TestCase):
                 self.assertIsNone(self.root.find(f"UserConfigurations/ListConfiguration[@id='{old.attrib['id']}']"))
                 continue
             current = self.root.find(f"UserConfigurations/{old.tag}[@id='{old.attrib['id']}']")
+            if old.attrib["id"] == "palette":
+                self.assertEqual(current.attrib, old.attrib)
+                for old_option in old:
+                    option = current.find(f"ColorOption[@id='{old_option.attrib['id']}']")
+                    self.assertEqual(option.attrib["displayName"], old_option.attrib["displayName"])
+                    self.assertEqual(option.attrib["colors"].split()[:3], old_option.attrib["colors"].split())
+                    self.assertEqual(option.attrib["colors"].split()[3], "#FF000000")
+                continue
             old_copy, current_copy = deepcopy(old), deepcopy(current)
             old_copy.tail = current_copy.tail = None
             self.assertEqual(ET.tostring(current_copy), ET.tostring(old_copy))
@@ -224,7 +235,7 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.7.0-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
@@ -244,6 +255,57 @@ class LayoutTest(unittest.TestCase):
         current_fonts = {hashlib.sha256(path.read_bytes()).hexdigest() for path in (RES / "font").glob("*.ttf")}
         self.assertEqual(len(current_fonts), 4)
         self.assertEqual(current_fonts, saved_fonts)
+
+    def test_ten_themes_in_one_color_setting(self):
+        config = self.root.find("UserConfigurations/ColorConfiguration[@id='palette']")
+        self.assertEqual(config.attrib["defaultValue"], "terminal")
+        self.assertEqual(len(PALETTES), 10)
+        self.assertEqual(len({p["id"] for p in PALETTES}), 10)
+        self.assertEqual([option.attrib["id"] for option in config], [p["id"] for p in PALETTES])
+        for option, palette in zip(config, PALETTES):
+            self.assertEqual(option.attrib["colors"], wff_colors(palette))
+            self.assertEqual(len(option.attrib["colors"].split()), 4)
+            for role in PALETTE_ROLES:
+                self.assertRegex(palette[role], r"^#[0-9A-F]{6}$")
+            for locale in ("values", "values-ru"):
+                strings = ET.parse(RES / locale / "strings.xml").getroot()
+                self.assertTrue(strings.find(f"string[@name='{option.attrib['displayName']}']").text)
+
+    def test_background_is_one_vector_hidden_in_ambient(self):
+        scene = self.root.find("Scene")
+        background = scene[0]
+        self.assertEqual(scene.attrib["backgroundColor"], "#FF000000")
+        self.assertEqual(background.tag, "PartDraw")
+        self.assertEqual(background.attrib, {"name": "theme_background", "x": "0", "y": "0", "width": "450", "height": "450"})
+        self.assertEqual(background.find("Rectangle/Fill").attrib["color"], "[CONFIGURATION.palette.3]")
+        self.assertEqual(background.find("Variant").attrib, {"mode": "AMBIENT", "target": "alpha", "value": "0"})
+        self.assertEqual([structure(element) for element in list(scene)[1:]],
+                         [structure(element) for element in self.fast.find("Scene")])
+
+    def test_theme_foregrounds_have_readable_contrast(self):
+        def luminance(color):
+            rgb = [int(color[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+            linear = [channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4
+                      for channel in rgb]
+            return sum(channel * weight for channel, weight in zip(linear, (0.2126, 0.7152, 0.0722)))
+        for palette in PALETTES:
+            for background in (palette["background"], "#000000"):
+                for foreground in palette_colors(palette)[:3]:
+                    light, dark = sorted((luminance(foreground), luminance(background)), reverse=True)
+                    self.assertGreaterEqual((light + 0.05) / (dark + 0.05), 4.5,
+                                            (palette["id"], foreground, background))
+
+    def test_each_theme_preview_matches_wff_and_ambient_is_black(self):
+        for palette in PALETTES:
+            choice = palette["id"]
+            for ambient, suffix in ((False, ""), (True, "-ambient")):
+                with Image.open(ROOT / f"docs/palette-{choice}{suffix}.png") as preview:
+                    self.assertEqual(preview.size, (450, 450))
+                    self.assertEqual(preview.tobytes(), render_preview(ambient=ambient, palette_id=choice).tobytes())
+                    expected = (0, 0, 0) if ambient else tuple(int(palette["background"][i:i + 2], 16) for i in (1, 3, 5))
+                    self.assertEqual(preview.getpixel((225, 14)), expected)
+        with Image.open(ROOT / "docs/palette-comparison.png") as comparison:
+            self.assertEqual(comparison.size, (1500, 664))
 
     def test_larger_date_fits_all_english_months(self):
         font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), DATE_SIZE)

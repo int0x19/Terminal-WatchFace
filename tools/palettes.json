@@ -1,0 +1,12 @@
+[
+  {"id":"terminal", "name":"Terminal green", "label":"#80F5BA", "value":"#FFC985", "foreground":"#F2FFF1", "background":"#000000"},
+  {"id":"ice", "name":"Ice blue", "label":"#7DCFFF", "value":"#BFDFFF", "foreground":"#FFFFFF", "background":"#000000"},
+  {"id":"amber", "name":"Amber", "label":"#FFB858", "value":"#FFDDA8", "foreground":"#FFF3D8", "background":"#000000"},
+  {"id":"tango", "name":"Tango Dark", "label":"#8AE234", "value":"#FCE94F", "foreground":"#EEEEEC", "background":"#2E3436", "source":"https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/foot/Builtin%20Tango%20Dark.ini"},
+  {"id":"solarized", "name":"Solarized Dark", "label":"#2AA198", "value":"#B58900", "foreground":"#93A1A1", "background":"#002B36", "source":"https://ethanschoonover.com/solarized/"},
+  {"id":"dracula", "name":"Dracula", "label":"#BD93F9", "value":"#50FA7B", "foreground":"#F8F8F2", "background":"#282A36", "source":"https://draculatheme.com/contribute"},
+  {"id":"gruvbox", "name":"Gruvbox Dark", "label":"#B8BB26", "value":"#FABD2F", "foreground":"#EBDBB2", "background":"#282828", "source":"https://github.com/morhetz/gruvbox/blob/master/colors/gruvbox.vim"},
+  {"id":"nord", "name":"Nord", "label":"#88C0D0", "value":"#EBCB8B", "foreground":"#ECEFF4", "background":"#2E3440", "source":"https://www.nordtheme.com/docs/colors-and-palettes/"},
+  {"id":"monokai", "name":"Monokai", "label":"#66D9EF", "value":"#A6E22E", "foreground":"#F8F8F2", "background":"#272822", "source":"https://github.com/microsoft/vscode/blob/main/extensions/theme-monokai/themes/monokai-color-theme.json"},
+  {"id":"tokyo_night", "name":"Tokyo Night", "label":"#7AA2F7", "value":"#BB9AF7", "foreground":"#C0CAF5", "background":"#1A1B26", "source":"https://github.com/folke/tokyonight.nvim/blob/main/extras/kitty/tokyonight_night.conf"}
+]

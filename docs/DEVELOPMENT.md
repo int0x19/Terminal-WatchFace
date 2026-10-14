@@ -2,10 +2,11 @@
 
 ## Зафиксированный предварительный дизайн
 
-Текущая тестовая сборка: 0.6.2-fixed-labels-test, ветка `test/fixed-complication-labels`.
-На основе 0.6.1-rollback убран ручной выбор подписей: все семь работают в AUTO.
-Основная ветка `feat/terminal-face` не изменена. План сравнения времени открытия
-редактора: [FIXED-LABELS-TEST.md](FIXED-LABELS-TEST.md).
+Текущая сборка: 0.8.0-test, основная ветка циферблата `feat/terminal-face`.
+Пользователь подтвердил значительно более быстрое открытие редактора в AUTO-версии
+и выбрал её основной. Добавлено семь терминальных схем, всего десять тем:
+[COLOR-THEMES.md](COLOR-THEMES.md). Отдельная тестовая ветка и отчёт сохранены:
+[FIXED-LABELS-TEST.md](FIXED-LABELS-TEST.md).
 Согласованная шапка A+B и три шрифта сохранены. Следующий шаг — тест
 на часах: [COMBINED-LAYOUT.md](COMBINED-LAYOUT.md).
 Прежние A/B/C сохранены в 0.4.0-test: [LAYOUT-TEST.md](LAYOUT-TEST.md).

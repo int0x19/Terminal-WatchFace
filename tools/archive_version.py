@@ -83,6 +83,13 @@ def main():
                 name = f"font-{option.attrib['id']}{suffix}.png"
                 files[name] = ROOT / "docs" / name
         files["font-comparison.png"] = ROOT / "docs/font-comparison.png"
+    palette_config = ET.parse(wff).getroot().find("UserConfigurations/ColorConfiguration[@id='palette']")
+    if palette_config is not None and len(palette_config) > 3:
+        for option in palette_config:
+            for suffix in ("", "-ambient"):
+                name = f"palette-{option.attrib['id']}{suffix}.png"
+                files[name] = ROOT / "docs" / name
+        files["palette-comparison.png"] = ROOT / "docs/palette-comparison.png"
     for source in files.values():
         if not source.is_file():
             raise SystemExit(f"Missing artifact: {source}")

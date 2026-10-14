@@ -16,6 +16,7 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFont
 from labels import LABELS, LABEL_TEXT
+from palettes import PALETTES
 
 ROOT = Path(__file__).resolve().parents[1]
 RES = ROOT / "watchface/src/main/res"
@@ -262,7 +263,7 @@ def build_battery_icon():
     icon.save(RES / "drawable/battery_status.png")
 
 
-def render_preview(ambient=False, layout=None, clock_font=None):
+def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None):
     """A small layout renderer, not a substitute for the Wear OS renderer."""
     root = ET.parse(RES / "raw/watchface.xml").getroot()
     scale = 3
@@ -273,7 +274,10 @@ def render_preview(ambient=False, layout=None, clock_font=None):
         config["layout"] = layout
     if clock_font is not None:
         config["clockFont"] = clock_font
-    palette = ["#80F5BA", "#FFC985", "#F2FFF1"]
+    if palette_id is not None:
+        config["palette"] = palette_id
+    selected_palette = root.find(f"UserConfigurations/ColorConfiguration[@id='palette']/ColorOption[@id='{config['palette']}']")
+    palette = ["#" + color[-6:] for color in selected_palette.attrib["colors"].split()]
     reference = ["33°C", "34° / 21°", "0.79 KM", "27 KCAL", "1190", "8000", "84 BPM", "NE 3.1 M/S"]
     titles = ["TEMP", "H/L", "DIST", "CAL", "STEP", "GOAL", "HR", "WIND"]
     sources = {"HOUR_0_23": 14, "HOUR_1_12": 2, "MINUTE": 34, "SECOND": 39,
@@ -347,8 +351,18 @@ def render_preview(ambient=False, layout=None, clock_font=None):
             complication_type = "LONG_TEXT" if len(reference[slot - 1]) > 8 else "SHORT_TEXT"
             visit(element.find(f"Complication[@type='{complication_type}']"), offset, slot)
             return
-        if tag == "Group":
+        if tag in {"Group", "PartDraw"}:
             offset = (offset[0] + int(element.attrib.get("x", 0)), offset[1] + int(element.attrib.get("y", 0)))
+        if tag == "Rectangle":
+            fill = element.find("Fill")
+            if fill is not None:
+                color = fill.attrib["color"]
+                if color.startswith("[CONFIGURATION.palette."):
+                    color = palette[int(color[-2])]
+                x, y = (offset[0] + float(element.attrib["x"])) * scale, (offset[1] + float(element.attrib["y"])) * scale
+                w, h = float(element.attrib["width"]) * scale, float(element.attrib["height"]) * scale
+                draw.rectangle((x, y, x + w, y + h), fill=color)
+            return
         if tag == "PartImage":
             if element.find("Image").attrib["resource"] == "battery_status":
                 x = (offset[0] + int(element.attrib["x"])) * scale
@@ -424,6 +438,24 @@ def render_preview(ambient=False, layout=None, clock_font=None):
     return image
 
 
+def build_palette_previews():
+    """Preview actual WFF themes; comparison files are not installed editor icons."""
+    width, height, columns = 300, 332, 5
+    rows = (len(PALETTES) + columns - 1) // columns
+    comparison = Image.new("RGB", (width * columns, height * rows), "#080D0B")
+    font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), 21)
+    for index, palette in enumerate(PALETTES):
+        choice = palette["id"]
+        active = render_preview(palette_id=choice)
+        active.save(ROOT / f"docs/palette-{choice}.png")
+        render_preview(ambient=True, palette_id=choice).save(ROOT / f"docs/palette-{choice}-ambient.png")
+        x, y = (index % columns) * width, (index // columns) * height
+        comparison.paste(active.resize((300, 300), Image.Resampling.LANCZOS), (x, y + 32))
+        ImageDraw.Draw(comparison).text((x + width / 2, y + 17), palette["name"], font=font,
+                                       fill="#F2FFF1", anchor="mm")
+    comparison.save(ROOT / "docs/palette-comparison.png")
+
+
 if __name__ == "__main__":
     build_font("terminal_dot", 28)
     build_font("terminal_block", 0)
@@ -465,4 +497,5 @@ if __name__ == "__main__":
                                            ("1  BLOCK", "2  DOT", "3  MONO")[index],
                                            font=font, fill="#80F5BA", anchor="mm")
         comparison.save(ROOT / "docs/font-comparison.png")
+    build_palette_previews()
     print("Generated fonts, editor thumbnails and previews. Preview values are illustrative only.")

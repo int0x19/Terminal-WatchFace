@@ -9,9 +9,16 @@
       <ListOption id="mono" displayName="clock_font_mono_name" icon="clock_font_mono_icon" />
     </ListConfiguration>
     <ColorConfiguration id="palette" displayName="palette_name" defaultValue="terminal">
-      <ColorOption id="terminal" displayName="palette_terminal" colors="#FF80F5BA #FFFFC985 #FFF2FFF1" />
-      <ColorOption id="ice" displayName="palette_ice" colors="#FF7DCFFF #FFBFDFFF #FFFFFFFF" />
-      <ColorOption id="amber" displayName="palette_amber" colors="#FFFFB858 #FFFFDDA8 #FFFFF3D8" />
+      <ColorOption id="terminal" displayName="palette_terminal" colors="#FF80F5BA #FFFFC985 #FFF2FFF1 #FF000000" />
+      <ColorOption id="ice" displayName="palette_ice" colors="#FF7DCFFF #FFBFDFFF #FFFFFFFF #FF000000" />
+      <ColorOption id="amber" displayName="palette_amber" colors="#FFFFB858 #FFFFDDA8 #FFFFF3D8 #FF000000" />
+      <ColorOption id="tango" displayName="palette_tango" colors="#FF8AE234 #FFFCE94F #FFEEEEEC #FF2E3436" />
+      <ColorOption id="solarized" displayName="palette_solarized" colors="#FF2AA198 #FFB58900 #FF93A1A1 #FF002B36" />
+      <ColorOption id="dracula" displayName="palette_dracula" colors="#FFBD93F9 #FF50FA7B #FFF8F8F2 #FF282A36" />
+      <ColorOption id="gruvbox" displayName="palette_gruvbox" colors="#FFB8BB26 #FFFABD2F #FFEBDBB2 #FF282828" />
+      <ColorOption id="nord" displayName="palette_nord" colors="#FF88C0D0 #FFEBCB8B #FFECEFF4 #FF2E3440" />
+      <ColorOption id="monokai" displayName="palette_monokai" colors="#FF66D9EF #FFA6E22E #FFF8F8F2 #FF272822" />
+      <ColorOption id="tokyo_night" displayName="palette_tokyo_night" colors="#FF7AA2F7 #FFBB9AF7 #FFC0CAF5 #FF1A1B26" />
     </ColorConfiguration>
     <ListConfiguration id="dateStyle" displayName="date_style_name" defaultValue="full">
       <ListOption id="full" displayName="date_full" icon="date_full_icon" />
@@ -22,6 +29,12 @@
     <BooleanConfiguration id="seconds" displayName="seconds_name" defaultValue="TRUE" />
   </UserConfigurations>
   <Scene backgroundColor="#FF000000">
+    <PartDraw name="theme_background" x="0" y="0" width="450" height="450">
+      <Variant mode="AMBIENT" target="alpha" value="0" />
+      <Rectangle x="0" y="0" width="450" height="450">
+        <Fill color="[CONFIGURATION.palette.3]" />
+      </Rectangle>
+    </PartDraw>
     <Group name="header" x="0" y="0" width="450" height="450">
       <PartText x="65" y="38" width="180" height="34" name="utc_time" tintColor="[CONFIGURATION.palette.0]">
         <Localization locales="en_US" timeZone="UTC" />
