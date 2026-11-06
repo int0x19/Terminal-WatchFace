@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check requested 34/40 roles, UTC swap and unchanged released APK/source."""
+"""Check requested 34/40 roles, UTC swap, promoted source and preserved archives."""
 import hashlib
 import json
 import re
@@ -21,8 +21,9 @@ class TypographyHierarchyTest(unittest.TestCase):
         cls.previous = ET.parse(BASE).getroot()
         cls.header = cls.root.find("Scene/Group[@name='header']")
 
-    def test_existing_release_and_all_archives_unchanged(self):
-        self.assertEqual((ROOT / "watchface/src/main/res/raw/watchface.xml").read_bytes(), BASE.read_bytes())
+    def test_promoted_sketch_and_all_archives_unchanged(self):
+        self.assertEqual((ROOT / "watchface/src/main/res/raw/watchface.xml").read_bytes(),
+                         (OUT / "hierarchy.xml").read_bytes())
         for path in [*(ROOT / "versions").glob("*/manifest.json"),
                      *(ROOT / "docs/large-type-sketches").glob("*/manifest.json")]:
             for name, digest in json.loads(path.read_text())["files"].items():

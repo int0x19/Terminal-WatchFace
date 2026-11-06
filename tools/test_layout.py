@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ET
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageFont
 from build_large_type import APPROVED, CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, build
-from build_large_type_sketches import DATE, DEMO
+from preview_typography_hierarchy import DEMO, SOURCES, PALETTE
 from palettes import PALETTES, PALETTE_ROLES, palette_colors, wff_colors
 from rebuild_assets import render_preview
 
@@ -63,7 +63,7 @@ class LayoutTest(unittest.TestCase):
         self.assertEqual(utc.find(".//Template").text, "%02d:%02d")
         self.assertEqual([p.attrib["expression"] for p in utc.findall(".//Parameter")],
                          ["[HOUR_0_23]", "[MINUTE]"])
-        zone = self.header.find("PartText[@name='timezone']")
+        zone = self.header.find(".//PartText[@name='timezone']")
         self.assertEqual(zone.find(".//Parameter").attrib["expression"], "[TIMEZONE_OFFSET_DST]")
         self.assertEqual(zone.find(".//Template").text, "UTC%s")
         self.assertEqual(zone.find("Localization").attrib["timeZone"], "SYNC_TO_DEVICE")
@@ -79,8 +79,8 @@ class LayoutTest(unittest.TestCase):
 
     def test_centered_columns_clock_and_compact_rows(self):
         centers = []
-        for top, bottom in (("utc_time", "timezone"), ("battery_label", "battery_value")):
-            parts = [self.header.find(f"PartText[@name='{name}']") for name in (top, bottom)]
+        for top, bottom in (("timezone", "utc_time"), ("battery_label", "battery_value")):
+            parts = [self.header.find(f".//PartText[@name='{name}']") for name in (top, bottom)]
             x_centers = [int(p.attrib["x"]) + int(p.attrib["width"]) / 2 for p in parts]
             self.assertEqual(x_centers[0], x_centers[1])
             self.assertTrue(all(p.find("Text").attrib["align"] == "CENTER" for p in parts))
@@ -247,7 +247,7 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test", "0.8.0-test", "0.8.1-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test", "0.8.0-test", "0.8.1-test", "0.9.0-large-type-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
@@ -258,8 +258,9 @@ class LayoutTest(unittest.TestCase):
         self.assertEqual(structure(self.header), structure(self.approved.find("Scene/Group[@name='header']")))
         self.assertEqual((RES / "raw/watchface.xml").read_bytes(), APPROVED.read_bytes())
         for choice in CLOCK_FONTS:
-            actual = render_preview(clock_font=choice, complication_data=DEMO, source_values=DATE)
-            with Image.open(APPROVED.parent / f"familiar-{choice}.png") as saved:
+            actual = render_preview(clock_font=choice, complication_data=DEMO, source_values=SOURCES,
+                                    palette_id=PALETTE, background_mode="amoled")
+            with Image.open(APPROVED.parent / f"current-{choice}.png") as saved:
                 self.assertEqual(actual.tobytes(), saved.tobytes())
         with zipfile.ZipFile(archive / "terminal-face-0.8.1-test.apk") as apk:
             saved_fonts = {hashlib.sha256(apk.read(name)).hexdigest()
@@ -369,16 +370,17 @@ class LayoutTest(unittest.TestCase):
 
     def test_larger_date_fits_all_english_months(self):
         font = ImageFont.truetype(str(RES / "font/terminal_mono.ttf"), DATE_SIZE)
-        self.assertGreaterEqual(DATE_SIZE / 28, 1.2)
-        self.assertLessEqual(DATE_SIZE / 28, 1.4)
+        self.assertEqual(DATE_SIZE, 40)
         for style in ("full", "short", "iso"):
             part = self.header.find(f"Condition/Compare[@expression='date_{style}']/PartText")
             self.assertEqual(int(part.find("Text/Font").attrib["size"]), DATE_SIZE)
+            self.assertEqual(part.find("Text/Font").attrib["letterSpacing"], "-0.02")
             self.assertEqual(int(part.attrib["x"]) + int(part.attrib["width"]) / 2, 225)
         for month in ("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY",
                       "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"):
             for weekday in ("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"):
-                self.assertLessEqual(font.getlength(f"{weekday} 31 {month} 2026"), 390)
+                text = f"{weekday} 31 {month} 2026"
+                self.assertLessEqual(font.getlength(text) - (len(text) - 1) * .02 * DATE_SIZE, 390)
 
     def test_wide_bottom_line_centers_label_and_value_together(self):
         slot = self.root.find("Scene/ComplicationSlot[@slotId='4']")

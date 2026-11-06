@@ -4,11 +4,11 @@ import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-APPROVED = ROOT / "docs/large-type-sketches/2026-11-06-r2/familiar-refined.xml"
+APPROVED = ROOT / "docs/large-type-sketches/2026-11-06-r3/hierarchy.xml"
 CLOCK_FONTS = {"block": "terminal_block", "dot": "terminal_dot", "mono": "clock_mono"}
 ROWS = (250, 300, 350)
 SLOTS = (2, 3, 4, 6, 7)
-DATE_SIZE = 38
+DATE_SIZE = 40
 
 
 def build():
