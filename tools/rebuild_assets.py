@@ -295,7 +295,7 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None,
 
     def expression(expr, slot, utc=False):
         if expr == "[IS_24_HOUR_MODE] ? [HOUR_0_23] : [HOUR_1_12]":
-            return 14
+            return sources["HOUR_0_23"]
         if expr.startswith(f"[CONFIGURATION.label{slot}] =="):
             selected = config[f"label{slot}"]
             return LABEL_TEXT[selected]
@@ -309,7 +309,7 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None,
         if key == "COMPLICATION.TITLE":
             return titles[slot - 1]
         if utc and key == "HOUR_0_23":
-            return 9
+            return sources.get("UTC_HOUR_0_23", 9)
         return sources[key]
 
     def visit(element, offset=(0, 0), slot=0):
@@ -323,6 +323,10 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None,
         tag = element.tag
         if tag == "Condition":
             first_name = element.find("Expressions/Expression").attrib["name"]
+            if first_name == "timezone_regular":
+                name = "timezone_regular" if len(str(sources["TIMEZONE_OFFSET_DST"])) <= 3 else "timezone_fractional"
+                visit(element.find(f"Compare[@expression='{name}']"), offset, slot)
+                return
             if first_name == "show_theme_background":
                 if config["backgroundMode"] == "theme":
                     visit(element.find("Compare[@expression='show_theme_background']"), offset, slot)

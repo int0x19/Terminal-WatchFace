@@ -1,0 +1,159 @@
+{
+  "kind": "design-sketch-not-apk",
+  "baseTag": "v0.9.0-large-type-test",
+  "profile": {
+    "name": "Подписи 34 — значения 40",
+    "header_size": 34,
+    "header_shift": 0,
+    "date_size": 40,
+    "date_y": 113,
+    "date_height": 42,
+    "short_date": false,
+    "clock_size": 106,
+    "clock_y": 156,
+    "clock_height": 100,
+    "seconds_x": 385,
+    "seconds_y": 192,
+    "stacked": false,
+    "rows": [
+      250,
+      300
+    ],
+    "cell_height": 50,
+    "x": [
+      32,
+      230
+    ],
+    "width": 188,
+    "label_size": 34,
+    "label_width": 66,
+    "label_height": 50,
+    "value_size": 40,
+    "fallback_size": 38,
+    "long_size": 38,
+    "value_x": 70,
+    "value_y": 0,
+    "value_width": 118,
+    "value_height": 50,
+    "footer_y": 350,
+    "footer_size": 40,
+    "footer_height": 50
+  },
+  "fixtureDataOnlyInPreviews": true,
+  "previewPalette": "tango",
+  "previewBackground": "amoled",
+  "inkMeasurements": {
+    "block": {
+      "bands": {
+        "clock": [
+          71,
+          165,
+          379,
+          241
+        ],
+        "row1": [
+          33,
+          259,
+          414,
+          290
+        ],
+        "row2": [
+          32,
+          308,
+          396,
+          343
+        ],
+        "footer": [
+          155,
+          358,
+          295,
+          393
+        ]
+      },
+      "visibleVerticalGaps": [
+        18,
+        18,
+        15
+      ]
+    },
+    "dot": {
+      "bands": {
+        "clock": [
+          72,
+          167,
+          378,
+          240
+        ],
+        "row1": [
+          33,
+          259,
+          414,
+          290
+        ],
+        "row2": [
+          32,
+          308,
+          396,
+          343
+        ],
+        "footer": [
+          155,
+          358,
+          295,
+          393
+        ]
+      },
+      "visibleVerticalGaps": [
+        19,
+        18,
+        15
+      ]
+    },
+    "mono": {
+      "bands": {
+        "clock": [
+          78,
+          164,
+          372,
+          244
+        ],
+        "row1": [
+          33,
+          259,
+          414,
+          290
+        ],
+        "row2": [
+          32,
+          308,
+          396,
+          343
+        ],
+        "footer": [
+          155,
+          358,
+          295,
+          393
+        ]
+      },
+      "visibleVerticalGaps": [
+        15,
+        18,
+        15
+      ]
+    }
+  },
+  "files": {
+    "ambient.png": "ad58f17043a6fa7d84fe30fabfe9e727e1b0c8985e487b14c560954888c7b8c3",
+    "comparison.png": "f4b95d084569a572d41dabdbe17aa39b9096e3d06746a5259e9d84762b265e98",
+    "current-block.png": "193a386019a2a42bf27e239176b46c19323e25bfd96b9335cfe6a4e7d507e9e0",
+    "current-dot.png": "58a1d3bb9d884fd6763d3dafbf9cf65d6915bb419e6c435a8df4654c862d69d9",
+    "current-mono.png": "c386199b2184f50a7cac5ee9af22f86f729a76a4bfae1fe2876239b88d76687c",
+    "hierarchy.xml": "add64617f60be9d49fc900773fed7085798da19bc853c6dfe4012191d7c641ea",
+    "long-date.png": "af7a1e968dadbaeec486c016a544cdaa56a60311c265a94694cada19a15a1e31",
+    "previous-block.png": "b291d209b5357eaa00c8862811b2533e51bc7d983bf271b31c579340063412d0",
+    "previous-dot.png": "bcb67786896e47eac68ffb098988e2caed597d9ba7afdfdfd4d6d106fa717a30",
+    "previous-mono.png": "25949fb67b69fa8b4d35be7ef0cb08f0d8c8e4aedcabe77c0d741551cf677d88",
+    "typography-hierarchy.html": "0e330c359aa71537c168abefc4c1b092bfc0c3d2062783d4a9f3bdb37584bff1"
+  }
+}

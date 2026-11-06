@@ -41,7 +41,7 @@ def build_refined():
     return build_sketch("familiar", profile=PROFILE)
 
 
-def ink_bands(root, clock="block", data=None):
+def ink_bands(root, clock="block", data=None, *, source_values=None):
     """Measure actual antialiased strokes, not line boxes, at 450×450."""
     bands = {}
     selected = {"clock": None, "row1": (2, 6), "row2": (3, 7), "footer": (4,)}
@@ -61,7 +61,7 @@ def ink_bands(root, clock="block", data=None):
             elif child.tag != "ComplicationSlot" or int(child.attrib["slotId"]) not in slot_ids:
                 scene.remove(child)
         image = render_preview(watchface=layer, clock_font=clock, complication_data=data or DEMO,
-                               source_values=DATE, background_mode="amoled", clip_circle=False)
+                               source_values=source_values or DATE, background_mode="amoled", clip_circle=False)
         box = image.convert("L").point(lambda value: 255 if value > 8 else 0).getbbox()
         bands[name] = list(box) if box else None
     gaps = [bands[lower][1] - bands[upper][3]
