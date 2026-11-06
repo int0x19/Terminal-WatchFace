@@ -85,8 +85,8 @@ def resize_values(node, profile, complication_type):
         font.set("size", str(profile["fallback_size"]))
 
 
-def build_sketch(choice):
-    profile = PROFILES[choice]
+def build_sketch(choice, *, profile=None):
+    profile = PROFILES[choice] if profile is None else profile
     root = ET.parse(BASE).getroot()
     if profile["short_date"]:
         root.find("UserConfigurations/ListConfiguration[@id='dateStyle']").set("defaultValue", "short")

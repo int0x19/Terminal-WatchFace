@@ -1,0 +1,64 @@
+<div id="terminal-familiar-refinement" class="viz-dotted-background" aria-label="Доработка первого эскиза">
+  <style>
+    #terminal-familiar-refinement .terminal-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-top: 12px;
+      color: light-dark(#17251d, #e4f4e9);
+      font: 14px/1.4 system-ui, sans-serif;
+    }
+    #terminal-familiar-refinement .terminal-face {
+      display: block;
+      width: min(450px, 100%);
+      height: auto;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #000;
+    }
+    #terminal-familiar-refinement .terminal-spec {
+      min-height: 48px;
+      text-align: center;
+    }
+  </style>
+  <div class="terminal-stage">
+    <img class="terminal-face" width="450" height="450"
+         alt="Первый вариант с пятью полями в строках, увеличенными шрифтами и выровненными интервалами под часами." />
+    <div class="terminal-spec" aria-live="polite">Подписи 38 · значения до 42 · нижняя строка 42</div>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('terminal-familiar-refinement');
+      const image = root.querySelector('img');
+      const spec = root.querySelector('.terminal-spec');
+      const images = __PREVIEW_IMAGES__;
+      const state = { revision: 'refined', clockFont: 'block' };
+      function render() {
+        image.src = images[state.revision][state.clockFont];
+        spec.textContent = state.revision === 'refined'
+          ? 'Подписи 38 · значения до 42 · нижняя строка 42'
+          : 'Первый эскиз: подписи 36 · значения до 40 · нижняя строка 38';
+      }
+      render();
+      if (globalThis.Tweak) {
+        const tweak = new Tweak({ container: root, onChange: render });
+        tweak.addSelect(state, 'revision', {
+          label: 'Сравнение',
+          options: [
+            { label: 'Доработанный', value: 'refined' },
+            { label: 'Первый эскиз', value: 'previous' }
+          ]
+        });
+        tweak.addSelect(state, 'clockFont', {
+          label: 'Шрифт часов',
+          options: [
+            { label: 'Блочный', value: 'block' },
+            { label: 'Точечный', value: 'dot' },
+            { label: 'Контурный', value: 'mono' }
+          ]
+        });
+      }
+    })();
+  </script>
+</div>

@@ -1,0 +1,157 @@
+{
+  "kind": "design-sketch-not-apk",
+  "baseSketchTag": "sketches/large-type-2026-11-06",
+  "selectedLayout": "familiar",
+  "rejectedLayouts": [
+    "stacked",
+    "maximum"
+  ],
+  "profile": {
+    "name": "Ровные интервалы",
+    "header_size": 34,
+    "header_shift": 0,
+    "date_size": 38,
+    "date_y": 113,
+    "date_height": 42,
+    "short_date": false,
+    "clock_size": 106,
+    "clock_y": 156,
+    "clock_height": 100,
+    "seconds_x": 385,
+    "seconds_y": 192,
+    "stacked": false,
+    "rows": [
+      250,
+      300
+    ],
+    "cell_height": 50,
+    "x": [
+      32,
+      230
+    ],
+    "width": 188,
+    "label_size": 38,
+    "label_width": 78,
+    "label_height": 50,
+    "value_size": 42,
+    "fallback_size": 36,
+    "long_size": 34,
+    "value_x": 80,
+    "value_y": 0,
+    "value_width": 108,
+    "value_height": 50,
+    "footer_y": 350,
+    "footer_size": 42,
+    "footer_height": 50
+  },
+  "inkMeasurements": {
+    "block": {
+      "bands": {
+        "clock": [
+          81,
+          165,
+          379,
+          241
+        ],
+        "row1": [
+          32,
+          257,
+          349,
+          292
+        ],
+        "row2": [
+          33,
+          307,
+          328,
+          341
+        ],
+        "footer": [
+          124,
+          357,
+          324,
+          391
+        ]
+      },
+      "visibleVerticalGaps": [
+        16,
+        15,
+        16
+      ]
+    },
+    "dot": {
+      "bands": {
+        "clock": [
+          83,
+          167,
+          378,
+          240
+        ],
+        "row1": [
+          32,
+          257,
+          349,
+          292
+        ],
+        "row2": [
+          33,
+          307,
+          328,
+          341
+        ],
+        "footer": [
+          124,
+          357,
+          324,
+          391
+        ]
+      },
+      "visibleVerticalGaps": [
+        17,
+        15,
+        16
+      ]
+    },
+    "mono": {
+      "bands": {
+        "clock": [
+          80,
+          164,
+          374,
+          245
+        ],
+        "row1": [
+          32,
+          257,
+          349,
+          292
+        ],
+        "row2": [
+          33,
+          307,
+          328,
+          341
+        ],
+        "footer": [
+          124,
+          357,
+          324,
+          391
+        ]
+      },
+      "visibleVerticalGaps": [
+        12,
+        15,
+        16
+      ]
+    }
+  },
+  "files": {
+    "ambient.png": "5e567999939338420ccf98e75727abc7b86c7e854a063fdbf96ec42b4f392758",
+    "comparison.png": "8f02d9f59d086320a6f9f3147e8c4b6ea178eca7a32566dcd91329dbd9258967",
+    "familiar-block.png": "dff8b811276b42a725e7c3249e74b7f4c979f769b637a3959ac75e2ddd812202",
+    "familiar-dot.png": "9b1f023f31769392c94df75603aeb545ca20a667a14d0cd0a4d9be22174884ae",
+    "familiar-mono.png": "65d09003846f37133538dd935562b072260037b110109482199a8cd926dc9573",
+    "familiar-refined.xml": "319907ac07538ab121630c2f40a8dac04e1d68b80662052ec01584750adb8ec8",
+    "familiar-refinement.html": "1b875745c1ec68c0d7f0973b5e811ce54b7171f05496171e27061362854b3c31"
+  }
+}
