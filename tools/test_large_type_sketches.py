@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify five-field proposals separately from the unchanged 0.8.1 application."""
+"""Verify historical five-field proposals independently of the current application."""
 from copy import deepcopy
 import hashlib
 from html.parser import HTMLParser
@@ -40,11 +40,10 @@ class LargeTypeTest(unittest.TestCase):
         cls.mask = Image.new("L", (450, 450))
         ImageDraw.Draw(cls.mask).ellipse((0, 0, 449, 449), fill=255)
 
-    def test_active_application_and_old_archives_unchanged(self):
-        self.assertEqual((ROOT / "watchface/src/main/res/raw/watchface.xml").read_bytes(), BASE.read_bytes())
-        build = (ROOT / "watchface/build.gradle.kts").read_text()
-        self.assertIn('versionName = "0.8.1-test"', build)
-        self.assertIn('versionCode = 11', build)
+    def test_base_release_and_old_archives_unchanged(self):
+        baseline = json.loads((BASE.parent / "manifest.json").read_text())
+        self.assertEqual(baseline["version"], "0.8.1-test")
+        self.assertEqual(baseline["versionCode"], 11)
         for path in (ROOT / "versions").glob("*/manifest.json"):
             for name, digest in json.loads(path.read_text())["files"].items():
                 self.assertEqual(hashlib.sha256((path.parent / name).read_bytes()).hexdigest(), digest)

@@ -21,8 +21,9 @@ class RefinedFamiliarTest(unittest.TestCase):
             self.assertEqual(hashlib.sha256((PREVIOUS / name).read_bytes()).hexdigest(), digest)
         for choice in PROFILES:
             self.assertEqual(xml_bytes(build_sketch(choice)), (PREVIOUS / f"{choice}.xml").read_bytes())
-        self.assertEqual((ROOT / "watchface/src/main/res/raw/watchface.xml").read_bytes(),
-                         (ROOT / "versions/0.8.1-test/watchface.xml").read_bytes())
+        for archive in (ROOT / "versions").glob("*/manifest.json"):
+            for name, digest in json.loads(archive.read_text())["files"].items():
+                self.assertEqual(hashlib.sha256((archive.parent / name).read_bytes()).hexdigest(), digest)
         manifest = json.loads((OUT / "manifest.json").read_text())
         self.assertEqual(manifest["selectedLayout"], "familiar")
         self.assertEqual(manifest["rejectedLayouts"], ["stacked", "maximum"])

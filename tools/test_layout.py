@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Checks for terminal themes, AUTO labels and unchanged 0.6 layout/providers."""
+"""Checks for the approved five-field large-type layout, themes and AUTO providers."""
 import hashlib
 import json
 from copy import deepcopy
@@ -10,7 +10,8 @@ import xml.etree.ElementTree as ET
 
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageFont
-from build_layout import CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, cell_geometry, build
+from build_large_type import APPROVED, CLOCK_FONTS, ROWS, SLOTS, DATE_SIZE, build
+from build_large_type_sketches import DATE, DEMO
 from palettes import PALETTES, PALETTE_ROLES, palette_colors, wff_colors
 from rebuild_assets import render_preview
 
@@ -32,8 +33,7 @@ class LayoutTest(unittest.TestCase):
     def setUpClass(cls):
         cls.root = ET.parse(RES / "raw/watchface.xml").getroot()
         cls.baseline = ET.parse(ROOT / "versions/0.3.0/watchface.xml").getroot()
-        cls.approved = ET.parse(ROOT / "versions/0.6.1-rollback/watchface.xml").getroot()
-        cls.fast = ET.parse(ROOT / "versions/0.6.2-fixed-labels-test/watchface.xml").getroot()
+        cls.approved = ET.parse(APPROVED).getroot()
         cls.themes = ET.parse(ROOT / "versions/0.8.0-test/watchface.xml").getroot()
         cls.header = cls.root.find("Scene/Group[@name='header']")
 
@@ -90,7 +90,7 @@ class LayoutTest(unittest.TestCase):
             time = self.clock(choice)
             self.assertEqual(int(time.attrib["x"]) + int(time.attrib["width"]) / 2, 225)
             self.assertEqual(time.find("Text").attrib["align"], "CENTER")
-        self.assertEqual([b - a for a, b in zip(ROWS, ROWS[1:])], [36, 36, 36])
+        self.assertEqual([b - a for a, b in zip(ROWS, ROWS[1:])], [50, 50])
 
     def test_clock_outlines_centered_in_equal_width_cells(self):
         for family in CLOCK_FONTS.values():
@@ -107,8 +107,9 @@ class LayoutTest(unittest.TestCase):
                 self.assertAlmostEqual(advance / font["head"].unitsPerEm, 0.6, places=3)
             self.assertEqual(len(advances), 1)
             for value in ("00:00", "11:11", "23:59", "12:59"):
-                f = ImageFont.truetype(str(RES / "font" / (family + ".ttf")), 100)
-                self.assertLessEqual(f.getlength(value), 302)
+                size = int(self.clock(next(key for key, name in CLOCK_FONTS.items() if name == family)).find("Text/Font").attrib["size"])
+                f = ImageFont.truetype(str(RES / "font" / (family + ".ttf")), size)
+                self.assertLessEqual(f.getlength(value), 320)
 
     def test_ambient_hides_table_and_seconds(self):
         ambient = self.header.find("PartText[@name='ambient_time']")
@@ -120,10 +121,11 @@ class LayoutTest(unittest.TestCase):
         for slot in self.root.findall("Scene/ComplicationSlot"):
             self.assertEqual(slot.find("Variant").attrib["value"], "0")
 
-    def test_seven_slots_and_existing_provider_policies(self):
+    def test_five_slots_and_existing_provider_policies(self):
         slots = self.root.findall("Scene/ComplicationSlot")
         self.assertEqual([int(s.attrib["slotId"]) for s in slots], list(SLOTS))
-        self.assertIsNone(self.root.find("Scene/ComplicationSlot[@slotId='8']"))
+        for removed in (1, 5, 8):
+            self.assertIsNone(self.root.find(f"Scene/ComplicationSlot[@slotId='{removed}']"))
         boxes = []
         for slot in slots:
             n = int(slot.attrib["slotId"])
@@ -140,6 +142,15 @@ class LayoutTest(unittest.TestCase):
         for index, (x, y, w, h) in enumerate(boxes):
             for xx, yy, ww, hh in boxes[index + 1:]:
                 self.assertFalse(x < xx + ww and xx < x + w and y < yy + hh and yy < y + h)
+        names = {
+            "values": ["Left row 1 — data source", "Left row 2 — data source", "Bottom line — data source",
+                       "Right row 1 — data source", "Right row 2 — data source"],
+            "values-ru": ["Слева 1 — источник данных", "Слева 2 — источник данных", "Нижняя строка — источник данных",
+                          "Справа 1 — источник данных", "Справа 2 — источник данных"],
+        }
+        for locale, expected in names.items():
+            strings = ET.parse(RES / locale / "strings.xml").getroot()
+            self.assertEqual([strings.find(f"string[@name='{slot.attrib['displayName']}']").text for slot in slots], expected)
 
     def test_existing_configuration_ids_preserved(self):
         expected_ids = {item.attrib["id"] for item in self.baseline.find("UserConfigurations")
@@ -213,10 +224,10 @@ class LayoutTest(unittest.TestCase):
     def test_clickable_centers(self):
         for n in SLOTS:
             box = self.root.find(f"Scene/ComplicationSlot[@slotId='{n}']/BoundingBox").attrib
-            g = cell_geometry(n)
-            centers = [(g["x"] + g["label_width"] / 2, g["y"] + g["label_height"] / 2),
-                       (g["x"] + g["value_x"] + g["value_width"] / 2,
-                        g["y"] + g["value_y"] + g["value_height"] / 2)]
+            group = self.cell(n, "SHORT_TEXT")
+            centers = [(int(group.attrib["x"]) + int(p.attrib["x"]) + int(p.attrib["width"]) / 2,
+                        int(group.attrib["y"]) + int(p.attrib["y"]) + int(p.attrib["height"]) / 2)
+                       for p in group.findall(".//PartText")]
             for x, y in centers:
                 self.assertGreaterEqual(x, int(box["x"]))
                 self.assertLessEqual(x, int(box["x"]) + int(box["width"]))
@@ -236,21 +247,21 @@ class LayoutTest(unittest.TestCase):
                 self.assertGreater(sum(1 for r, g, b in pixels if r > 180 and g > 180), 100)
 
     def test_prior_archives_unchanged(self):
-        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test", "0.8.0-test"):
+        for version in ("0.3.0", "0.4.0-test", "0.5.0-test", "0.6.0-test", "0.6.1-rollback", "0.6.2-fixed-labels-test", "0.7.0-test", "0.8.0-test", "0.8.1-test"):
             archive = ROOT / "versions" / version
             manifest = json.loads((archive / "manifest.json").read_text())
             for name, digest in manifest["files"].items():
                 self.assertEqual(hashlib.sha256((archive / name).read_bytes()).hexdigest(), digest)
 
-    def test_060_header_fonts_and_previews_unchanged(self):
-        archive = ROOT / "versions/0.6.1-rollback"
+    def test_approved_design_and_original_fonts_unchanged(self):
+        archive = ROOT / "versions/0.8.1-test"
         self.assertEqual(structure(self.header), structure(self.approved.find("Scene/Group[@name='header']")))
-        for name in ("preview.png", "ambient-preview.png", "font-comparison.png",
-                     *(f"font-{choice}{suffix}.png" for choice in CLOCK_FONTS for suffix in ("", "-ambient"))):
-            current = ROOT / "docs" / ("design-preview.png" if name == "preview.png" else name)
-            self.assertEqual(current.read_bytes(), (archive / name).read_bytes(), name)
-        self.assertEqual((RES / "drawable/preview.png").read_bytes(), (archive / "preview.png").read_bytes())
-        with zipfile.ZipFile(archive / "terminal-face-0.6.1-rollback.apk") as apk:
+        self.assertEqual((RES / "raw/watchface.xml").read_bytes(), APPROVED.read_bytes())
+        for choice in CLOCK_FONTS:
+            actual = render_preview(clock_font=choice, complication_data=DEMO, source_values=DATE)
+            with Image.open(APPROVED.parent / f"familiar-{choice}.png") as saved:
+                self.assertEqual(actual.tobytes(), saved.tobytes())
+        with zipfile.ZipFile(archive / "terminal-face-0.8.1-test.apk") as apk:
             saved_fonts = {hashlib.sha256(apk.read(name)).hexdigest()
                            for name in apk.namelist() if name.endswith(".ttf")}
         current_fonts = {hashlib.sha256(path.read_bytes()).hexdigest() for path in (RES / "font").glob("*.ttf")}
@@ -289,7 +300,7 @@ class LayoutTest(unittest.TestCase):
         self.assertEqual(structure(background), structure(self.themes.find("Scene/PartDraw")))
         self.assertEqual(len(scene.findall(".//PartDraw")), 1)
         self.assertEqual([structure(element) for element in list(scene)[1:]],
-                         [structure(element) for element in self.fast.find("Scene")])
+                         [structure(element) for element in list(self.approved.find("Scene"))[1:]])
 
     def test_background_setting_is_independent_and_existing_options_unchanged(self):
         config = self.root.find("UserConfigurations/ListConfiguration[@id='backgroundMode']")
@@ -328,9 +339,6 @@ class LayoutTest(unittest.TestCase):
                     self.assertEqual(preview.tobytes(), render_preview(ambient=ambient, palette_id=choice).tobytes())
                     expected = (0, 0, 0) if ambient else tuple(int(palette["background"][i:i + 2], 16) for i in (1, 3, 5))
                     self.assertEqual(preview.getpixel((225, 14)), expected)
-                name = f"palette-{choice}{suffix}.png"
-                self.assertEqual((ROOT / "docs" / name).read_bytes(),
-                                 (ROOT / "versions/0.8.0-test" / name).read_bytes())
         with Image.open(ROOT / "docs/palette-comparison.png") as comparison:
             self.assertEqual(comparison.size, (1500, 664))
 
@@ -377,11 +385,11 @@ class LayoutTest(unittest.TestCase):
         self.assertEqual(slot.attrib["displayName"], "field_4_name")
         box = slot.find("BoundingBox").attrib
         self.assertEqual(int(box["x"]) + int(box["width"]) / 2, 225)
-        self.assertEqual(box["width"], "286")
+        self.assertEqual(box["width"], "300")
         for complication_type in ("SHORT_TEXT", "LONG_TEXT", "RANGED_VALUE", "GOAL_PROGRESS", "EMPTY"):
             group = self.cell(4, complication_type)
             for part in group.findall(".//PartText"):
-                self.assertEqual(part.attrib["width"], "286")
+                self.assertEqual(part.attrib["width"], "300")
                 self.assertEqual(part.find("Text").attrib["align"], "CENTER")
                 self.assertEqual(part.find("Text").attrib["maxLines"], "1")
                 self.assertEqual(part.findall("Text/Font")[-1].attrib["color"], "[CONFIGURATION.palette.1]")
