@@ -1,0 +1,152 @@
+{
+  "kind": "design-sketches-not-apk",
+  "baseTag": "v0.8.1-test",
+  "baseCommit": "f93853422e60392268b41af37de8d418defaebf8",
+  "removedSlotIds": [
+    1,
+    5
+  ],
+  "remainingSlotIds": [
+    2,
+    3,
+    4,
+    6,
+    7
+  ],
+  "fixtureDataOnlyInPreviews": true,
+  "profiles": {
+    "familiar": {
+      "name": "Привычные строки",
+      "header_size": 32,
+      "header_shift": 0,
+      "date_size": 36,
+      "date_y": 113,
+      "date_height": 42,
+      "short_date": false,
+      "clock_size": 100,
+      "clock_y": 156,
+      "clock_height": 96,
+      "seconds_x": 385,
+      "seconds_y": 192,
+      "stacked": false,
+      "rows": [
+        266,
+        314
+      ],
+      "cell_height": 46,
+      "x": [
+        40,
+        230
+      ],
+      "width": 180,
+      "label_size": 36,
+      "label_width": 72,
+      "label_height": 46,
+      "value_size": 40,
+      "fallback_size": 34,
+      "long_size": 30,
+      "value_x": 78,
+      "value_y": 0,
+      "value_width": 102,
+      "value_height": 46,
+      "footer_y": 367,
+      "footer_size": 38,
+      "footer_height": 46
+    },
+    "stacked": {
+      "name": "Подписи сверху",
+      "header_size": 32,
+      "header_shift": -8,
+      "date_size": 36,
+      "date_y": 103,
+      "date_height": 42,
+      "short_date": false,
+      "clock_size": 100,
+      "clock_y": 144,
+      "clock_height": 96,
+      "seconds_x": 385,
+      "seconds_y": 180,
+      "stacked": true,
+      "rows": [
+        240,
+        314
+      ],
+      "cell_height": 74,
+      "x": [
+        60,
+        230
+      ],
+      "width": 160,
+      "label_size": 36,
+      "label_width": 160,
+      "label_height": 32,
+      "value_size": 44,
+      "fallback_size": 38,
+      "long_size": 36,
+      "value_x": 0,
+      "value_y": 32,
+      "value_width": 160,
+      "value_height": 42,
+      "footer_y": 390,
+      "footer_size": 38,
+      "footer_height": 40
+    },
+    "maximum": {
+      "name": "Крупные значения",
+      "header_size": 34,
+      "header_shift": -10,
+      "date_size": 42,
+      "date_y": 98,
+      "date_height": 36,
+      "short_date": true,
+      "clock_size": 108,
+      "clock_y": 136,
+      "clock_height": 92,
+      "seconds_x": 390,
+      "seconds_y": 176,
+      "stacked": true,
+      "rows": [
+        232,
+        312
+      ],
+      "cell_height": 80,
+      "x": [
+        60,
+        230
+      ],
+      "width": 160,
+      "label_size": 36,
+      "label_width": 160,
+      "label_height": 32,
+      "value_size": 48,
+      "fallback_size": 42,
+      "long_size": 36,
+      "value_x": 0,
+      "value_y": 32,
+      "value_width": 160,
+      "value_height": 48,
+      "footer_y": 394,
+      "footer_size": 38,
+      "footer_height": 40
+    }
+  },
+  "files": {
+    "comparison.png": "9bb79a1669a97437df7c310720f92a29e3f488e983b9f45a695b0f3b73db0e78",
+    "familiar-ambient.png": "2fb09ae71c6210a6aae9be990f3c987877a8eb1a750ef73ed10bfe0da9546af8",
+    "familiar-block.png": "109f17cfec771dfeae83f86c1424f010ac958e8c96c5101bdf27beecd05f1183",
+    "familiar-dot.png": "a86acf222383f0f54f5acd2680faf4e464fab6d684a8ff0acf2dd4e81d8a41ac",
+    "familiar-mono.png": "aa05929e4c266081a56edc4776b215b6ea940777d921f46c9fd90d1dcddaafb8",
+    "familiar.xml": "f6c37d580f03389f093cbca1af3746f294297c65a041c5d76f6a456d80ae32b3",
+    "large-type-preview.html": "4f31d763da2ba2b6b6de1fcf0f31b5c937468bd40a576cac34a86c1409f68837",
+    "maximum-ambient.png": "099b183d713f664f58c519c9992bf0672224cfe62e84cd4b3fa7bb40094ed1e6",
+    "maximum-block.png": "247ed6ea0d91845dd4411fc1fb6136a3bc3aa8b28ac6c7043d12f9ac00ea6d96",
+    "maximum-dot.png": "6e02ad5ec53bce5cf44a128f5af6d1b64c4e6e321b5b871fb32099a7224af6df",
+    "maximum-mono.png": "43cb6a5ac559ac01ce3643d2dca12f83725874a267f973f0e6677591d882a966",
+    "maximum.xml": "8e36f4c5052c67d062778d90c68b9f69b71b2cff2927bdcbc063eb57c72b3790",
+    "stacked-ambient.png": "069952255b87bfe7cf7fcbace8839de4c274760b7501652a3be7b6a1330aebbb",
+    "stacked-block.png": "6827c24d5711082016857117a34a3183da00d5897809d539b1f070c5d6398bd6",
+    "stacked-dot.png": "2e21fc10a6b30a9e00b54a731286836251bbda3f0a0812938bf27bdc660d6458",
+    "stacked-mono.png": "a8acd9ded01f197ca871abdf4d68d3e860dba628f39ae4d972d3fdca2464bc0c",
+    "stacked.xml": "a66c81634498035e41f765ee76c87b4f49272222080b3abec33f4d123c1b46da"
+  }
+}

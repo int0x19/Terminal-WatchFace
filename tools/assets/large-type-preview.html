@@ -1,0 +1,83 @@
+<div id="terminal-large-type-sketches" aria-label="Эскизы и шрифт часов">
+  <style>
+    #terminal-large-type-sketches .terminal-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 510px;
+      gap: 12px;
+      padding-top: 12px;
+      color: light-dark(#17251d, #e4f4e9);
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    #terminal-large-type-sketches .terminal-face {
+      display: block;
+      width: min(450px, 100%);
+      height: auto;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #000;
+    }
+    #terminal-large-type-sketches .terminal-spec {
+      max-width: 100%;
+      min-height: 56px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    @media (max-width: 480px) {
+      #terminal-large-type-sketches .terminal-stage { min-height: 380px; }
+    }
+  </style>
+  <div class="viz-carousel viz-dotted-background" aria-label="Эскизы циферблата с крупным текстом"
+       data-previous-label="Предыдущий" data-next-label="Следующий">
+    <section data-variant="Привычные строки" aria-label="Привычные строки">
+      <div class="terminal-stage">
+        <img class="terminal-face" data-sketch="familiar" width="450" height="450"
+             alt="Пять полей: подписи и значения в одной строке. Подписи 36, короткие значения 40." />
+        <div class="terminal-spec">Подписи 36 (+20%) · значения до 40 (+25%)</div>
+      </div>
+    </section>
+    <section data-variant="Подписи сверху" aria-label="Подписи сверху" hidden>
+      <div class="terminal-stage">
+        <img class="terminal-face" data-sketch="stacked" width="450" height="450"
+             alt="Пять полей: подписи над значениями, два ряда и общая нижняя строка. Подписи 36, короткие значения 44." />
+        <div class="terminal-spec">Подписи 36 (+20%) · значения до 44 (+38%)</div>
+      </div>
+    </section>
+    <section data-variant="Крупные значения" aria-label="Крупные значения" hidden>
+      <div class="terminal-stage">
+        <img class="terminal-face" data-sketch="maximum" width="450" height="450"
+             alt="Пять полей с подписями над значениями. Подписи 36, короткие значения 48, часы 108; дата сокращена." />
+        <div class="terminal-spec">Подписи 36 (+20%) · значения до 48 (+50%) · короткая дата</div>
+      </div>
+    </section>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('terminal-large-type-sketches');
+      const images = __PREVIEW_IMAGES__;
+      const state = { clockFont: 'block' };
+      function render() {
+        for (const image of root.querySelectorAll('img[data-sketch]')) {
+          image.src = images[image.dataset.sketch][state.clockFont];
+        }
+      }
+      render();
+      if (globalThis.Tweak) {
+        const tweak = new Tweak({ container: root, onChange: render });
+        tweak.addSelect(state, 'clockFont', {
+          label: 'Шрифт часов',
+          options: [
+            { label: 'Блочный', value: 'block' },
+            { label: 'Точечный', value: 'dot' },
+            { label: 'Контурный', value: 'mono' }
+          ]
+        });
+      }
+    })();
+  </script>
+</div>

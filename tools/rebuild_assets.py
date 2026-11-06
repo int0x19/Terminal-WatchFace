@@ -264,9 +264,10 @@ def build_battery_icon():
     icon.save(RES / "drawable/battery_status.png")
 
 
-def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None, background_mode=None):
+def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None, background_mode=None,
+                   *, watchface=None, complication_data=None, source_values=None, clip_circle=True):
     """A small layout renderer, not a substitute for the Wear OS renderer."""
-    root = ET.parse(RES / "raw/watchface.xml").getroot()
+    root = watchface if watchface is not None else ET.parse(RES / "raw/watchface.xml").getroot()
     scale = 3
     image = Image.new("RGB", (450 * scale, 450 * scale), "black")
     draw = ImageDraw.Draw(image)
@@ -288,6 +289,9 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None,
     sources = {"HOUR_0_23": 14, "HOUR_1_12": 2, "MINUTE": 34, "SECOND": 39,
                "DAY_OF_WEEK_S": "TUE", "DAY": 8, "MONTH_S": "SEP", "MONTH_F": "SEPTEMBER",
                "YEAR": 2026, "TIMEZONE_OFFSET_DST": "+5", "BATTERY_PERCENT": 96}
+    for slot_id, (title, value) in (complication_data or {}).items():
+        titles[slot_id - 1], reference[slot_id - 1] = title, value
+    sources.update(source_values or {})
 
     def expression(expr, slot, utc=False):
         if expr == "[IS_24_HOUR_MODE] ? [HOUR_0_23] : [HOUR_1_12]":
@@ -441,6 +445,8 @@ def render_preview(ambient=False, layout=None, clock_font=None, palette_id=None,
 
     visit(root.find("Scene"))
     image = image.resize((450, 450), Image.Resampling.LANCZOS)
+    if not clip_circle:
+        return image
     mask = Image.new("L", (450, 450), 0)
     ImageDraw.Draw(mask).ellipse((0, 0, 449, 449), fill=255)
     image = Image.composite(image, Image.new("RGB", (450, 450), "black"), mask)
