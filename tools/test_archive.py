@@ -36,6 +36,18 @@ class ArchiveTest(unittest.TestCase):
             with self.assertRaises(ValueError):
                 save_archive(*arguments)
 
+    def test_same_bytes_cannot_overwrite_another_application_identity(self):
+        with tempfile.TemporaryDirectory(prefix="terminal-archive-test-") as directory:
+            root = Path(directory)
+            source = root / "artifact.apk"
+            source.write_bytes(b"test build")
+            target = root / "versions/0.8.1-compact"
+            save_archive(target, {"face.apk": source}, "0.8.1-compact", 14, "dev.test.compact")
+            previous = (target / "manifest.json").read_bytes()
+            with self.assertRaises(ValueError):
+                save_archive(target, {"face.apk": source}, "0.8.1-compact", 14, "dev.test.large")
+            self.assertEqual((target / "manifest.json").read_bytes(), previous)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

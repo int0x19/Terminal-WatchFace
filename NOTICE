@@ -1,0 +1,22 @@
+Terminal Face
+Copyright (c) 2026 int0x19
+
+Project code, original layout generators and original block/dot fonts are
+licensed under the MIT License in LICENSE.
+
+DejaVu Sans Mono and its renamed derivatives Terminal Mono and Terminal Clock
+Mono retain their separate font license. See tools/assets/LICENSE-DejaVu.txt
+and watchface/src/main/res/raw/dejavu_license.txt, which is included in both
+applications. The source font is not covered by this project's MIT license.
+
+Terminal color palettes are adaptations to a small set of watch-face roles.
+The palette names and upstream sources are credited in docs/COLOR-THEMES.md.
+No affiliation with or endorsement by those upstream projects is implied.
+
+User-supplied reference images, especially docs/reference.jpg, are design
+references, not part of the MIT license grant for original project code.
+Confirm the applicable image rights before republishing or reusing them.
+
+Gradle Wrapper and third-party build/validation tools retain their own
+licenses. Google WFF validation JARs are downloaded to ignored .tools/ and
+are not redistributed in this repository or in the applications.

@@ -1,0 +1,49 @@
+name: Build both watch faces
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install development dependencies
+        run: python -m pip install -r tools/requirements-assets.txt
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-37.0' 'build-tools;36.0.0' 'platform-tools'
+      - name: Download verified official WFF validation tools
+        run: sh tools/setup_validation.sh
+      - name: Check repository publication hygiene
+        run: python3 tools/check_publication.py
+      - name: Check both layouts and build APKs and bundles
+        run: sh tools/check.sh
+      - name: Check archived design sketches
+        run: |
+          python3 tools/test_large_type_sketches.py
+          python3 tools/test_familiar_refinement.py
+          python3 tools/test_typography_hierarchy.py
+      - name: Save both APKs and unsigned AABs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: terminal-face-compact-and-large
+          if-no-files-found: error
+          retention-days: 14
+          path: |
+            watchface/build/outputs/apk/*/debug/*.apk
+            watchface/build/outputs/bundle/*Release/*.aab

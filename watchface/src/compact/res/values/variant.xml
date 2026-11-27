@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="watch_face_name" translatable="false">Terminal Face Compact</string>
+  <string name="field_2_name">Left row 2 — data source</string>
+  <string name="field_3_name">Left row 3 — data source</string>
+  <string name="field_6_name">Right row 2 — data source</string>
+  <string name="field_7_name">Right row 3 — data source</string>
+</resources>

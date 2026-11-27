@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="field_2_name">Слева 2 — источник данных</string>
+  <string name="field_3_name">Слева 3 — источник данных</string>
+  <string name="field_6_name">Справа 2 — источник данных</string>
+  <string name="field_7_name">Справа 3 — источник данных</string>
+</resources>

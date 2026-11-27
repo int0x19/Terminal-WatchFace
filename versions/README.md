@@ -1,17 +1,21 @@
 # Сохранённые версии Terminal Face
 
 Готовые версии хранятся раздельно и добавляются в Git вместе с исходниками.
-Для каждой новой версии увеличивать versionName и versionCode, затем:
+Оба новых приложения имеют свои версии в `watchface/variants.properties`.
+Для выпуска увеличить versionCode и versionName нужного варианта, затем:
 
 ```sh
 sh tools/check.sh
 python3 tools/archive_version.py
 git add README.md docs tools watchface versions build.gradle.kts gradle .gitignore
 git commit -m "Release Terminal Face VERSION"
-git tag -a vVERSION -m "Terminal Face VERSION"
+git tag -a vCOMPACT_VERSION -m "Terminal Face Compact COMPACT_VERSION"
+git tag -a vLARGE_VERSION -m "Terminal Face Large LARGE_VERSION"
 ```
 
-Вместо VERSION подставить фактическую версию. Скрипт проверяет версию APK,
+Вместо COMPACT_VERSION/LARGE_VERSION подставить фактические версии.
+По умолчанию скрипт архивирует оба варианта; `--flavor compact` или `--flavor large`
+выбирает один. Он проверяет applicationId, версию APK,
 соответствие WFF исходникам в APK/AAB и сохраняет SHA-256. Повторный запуск
 с неизменными файлами ничего не записывает; перезапись другой сборкой запрещена.
 
@@ -31,6 +35,8 @@ git tag -a vVERSION -m "Terminal Face VERSION"
 | 0.8.1-test | Независимый выбор «Фон темы» / «AMOLED — чёрный» для всех десяти палитр, versionCode=11; APK, AAB, WFF, превью обоих фонов и ambient, сравнения; тег v0.8.1-test |
 | 0.9.0-large-type-test | Одобренный первый крупный вариант: пять полей, шрифты 38/42, часы 106, ровные интервалы; versionCode=12, прежние темы/AMOLED/AUTO; APK, AAB, WFF, все превью и сравнения; ветка feat/large-type-sketches, тег v0.9.0-large-type-test |
 | 0.9.1-large-type-test | Иерархия R3: подписи 34, дата и значения 40, UTC-смещение над UTC-временем; versionCode=13, прежние пять источников/темы/AMOLED/AUTO; APK, AAB, WFF, все превью и сравнения; тег v0.9.1-large-type-test |
+| 0.8.1-compact | Независимый Terminal Face Compact, applicationId с .compact, code=14, точная разметка 0.8.1; APK/AAB, WFF, все превью, SHA-256; тег v0.8.1-compact |
+| 0.9.1-large | Независимый Terminal Face Large, applicationId с .large, code=14, точная разметка 0.9.1; APK/AAB, WFF, все превью, SHA-256; тег v0.9.1-large |
 
 У версий 0.1.0 и 0.2.0 нет тегов релиза: скриншоты не выдаются за полноценные
 архивы сборок. Старые сборки не воссоздавались. Начиная с 0.3.0 сохраняется

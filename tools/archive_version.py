@@ -10,6 +10,8 @@ import shutil
 import zipfile
 import xml.etree.ElementTree as ET
 
+from variant_config import variants
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -17,10 +19,12 @@ def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def save_archive(target, files, version, version_code, application_id):
+def save_archive(target, files, version, version_code, application_id, *, flavor=None, base_version=None):
     hashes = {name: sha256(source) for name, source in files.items()}
     if target.exists():
         manifest = json.loads((target / "manifest.json").read_text())
+        if (manifest["version"], manifest["versionCode"], manifest["applicationId"]) != (version, version_code, application_id):
+            raise ValueError(f"{target} has different package metadata; do not overwrite it.")
         if manifest["files"] != hashes or any(sha256(target / name) != digest
                                                for name, digest in hashes.items()):
             raise ValueError(f"{target} is already archived; increment the version, do not overwrite it.")
@@ -33,28 +37,24 @@ def save_archive(target, files, version, version_code, application_id):
                 "createdUtc": datetime.now(timezone.utc).isoformat(),
                 "apkSigning": "development key", "aabSigning": "unsigned",
                 "files": hashes}
+    if flavor is not None:
+        manifest.update(flavor=flavor, baseVersion=base_version)
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     return True
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--version", help="Must match the version in watchface/build.gradle.kts")
-    args = parser.parse_args()
-    build = (ROOT / "watchface/build.gradle.kts").read_text()
-    version = re.search(r'versionName\s*=\s*"([^"]+)"', build).group(1)
-    code = int(re.search(r"versionCode\s*=\s*(\d+)", build).group(1))
+def archive_variant(variant):
+    version, code = variant.version, variant.version_code
     if not re.fullmatch(r"\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?", version):
         raise SystemExit("Invalid version directory name.")
-    if args.version is not None and args.version != version:
-        raise SystemExit("Requested version does not match the current sources.")
-    metadata = json.loads((ROOT / "watchface/build/outputs/apk/debug/output-metadata.json").read_text())
+    metadata = json.loads(variant.metadata.read_text())
     artifact = metadata["elements"][0]
     if artifact["versionName"] != version or artifact["versionCode"] != code:
         raise SystemExit("APK is stale; run sh tools/check.sh first.")
-    apk = ROOT / "watchface/build/outputs/apk/debug" / artifact["outputFile"]
-    aab = ROOT / "watchface/build/outputs/bundle/release/watchface-release.aab"
-    wff = ROOT / "watchface/src/main/res/raw/watchface.xml"
+    if metadata["applicationId"] != variant.application_id:
+        raise SystemExit("APK has a different applicationId; rebuild first.")
+    apk = variant.metadata.parent / artifact["outputFile"]
+    aab, wff = variant.aab, variant.wff
     # AGP can rename resource paths. Compare raw XML contents, not resource filenames.
     for artifact_file in (apk, aab):
         with zipfile.ZipFile(artifact_file) as bundle:
@@ -66,23 +66,23 @@ def main():
     files = {f"terminal-face-{version}.apk": apk,
              f"terminal-face-{version}.aab": aab,
              "watchface.xml": wff,
-             "preview.png": ROOT / "docs/design-preview.png",
-             "ambient-preview.png": ROOT / "docs/ambient-preview.png"}
+             "preview.png": variant.previews / ("preview.png" if variant.name == "compact" else "design-preview.png"),
+             "ambient-preview.png": variant.previews / "ambient-preview.png"}
     layout_config = ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='layout']")
     if layout_config is not None:
         for option in layout_config:
             layout = option.attrib["id"]
             for suffix in ("", "-ambient"):
                 name = f"layout-{layout}{suffix}.png"
-                files[name] = ROOT / "docs" / name
-        files["layout-comparison.png"] = ROOT / "docs/layout-comparison.png"
+                files[name] = variant.previews / name
+        files["layout-comparison.png"] = variant.previews / "layout-comparison.png"
     font_config = ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='clockFont']")
     if font_config is not None:
         for option in font_config:
             for suffix in ("", "-ambient"):
                 name = f"font-{option.attrib['id']}{suffix}.png"
-                files[name] = ROOT / "docs" / name
-        files["font-comparison.png"] = ROOT / "docs/font-comparison.png"
+                files[name] = variant.previews / name
+        files["font-comparison.png"] = variant.previews / "font-comparison.png"
     palette_config = ET.parse(wff).getroot().find("UserConfigurations/ColorConfiguration[@id='palette']")
     background_config = ET.parse(wff).getroot().find("UserConfigurations/ListConfiguration[@id='backgroundMode']")
     if palette_config is not None and len(palette_config) > 3:
@@ -90,19 +90,32 @@ def main():
             suffixes = ("", "-ambient", "-amoled") if background_config is not None else ("", "-ambient")
             for suffix in suffixes:
                 name = f"palette-{option.attrib['id']}{suffix}.png"
-                files[name] = ROOT / "docs" / name
-        files["palette-comparison.png"] = ROOT / "docs/palette-comparison.png"
+                files[name] = variant.previews / name
+        files["palette-comparison.png"] = variant.previews / "palette-comparison.png"
         if background_config is not None:
-            files["palette-amoled-comparison.png"] = ROOT / "docs/palette-amoled-comparison.png"
+            files["palette-amoled-comparison.png"] = variant.previews / "palette-amoled-comparison.png"
     for source in files.values():
         if not source.is_file():
             raise SystemExit(f"Missing artifact: {source}")
     versions = ROOT / "versions"
     if not versions.resolve().is_relative_to(ROOT):
         raise SystemExit("Refusing to archive outside the project.")
-    created = save_archive(versions / version, files, version, code, metadata["applicationId"])
+    created = save_archive(versions / version, files, version, code, metadata["applicationId"],
+                           flavor=variant.name, base_version=variant.base_version)
     print(f"{'Archived' if created else 'Already archived, unchanged'}: versions/{version}")
     print(f"Source tag: v{version}; commit and tag this version after verification.")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--flavor", choices=("all", "compact", "large"), default="all")
+    parser.add_argument("--version", help="Optional check; only with a single --flavor")
+    args = parser.parse_args()
+    selected = [v for v in variants() if args.flavor == "all" or v.name == args.flavor]
+    if args.version is not None and (len(selected) != 1 or selected[0].version != args.version):
+        raise SystemExit("--version must match one explicitly selected --flavor.")
+    for variant in selected:
+        archive_variant(variant)
 
 
 if __name__ == "__main__":
