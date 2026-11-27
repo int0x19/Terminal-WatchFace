@@ -18,7 +18,7 @@ printf '%s\n' \
 for task_wff in watchface/src/main/res/raw/watchface.xml watchface/src/compact/res/raw/watchface.xml; do
     task_validation_output=$(java -jar .tools/wff-validator.jar 2 "$task_wff" 2>&1)
     printf '%s\n' "$task_validation_output"
-    if ! printf '%s\n' "$task_validation_output" | rg -q 'PASSED :'; then
+    if ! printf '%s\n' "$task_validation_output" | grep -Fq 'PASSED :'; then
         exit 1
     fi
 done
@@ -35,5 +35,5 @@ for task_face in compact large; do
         exit 1
     fi
     printf '%s\n' "$task_memory_output" >&2
-    printf '%s\n' "$task_memory_output" | rg -q 'has passed the memory footprint test'
+    printf '%s\n' "$task_memory_output" | grep -Fq 'has passed the memory footprint test'
 done
