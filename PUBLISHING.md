@@ -3,6 +3,17 @@
 Репозиторий содержит оба приложения и локально сохранённые релизы. Подготовка
 не создаёт удалённый репозиторий и ничего не отправляет на GitHub автоматически.
 
+## Текущее размещение
+
+Подготовленная версия опубликована в [int0x19/Terminal-WatchFace](https://github.com/int0x19/Terminal-WatchFace),
+ветка `main`. Исторические версии и эскизы доступны по тегам. Локальный
+`origin` уже настроен; повторно выполнять `git remote add` не нужно.
+Для дальнейшей отправки проверенных изменений текущей рабочей ветки:
+
+```sh
+git push origin HEAD:main
+```
+
 ## Перед первой отправкой
 
 1. Выполнить `sh tools/check.sh` и `python3 tools/check_publication.py`.
@@ -48,7 +59,8 @@ Workflow `.github/workflows/build.yml` запускается на push, pull re
 Все actions закреплены на полные SHA коммитов; Gradle и Google JAR проверяются
 по SHA-256. Workflow имеет только `contents: read`, не использует секреты,
 `pull_request_target`, push, автоматическое создание Releases или загрузку в Play.
-Первый запуск на самом GitHub ещё требуется проверить после публикации.
+Состояние запусков доступно на [странице Actions](https://github.com/int0x19/Terminal-WatchFace/actions).
+Android SDK устанавливается явно: наличие sdkmanager в образе runner не предполагается.
 
 ## Подпись приложений
 
